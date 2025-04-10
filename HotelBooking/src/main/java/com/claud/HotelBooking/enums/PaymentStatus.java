@@ -1,5 +1,5 @@
 package com.claud.HotelBooking.enums;
 
-public class PaymentStatus {
+public enum  PaymentStatus {
     PENDING, COMPLETED, FAILED, REFUNDED, REVERSED
 }
