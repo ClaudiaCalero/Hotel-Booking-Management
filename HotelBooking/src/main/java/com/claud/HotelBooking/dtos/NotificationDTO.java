@@ -1,9 +1,10 @@
 package com.claud.HotelBooking.dtos;
 
-import com.claud.HotelBooking.enums.UserRole;
+import com.claud.HotelBooking.enums.NotificationType;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,21 +18,21 @@ import java.time.LocalDateTime;
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class UserDTO {
+public class NotificationDTO {
 
     private Long id;
 
-    private String email;
+    @NotBlank(message = "Subject is required")
+    private String subject;
 
-    private String password;
-    private String firstName;
-    private String lastName;
+    @NotBlank(message = "Recipient is required")
+    private String recipient;
 
-    private String phoneNumber;
+    private String body;
 
-    private UserRole role; //Customer, Admin
+    private String bookingReference;
 
-    private Boolean isActive;
-    private LocalDateTime;
+    private NotificationType type;
 
+    private LocalDateTime createdAt;
 }
