@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class PaymentEntityDTO {
+public class PaymentDTO {
 
     private Long id;
     private BookingDTO bookingDTO;
