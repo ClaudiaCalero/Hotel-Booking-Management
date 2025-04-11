@@ -38,6 +38,6 @@ public class PaymentEntityDTO {
     private String bookingReference;
     private String failureReason;
 
-    private String approvalLink;
+    private String approvalLink; //paypal payment approval url
 
 }
