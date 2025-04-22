@@ -7,5 +7,5 @@ import java.util.Optional;
 
 public interface BookingReferenceRepository extends JpaRepository<BookingReference, Long> {
 
-    Optional<BookingReference> findByReferenceNum(Long referenceNum);
+    Optional<BookingReference> findByReferenceNum(String referenceNum);
 }

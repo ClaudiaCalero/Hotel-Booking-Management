@@ -1,9 +1,9 @@
 package com.claud.HotelBooking.security;
 
+
 import com.claud.HotelBooking.exceptions.CustomAccessDenialHandler;
 import com.claud.HotelBooking.exceptions.CustomAuthenticationEntryPoint;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -23,26 +23,29 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableMethodSecurity
 @EnableWebSecurity
 @RequiredArgsConstructor
-@Slf4j
 public class SecurityFilter {
 
+
     private final AuthFilter authFilter;
-    private  final CustomAccessDenialHandler customAccessDenialHandler;
+
+    private final CustomAccessDenialHandler customAccessDenialHandler;
+
     private final CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
 
     @Bean
-    private SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+
         httpSecurity.csrf(AbstractHttpConfigurer::disable)
                 .cors(Customizer.withDefaults())
                 .exceptionHandling(exception ->
                         exception.accessDeniedHandler(customAccessDenialHandler)
                                 .authenticationEntryPoint(customAuthenticationEntryPoint)
                 )
-                .authorizeHttpRequests(request-> request
-                        .requestMatchers("/api/auth/**", "/api/rooms/**", "/api/bookings/**").permitAll()
+                .authorizeHttpRequests(request -> request
+                        .requestMatchers("/api/auth/**", "/api/rooms/**", "api/bookings/**").permitAll()
                         .anyRequest().authenticated()
                 )
-                .sessionManagement(manager-> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class);
         return httpSecurity.build();
     }

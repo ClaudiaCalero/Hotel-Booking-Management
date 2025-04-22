@@ -24,7 +24,7 @@ public class RoomDTO {
 
     private Integer roomNumber;
 
-    private RoomType roomType;
+    private RoomType type;
 
     private BigDecimal pricePerNight;
 
