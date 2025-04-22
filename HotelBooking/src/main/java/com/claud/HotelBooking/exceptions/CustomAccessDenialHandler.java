@@ -1,5 +1,6 @@
 package com.claud.HotelBooking.exceptions;
 
+
 import com.claud.HotelBooking.dtos.Response;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;
@@ -16,7 +17,6 @@ import java.io.IOException;
 @Component
 @RequiredArgsConstructor
 public class CustomAccessDenialHandler implements AccessDeniedHandler {
-
     private final ObjectMapper objectMapper;
 
     @Override
@@ -24,12 +24,15 @@ public class CustomAccessDenialHandler implements AccessDeniedHandler {
                        HttpServletResponse response,
                        AccessDeniedException accessDeniedException)
             throws IOException, ServletException {
+
         Response errorResponse = Response.builder()
                 .status(HttpStatus.FORBIDDEN.value())
                 .message(accessDeniedException.getMessage())
                 .build();
+
         response.setContentType("application/json");
         response.setStatus(HttpStatus.FORBIDDEN.value());
         response.getWriter().write(objectMapper.writeValueAsString(errorResponse));
+
     }
 }
