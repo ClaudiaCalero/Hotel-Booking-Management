@@ -17,6 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -89,7 +90,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Response getOwnAccountDetails() {
-        return null;
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(()-> new NotFoundException("User Not Found"));
+        UserDTO userDTO = modelMapper.map(user, UserDTO.class);
+        return Response.builder()
+                .status(200)
+                .message("success")
+                .user(userDTO)
+                .build();
     }
 
     @Override
