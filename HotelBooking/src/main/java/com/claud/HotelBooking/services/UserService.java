@@ -4,6 +4,7 @@ import com.claud.HotelBooking.dtos.LoginRequest;
 import com.claud.HotelBooking.dtos.RegistrationRequest;
 import com.claud.HotelBooking.dtos.Response;
 import com.claud.HotelBooking.dtos.UserDTO;
+import com.claud.HotelBooking.entities.User;
 
 public interface UserService {
 
@@ -11,7 +12,7 @@ public interface UserService {
     Response loginUser(LoginRequest loginRequest);
     Response getAllUsers();
     Response getOwnAccountDetails();
-    Response getCurrentLoggedInUser();
+    User getCurrentLoggedInUser();
     Response updateOwnAccount(UserDTO userDTO);
     Response deleteOwnAccount();
     Response getMyBookingHistory();
