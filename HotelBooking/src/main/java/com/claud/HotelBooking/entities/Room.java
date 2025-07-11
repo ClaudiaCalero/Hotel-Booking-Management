@@ -39,7 +39,7 @@ public class Room {
     private Integer capacity;
 
     private String description;
-    private List<String> imageUrls; //to hold more than 1 picture
+    private List<String> imageUrl; //to hold more than 1 picture
     //private String imageUrl; //to hold 1 picture
 
 
