@@ -8,7 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.time.LocalDate;
 import java.util.List;
 
-public class RoomService {
+public interface RoomService {
 
     Response addRoom(RoomDTO roomDTO, MultipartFile imageFile);
 
@@ -24,7 +24,7 @@ public class RoomService {
 
     List<RoomType> getAllRoomTypes();
 
-    Response searchRoom();
+    Response searchRoom(String input);
 
 
 }
