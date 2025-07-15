@@ -45,4 +45,34 @@ POST: localhost:9090/api/rooms/add
 
 <img width="1457" height="125" alt="image" src="https://github.com/user-attachments/assets/0654c45b-96d5-47df-a055-058c9d9f43b2" />
 
+UpdateRoom
+PUT localhost:9090/api/rooms/update
+<img width="987" height="753" alt="image" src="https://github.com/user-attachments/assets/af36ad3a-eb09-44db-803d-9f564e0cd947" />
+
+All Rooms
+GET: localhost:9090/api/rooms/all
+<img width="1052" height="802" alt="image" src="https://github.com/user-attachments/assets/a8b2954f-0076-4877-95ff-dec79e8e6197" />
+
+Room By id
+GET: localhost:9090/api/rooms/{id}
+<img width="925" height="710" alt="image" src="https://github.com/user-attachments/assets/22f586d1-dbc9-468f-9b17-d2620accd393" />
+
+Delete room by id
+DELETE: localhost:9090/api/rooms7delete/{id}
+<img width="967" height="650" alt="image" src="https://github.com/user-attachments/assets/bf97b0fb-8e04-4a09-aace-8b4ba7164abb" />
+
+Available rooms
+GET: localhost:9090/api/rooms/available
+<img width="1100" height="852" alt="image" src="https://github.com/user-attachments/assets/b2d92f64-e236-4480-93ec-caaf93af48fd" />
+
+typerooms
+GET: localhost:9090/api/rooms/types
+<img width="678" height="688" alt="image" src="https://github.com/user-attachments/assets/469b79cf-bb50-42ff-af30-d8cd4bb9629a" />
+
+search Room remember to put an input (SINGLE, DOUBLE, TRIPLE, SUITE)
+GET: localhost:9090/api/rooms/search
+<img width="952" height="832" alt="image" src="https://github.com/user-attachments/assets/bd97492c-41ef-4eb7-a85a-7ca7c67676c4" />
+
+
+
 
