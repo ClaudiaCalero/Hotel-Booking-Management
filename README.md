@@ -1,4 +1,5 @@
 ## Postman 
+### USER HTTP REQUEST
 
 REGISTER
 POST: localhost:9090/api/auth/register
@@ -36,5 +37,12 @@ GET: localhost:9090/api/users/account
 MyBookings I don´t have any sort of info in there yet
 GET: localhost:9090/api/users/bookings
 ![image](https://github.com/user-attachments/assets/3bb0c83a-504b-43f2-89e3-0ba51211b523)
+
+### ROOM HTTP REQUEST
+AddRoom remember to use token
+POST: localhost:9090/api/rooms/add 
+<img width="966" height="696" alt="image" src="https://github.com/user-attachments/assets/b0453c28-c1ad-4652-893a-ee3ebe452210" />
+
+<img width="1457" height="125" alt="image" src="https://github.com/user-attachments/assets/0654c45b-96d5-47df-a055-058c9d9f43b2" />
 
 
