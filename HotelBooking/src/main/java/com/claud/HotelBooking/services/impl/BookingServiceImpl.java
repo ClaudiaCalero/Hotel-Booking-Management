@@ -4,6 +4,7 @@ import com.claud.HotelBooking.dtos.BookingDTO;
 import com.claud.HotelBooking.dtos.Response;
 import com.claud.HotelBooking.repositories.BookingRepository;
 import com.claud.HotelBooking.repositories.RoomRepository;
+import com.claud.HotelBooking.services.BookingCodeGenerator;
 import com.claud.HotelBooking.services.BookingService;
 import com.claud.HotelBooking.services.NotificationService;
 import com.claud.HotelBooking.services.UserService;
