@@ -132,7 +132,7 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public Response findBookingByReferenceNo(String bookingReference) {
+    public Response findBookingByReferenceNum(String bookingReference) {
         Booking booking = bookingRepository.findByBookingReference(bookingReference)
                 .orElseThrow(()-> new NotFoundException("Booking with reference Num: " + bookingReference + "Not found"));
 
