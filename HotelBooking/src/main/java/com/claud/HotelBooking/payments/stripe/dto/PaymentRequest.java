@@ -1,0 +1,22 @@
+package com.claud.HotelBooking.payments.stripe.dto;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+import java.math.BigDecimal;
+
+@Data
+@AllArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class PaymentRequest {
+
+    @NotBlank(message = "Booking is required")
+    private String bookingReference;
+    private BigDecimal amount;
+
+    private String transactionId;
+    private boolean success;
+    private String failureReason;
+}
