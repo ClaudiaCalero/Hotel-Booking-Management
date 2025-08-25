@@ -163,5 +163,13 @@
 </details>
 
 
+Bookings
+
+create <img width="994" height="836" alt="image" src="https://github.com/user-attachments/assets/6c5b7dbf-58bf-4275-829f-1a4324c957ac" />
+getall <img width="1057" height="893" alt="image" src="https://github.com/user-attachments/assets/d9694439-16ef-413d-b844-2f667b0c8df7" />
+findnumreference <img width="1049" height="866" alt="image" src="https://github.com/user-attachments/assets/c3e4e70f-c3c3-4e49-b4ee-a9e02477ca4f" />
+you need to do getall in order to find the reference <img width="352" height="27" alt="image" src="https://github.com/user-attachments/assets/62ae62f2-66c6-48b9-be2a-44883e137cc3" />
+
+
 
 
