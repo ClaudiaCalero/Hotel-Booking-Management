@@ -1,6 +1,11 @@
 ## 🧪 API Testing (Postman)
 
 ---
+> ⚠️ **Authorization Required**  
+> For **all requests**, you need an **authorization token (Bearer Token)**.  
+> This token is obtained when an **admin** registers (`/api/auth/register`) and then logs in (`/api/auth/login`).  
+> Once retrieved, you must add it in Postman under **Authorization → Bearer Token**.
+---
 
 ### 1️⃣ User HTTP Requests
 
@@ -94,94 +99,10 @@
 
 ---
 
-### 3️⃣ Room HTTP Requests
-
-**Add Room**  
-`POST /api/rooms/add` – Requires token
-
-<details>
-<summary>View Images</summary>
-
-![Add Room](https://github.com/user-attachments/assets/b0453c28-c1ad-4652-893a-ee3ebe452210)  
-![Add Room Example](https://github.com/user-attachments/assets/0654c45b-96d5-47df-a055-058c9d9f43b2)
-
-</details>
-
-**Update Room**  
-`PUT /api/rooms/update`
-
-<details>
-<summary>View Image</summary>
-
-![Update Room](https://github.com/user-attachments/assets/af36ad3a-eb09-44db-803d-9f564e0cd947)
-
-</details>
-
-**Get All Rooms**  
-`GET /api/rooms/all`
-
-<details>
-<summary>View Image</summary>
-
-![All Rooms](https://github.com/user-attachments/assets/a8b2954f-0076-4877-95ff-dec79e8e6197)
-
-</details>
-
-**Get Room by ID**  
-`GET /api/rooms/{id}`
-
-<details>
-<summary>View Image</summary>
-
-![Room By ID](https://github.com/user-attachments/assets/22f586d1-dbc9-468f-9b17-d2620accd393)
-
-</details>
-
-**Delete Room by ID**  
-`DELETE /api/rooms/delete/{id}`
-
-<details>
-<summary>View Image</summary>
-
-![Delete Room](https://github.com/user-attachments/assets/bf97b0fb-8e04-4a09-aace-8b4ba7164abb)
-
-</details>
-
-**Get Available Rooms**  
-`GET /api/rooms/available`
-
-<details>
-<summary>View Image</summary>
-
-![Available Rooms](https://github.com/user-attachments/assets/b2d92f64-e236-4480-93ec-caaf93af48fd)
-
-</details>
-
-**Get Room Types**  
-`GET /api/rooms/types`
-
-<details>
-<summary>View Image</summary>
-
-![Room Types](https://github.com/user-attachments/assets/469b79cf-bb50-42ff-af30-d8cd4bb9629a)
-
-</details>
-
-**Search Rooms**  
-`GET /api/rooms/search` – Input: `SINGLE`, `DOUBLE`, `TRIPLE`, `SUITE`
-
-<details>
-<summary>View Image</summary>
-
-![Search Room](https://github.com/user-attachments/assets/bd97492c-41ef-4eb7-a85a-7ca7c67676c4)
-
-</details>
-
----
-
 ### 4️⃣ Booking HTTP Requests
 
-**Create Booking**
+**Create Booking**  
+`POST /api/bookings/create`
 
 <details>
 <summary>View Image</summary>
@@ -190,7 +111,8 @@
 
 </details>
 
-**Get All Bookings**
+**Get All Bookings**  
+`GET /api/bookings/all`
 
 <details>
 <summary>View Image</summary>
@@ -199,7 +121,8 @@
 
 </details>
 
-**Find Booking by Reference Number**
+**Find Booking by Reference Number**  
+`GET /api/bookings/{reference}`
 
 <details>
 <summary>View Image</summary>
@@ -208,12 +131,32 @@
 
 </details>
 
-> 💡 You need to do **Get All Bookings** first in order to find the reference number
+> 💡 You need to do **Get All Bookings** first in order to find the reference number.
 
 <details>
-<summary>View Image</summary>
-<img width="322" height="26" alt="Find Reference Example" src="https://github.com/user-attachments/assets/849a5b6a-c3c5-4211-9b72-2b689c5c288c" />
+<summary>Example Response</summary>
+
+<img width="319" height="25" alt="image" src="https://github.com/user-attachments/assets/74865085-b099-4fd5-9881-9cc3cbe8b4e8" />
+
 </details>
+
+**Update Booking Status**  
+`PUT /api/bookings/update`
+
+<details>
+<summary>View Images</summary>
+
+![Update Booking](https://github.com/user-attachments/assets/fa37ac1c-8b9e-49f7-b68c-1c0bcb3a728b)  
+
+</details>
+
+<details>
+<summary> Payment Email Example</summary>
+
+![Update Example](https://github.com/user-attachments/assets/80ae03b8-00e6-4703-ace0-363f506d8ff5)
+
+</details>
+
 
 
 
