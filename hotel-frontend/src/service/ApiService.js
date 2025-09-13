@@ -186,6 +186,23 @@ static async updateBookingPayment(body){
     return response.data; 
 }
 
+//AUTHENTICATION CHECKER
+static logout() {
+    this.clearAuth();
+}
 
+static isAuthenticated() {
+    const token = this.getToken();
+    return !!token;
+}
 
+static isAdmin() {
+    const role = this.getRole();
+    return role === "ADMIN";
+}
+
+static isCustomer() {
+    const role = this.getRole();
+    return role === "CUSTOMER";
+}
 }
