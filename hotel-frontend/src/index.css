@@ -1,7 +1,7 @@
 * {
   margin: 0;
   font-family: Arial, sans-serif;
-  color: #666;
+  color: #fff;
   /* box-sizing: border-box; */
   overflow-x: hidden;
  }
@@ -66,12 +66,12 @@
  
  .navbar-ul li a:hover {
   color: #FF007F;
-  color: #FF7F50;
+  color: #cd9964 ;
  }
  
  
  .navbar-ul li a.active {
-  color: #FF7F50;
+  color: #A4805C;
  }
  
  
