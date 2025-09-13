@@ -112,14 +112,14 @@ export default class ApiService {
         const response = await axios.get(`${this.BASE_URL}/rooms/all`);
         return response.data;
     }
-   
+
     //to get room details
     static async getRoomById(roomId) {
         const response = await axios.get(`${this.BASE_URL}/rooms/${roomId}`);
         return response.data;
     }
 
- //to delete room 
+    //to delete room 
     static async deleteRoom(roomId) {
         const response = await axios.delete(`${this.BASE_URL}/rooms/delete/${roomId}`, {
             headers: this.getHeader()
@@ -136,73 +136,73 @@ export default class ApiService {
         return response.data;
     }
 
-    static async getAvailableRooms(checkInDate, checkOutDate, roomType){
+    static async getAvailableRooms(checkInDate, checkOutDate, roomType) {
         const response = await axios.get(`${this.BASE_URL}/rooms/available?checkInDate=${checkInDate}
             &checkOutDate=${checkOutDate}&roomType=${roomType}`);
-            return response.data;
+        return response.data;
     }
 
-//BOOKINGS
-static async getBookingByReference(bookingCode){
-    const response = await axios.get(`${this.BASE_URL}/bookings/${bookingCode}`);
-    return response.data;
-}
-static async bookRoom(booking){
-    const response = await axios.post(`${this.BASE_URL}/bookings`, booking, {
-        headers: this.getHeader()
-    });
-    return response.data;
-}
+    //BOOKINGS
+    static async getBookingByReference(bookingCode) {
+        const response = await axios.get(`${this.BASE_URL}/bookings/${bookingCode}`);
+        return response.data;
+    }
+    static async bookRoom(booking) {
+        const response = await axios.post(`${this.BASE_URL}/bookings`, booking, {
+            headers: this.getHeader()
+        });
+        return response.data;
+    }
 
-static async getAllBookings(){
-    const response = await axios.get(`${this.BASE_URL}/bookings/all`, {
-        headers: this.getHeader()
-    });
-    return response.data;
-}
+    static async getAllBookings() {
+        const response = await axios.get(`${this.BASE_URL}/bookings/all`, {
+            headers: this.getHeader()
+        });
+        return response.data;
+    }
 
-static async updateBooking(booking){
-    const response = await axios.put(`${this.BASE_URL}/bookings/update`, booking, {
-        headers: this.getHeader()
-    });
-    return response.data;
-}
+    static async updateBooking(booking) {
+        const response = await axios.put(`${this.BASE_URL}/bookings/update`, booking, {
+            headers: this.getHeader()
+        });
+        return response.data;
+    }
 
-//PAYMENT
-//function to create payment intent
+    //PAYMENT
+    //function to create payment intent
 
-static async proceedForPayment(body){
-    const response = await axios.post(`${this.BASE_URL}/payments/pay`, body, {
-        headers: this.getHeader()
-    });
-    return response.data; //return the stripe transaction id for this transaction
-}
+    static async proceedForPayment(body) {
+        const response = await axios.post(`${this.BASE_URL}/payments/pay`, body, {
+            headers: this.getHeader()
+        });
+        return response.data; //return the stripe transaction id for this transaction
+    }
 
-//to update payment when it has been completed
-static async updateBookingPayment(body){
-    const response = await axios.put(`${this.BASE_URL}/payments/update`, body, {
-        headers: this.getHeader()
-    });
-    return response.data; 
-}
+    //to update payment when it has been completed
+    static async updateBookingPayment(body) {
+        const response = await axios.put(`${this.BASE_URL}/payments/update`, body, {
+            headers: this.getHeader()
+        });
+        return response.data;
+    }
 
-//AUTHENTICATION CHECKER
-static logout() {
-    this.clearAuth();
-}
+    //AUTHENTICATION CHECKER
+    static logout() {
+        this.clearAuth();
+    }
 
-static isAuthenticated() {
-    const token = this.getToken();
-    return !!token;
-}
+    static isAuthenticated() {
+        const token = this.getToken();
+        return !!token;
+    }
 
-static isAdmin() {
-    const role = this.getRole();
-    return role === "ADMIN";
-}
+    static isAdmin() {
+        const role = this.getRole();
+        return role === "ADMIN";
+    }
 
-static isCustomer() {
-    const role = this.getRole();
-    return role === "CUSTOMER";
-}
+    static isCustomer() {
+        const role = this.getRole();
+        return role === "CUSTOMER";
+    }
 }
