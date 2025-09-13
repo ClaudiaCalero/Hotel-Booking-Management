@@ -168,6 +168,24 @@ static async updateBooking(booking){
     return response.data;
 }
 
+//PAYMENT
+//function to create payment intent
+
+static async proceedForPayment(body){
+    const response = await axios.post(`${this.BASE_URL}/payments/pay`, body, {
+        headers: this.getHeader()
+    });
+    return response.data; //return the stripe transaction id for this transaction
+}
+
+//to update payment when it has been completed
+static async updateBookingPayment(body){
+    const response = await axios.put(`${this.BASE_URL}/payments/update`, body, {
+        headers: this.getHeader()
+    });
+    return response.data; 
+}
+
 
 
 }
