@@ -45,31 +45,35 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="auth-container">
-      {error && <p className="error-message">{error}</p>}
+    <div className="login-wrapper">
+      <div className="auth-background">
+        <div className="auth-container">
+          {error && <p className="error-message">{error}</p>}
 
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        {["email", "password"].map((field) => (
-          <div className="form-group" key={field}>
-            <label>
-              {field.charAt(0).toLocaleUpperCase() + field.slice(1)}:{" "}
-            </label>
-            <input
-              type={field}
-              name={field}
-              value={formData[field]}
-              onChange={handleChange}
-              required
-            />
-          </div>
-        ))}
-        <button type="submit">Login</button>
-      </form>
-      <p className="register-link">
-        {" "}
-        Don't have an account? <a href="/register">Register</a>
-      </p>
+          <h2>Login</h2>
+          <form onSubmit={handleSubmit}>
+            {["email", "password"].map((field) => (
+              <div className="form-group" key={field}>
+                <label>
+                  {field.charAt(0).toLocaleUpperCase() + field.slice(1)}:{" "}
+                </label>
+                <input
+                  type={field}
+                  name={field}
+                  value={formData[field]}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+            ))}
+            <button type="submit">Login</button>
+          </form>
+          <p className="register-link">
+            {" "}
+            Don't have an account? <a href="/register">Register</a>
+          </p>
+        </div>
+      </div>
     </div>
   );
 };
