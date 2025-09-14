@@ -1,14 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
 * {
   margin: 0;
-  font-family: Arial, sans-serif;
+  font-family: 'Inter', Arial, sans-serif; 
+  font-weight: 650;
+  letter-spacing: 0.02em;
   color: #000000;
   /* box-sizing: border-box; */
-  overflow-x: hidden;
+  overflow-x: hidden; 
  }
  
+ .auth-background {
+  background:
+    linear-gradient(to right, #FFF4F8 4%, transparent 4%, transparent 96%, #FFF4F8 96%),
+    linear-gradient(rgba(255,255,255,0.3), rgba(255,255,255,0.3)),
+    url("C:\Users\Cyltia\HotelBooking\hotel-frontend\public\images\hotel\web\fondologinregis.jpg") no-repeat center bottom 35%/ cover,
+    #f9f9f9;
+ min-height: 100vh;
+}
+
  
- 
- 
+ /*
  .colors {
   color: pink;
   color: #FF007F;
@@ -18,7 +30,7 @@
   color: #36454F;
   color: #007F86;
   color: #007F86;
- }
+ }*/
  
  
  /* General Navbar Styling */
@@ -50,12 +62,12 @@
   padding: 0;
   flex-wrap: wrap;
  }
- 
+
  
  .navbar-ul li {
   margin-left: 20px;
  }
- 
+
  
  .navbar-ul li a {
   text-decoration: none;
@@ -75,22 +87,37 @@
  }
  
  
- .auth-container {
+ /* Contenedor general para login y register con transparencia */
+.auth-container {
   max-width: 400px;
   padding: 20px;
-  border: 0.5px solid #ccc;
-  border-radius: 5px;
-  background-color: #fff;
-  margin: 20px auto 50px auto;
- }
- 
- 
+  border: 0.5px solid #c6c5c5;
+  border-radius: 3.5px;
+  background-color: rgba(255, 255, 255, 0.8); /* 30% visible, 70% transparente */
+}
+
+/* Márgenes y centrado específicos para login */
+.login-wrapper .auth-container {
+  margin: 110px auto 50px auto;
+  border-color: #ccc; /* opcional si quieres borde distinto */
+}
+
+/* Márgenes y centrado específicos para register */
+.register-wrapper .auth-container {
+  margin: 30px auto 30px auto; /* margen arriba y abajo igual */
+  border-color: #ccc;
+}
+
  .auth-container h2 {
   text-align: center;
   margin-bottom: 20px;
-  color: #007F86;
+  color: #48281B;
  }
- 
+ .auth-container .register-link {
+  font-weight: bold;
+  margin-top: 15px;  /* ajusta el espacio si quieres */
+  font-size: 13px;   /* puedes mantener el tamaño actual */
+}
  
  .register-link {
   margin-top: 20px;
@@ -99,7 +126,7 @@
  
  
  .register-link a {
-  color: #007F86;
+  color: rgba(239, 168, 153, 0.95); /* #EFA899 al 95% de opacidad */
   text-decoration: none;
  }
  
@@ -114,20 +141,10 @@
   font-weight: bold;
  }
  
- 
- 
- 
  /**LOGIN CSS END HERE*/
- 
- 
- 
+
  
  /**REGISTRATION PAGE START HERE STYLING*/
- 
- 
- 
- 
- 
  
  .form-group label {
   display: block;
@@ -135,7 +152,7 @@
   margin-bottom: 5px;
  }
  
- 
+
  .form-group input {
   width: 90%;
   padding: 10px;
@@ -143,11 +160,11 @@
   border-radius: 5px;
  }
  
- 
+
  button[type="submit"] {
   width: 95%;
   padding: 12px;
-  background-color: #007F86;
+  background-color: rgba(88, 133, 105, 0.95);
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -156,14 +173,10 @@
   font-weight: 800;
   border-radius: 10px;
  }
- 
- 
+
  button[type="submit"]:hover {
-  background-color: rgb(34, 80, 128)
+  background-color: rgba(71, 108, 85, 0.95)
  }
- 
- 
- 
  
  /**REGISTRATION PAGE END HERE*/
  
@@ -191,7 +204,7 @@
  /* FOOTER STYKLING */
  .my-footer {
   color: #f0e8e8;
-  background-color: #444;
+  background-color: #333333;
   padding: 20px;
   text-align: center;
   position: fixed;
@@ -202,7 +215,9 @@
   font-size: 14px;
  }
  
- 
+ body footer.my-footer span {
+  color: #ffffff;
+}
  
  
  
@@ -1616,9 +1631,6 @@
  
  
  
- 
- 
- 
   .pagination-ul {
       flex-direction: column;
       padding: 0;
@@ -1822,17 +1834,6 @@
   padding: 20px;
  }
  
- 
- 
- 
- 
-
-
-
-
-
-
-
  
  
  /* Datepicker Container */
