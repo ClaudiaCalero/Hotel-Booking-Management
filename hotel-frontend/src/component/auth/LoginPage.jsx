@@ -9,13 +9,14 @@ const LoginPage = () => {
   });
 
   const [error, setError] = useState("");
-  const navigate = useNavigate();
 
+  const navigate = useNavigate();
   const { state } = useLocation();
+
   const redirectPath = state?.from?.pathname || "/home";
 
   //handle input change
-  const handleInputChange = (e) => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
