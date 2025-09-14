@@ -14,7 +14,7 @@ const RegisterPage = () => {
     const [message, setMessage] = useState({type: "", text: ""});
     const navigate = useNavigate();
 
-    //handle inouyt change
+    //handle input change
     const handleInputChange = ({target: {name, value}}) => 
         setFormData((prev) => ({... prev, [name]:value}));
 
