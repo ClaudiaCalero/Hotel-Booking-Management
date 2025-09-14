@@ -2,52 +2,54 @@ import axios from "axios";
 import CryptoJS from "crypto-js";
 
 export default class ApiService {
-    static BASE_URL = "http://localhost:9090/api"
-    static ENCRYPTION_KEY = "claud-secret-key";
 
-    //encrypt data using cryptojs
+    static BASE_URL = "http://localhost:9090/api";
+    static ENCRYPTION_KEY = "dennis-secrete-key";
+
+    //enctyp token using cruyptojs
+
     static encrypt(token) {
         return CryptoJS.AES.encrypt(token, this.ENCRYPTION_KEY.toString());
-
     }
 
-    //decrypt data using cryptojs
+    //deceype token using cruyptojs
     static decrypt(token) {
-        const bytes = CryptoJS.AES.decrypt(token, this.ENCRYPTION_KEY.toString());
+        const bytes = CryptoJS.AES.decrypt(token, this.ENCRYPTION_KEY);
         return bytes.toString(CryptoJS.enc.Utf8);
     }
 
     //save token
     static saveToken(token) {
-        const encryptedToken = this.encrypt(token);
-        localStorage.setItem("token", encryptedToken);
+        const encrytpedToken = this.encrypt(token);
+        localStorage.setItem("token", encrytpedToken);
     }
 
-    //retrieve token
+    //retreive token
     static getToken() {
-        const encryptedToken = localStorage.getItem("token");
-        if (!encryptedToken) return null;
-        return this.decrypt(encryptedToken);
+        const encrytpedToken = localStorage.getItem("token");
+        if (!encrytpedToken) return null;
+        return this.decrypt(encrytpedToken)
     }
 
     //save role
     static saveRole(role) {
-        const encryptedRole = this.encrypt(role);
-        localStorage.setItem("role", encryptedRole);
+        const encrytpedRole = this.encrypt(role);
+        localStorage.setItem("role", encrytpedRole);
     }
+
 
     //get role
     static getRole() {
-        const encryptedRole = localStorage.getItem("role");
-        if (!encryptedRole) return null;
-        return this.decrypt(encryptedRole);
+        const encrytpedRole = localStorage.getItem("role");
+        if (!encrytpedRole) return null;
+        return this.decrypt(encrytpedRole)
     }
 
     static clearAuth() {
         localStorage.removeItem("token");
         localStorage.removeItem("role");
-
     }
+
     static getHeader() {
         const token = this.getToken();
         return {
@@ -56,153 +58,164 @@ export default class ApiService {
         }
     }
 
-    /* AUTH & USERS API METHODS */
+    /** AUTH AND USERS API METHODS */
 
-    //AUTH
+    // AUTH
     static async registerUser(registrationData) {
-        const response = await axios.post(`${this.BASE_URL}/auth/register`, registrationData)
-        return response.data;
+        const resp = await axios.post(`${this.BASE_URL}/auth/register`, registrationData);
+        return resp.data;
     }
+
 
     static async loginUser(loginData) {
-        const response = await axios.post(`${this.BASE_URL}/auth/login`, loginData)
-        return response.data;
+        const resp = await axios.post(`${this.BASE_URL}/auth/login`, loginData);
+        return resp.data;
     }
 
-    //USERS
+    // USERS
     static async myProfile() {
-        const response = await axios.get(`${this.BASE_URL}/users/account`, {
+        const resp = await axios.get(`${this.BASE_URL}/users/account`, {
             headers: this.getHeader()
         })
-        return response.data;
+        return resp.data;
     }
 
     static async myBookings() {
-        const response = await axios.get(`${this.BASE_URL}/users/bookings`, {
+        const resp = await axios.get(`${this.BASE_URL}/users/bookings`, {
             headers: this.getHeader()
         })
-        return response.data;
-    }
-    static async deleteAccount() {
-        const response = await axios.delete(`${this.BASE_URL}/users/delete`, {
-            headers: this.getHeader()
-        })
-        return response.data;
+        return resp.data;
     }
 
-    //ROOMS
+    static async deleteAccount() {
+        const resp = await axios.delete(`${this.BASE_URL}/users/delete`, {
+            headers: this.getHeader()
+        })
+        return resp.data;
+    }
+
+    // ROOMS
+
     static async addRoom(formData) {
-        const response = await axios.post(`${this.BASE_URL}/rooms/add`, formData, {
+        const resp = await axios.post(`${this.BASE_URL}/rooms/add`, formData, {
             headers: {
                 ...this.getHeader(),
-                'Content-Type': 'multipart/form-data',
+                'Content-Type': 'multipart/form-data'
             }
         });
-        return response.data;
+        return resp.data;
     }
 
     //to get room types
     static async getRoomTypes() {
-        const response = await axios.get(`${this.BASE_URL}/rooms/types`);
-        return response.data;
+        const resp = await axios.get(`${this.BASE_URL}/rooms/types`);
+        return resp.data;
     }
 
     //to get all rooms
     static async getAllRooms() {
-        const response = await axios.get(`${this.BASE_URL}/rooms/all`);
-        return response.data;
+        const resp = await axios.get(`${this.BASE_URL}/rooms/all`);
+        return resp.data;
     }
 
-    //to get room details
+    //To get room details
     static async getRoomById(roomId) {
-        const response = await axios.get(`${this.BASE_URL}/rooms/${roomId}`);
-        return response.data;
+        const resp = await axios.get(`${this.BASE_URL}/rooms/${roomId}`);
+        return resp.data;
     }
 
-    //to delete room 
     static async deleteRoom(roomId) {
-        const response = await axios.delete(`${this.BASE_URL}/rooms/delete/${roomId}`, {
+        const resp = await axios.delete(`${this.BASE_URL}/rooms/delete/${roomId}`, {
             headers: this.getHeader()
         });
-        return response.data;
+        return resp.data;
     }
+
     static async updateRoom(formData) {
-        const response = await axios.put(`${this.BASE_URL}/rooms/update`, formData, {
+        const resp = await axios.put(`${this.BASE_URL}/rooms/update`, formData, {
             headers: {
                 ...this.getHeader(),
-                'Content-Type': 'multipart/form-data',
+                'Content-Type': 'multipart/form-data'
             }
         });
-        return response.data;
+        return resp.data;
     }
 
     static async getAvailableRooms(checkInDate, checkOutDate, roomType) {
-        const response = await axios.get(`${this.BASE_URL}/rooms/available?checkInDate=${checkInDate}
-            &checkOutDate=${checkOutDate}&roomType=${roomType}`);
-        return response.data;
+
+        console.log("checkInDate from api: " + checkInDate)
+        console.log("checkOutDate from api: " + checkOutDate)
+
+        const resp = await axios.get(`${this.BASE_URL}/rooms/available?checkInDate=${checkInDate}&checkOutDate=${checkOutDate}&roomType=${roomType}`);
+        return resp.data;
+
     }
+
 
     //BOOKINGS
     static async getBookingByReference(bookingCode) {
-        const response = await axios.get(`${this.BASE_URL}/bookings/${bookingCode}`);
-        return response.data;
+        const resp = await axios.get(`${this.BASE_URL}/bookings/${bookingCode}`);
+        return resp.data;
     }
+
     static async bookRoom(booking) {
-        const response = await axios.post(`${this.BASE_URL}/bookings`, booking, {
+        const resp = await axios.post(`${this.BASE_URL}/bookings`, booking, {
             headers: this.getHeader()
         });
-        return response.data;
+        return resp.data;
     }
 
     static async getAllBookings() {
-        const response = await axios.get(`${this.BASE_URL}/bookings/all`, {
+        const resp = await axios.get(`${this.BASE_URL}/bookings/all`, {
             headers: this.getHeader()
         });
-        return response.data;
+        return resp.data;
     }
 
     static async updateBooking(booking) {
-        const response = await axios.put(`${this.BASE_URL}/bookings/update`, booking, {
+        const resp = await axios.put(`${this.BASE_URL}/bookings/update`, booking, {
             headers: this.getHeader()
         });
-        return response.data;
+        return resp.data;
     }
 
-    //PAYMENT
-    //function to create payment intent
-
+    //PAYMMENT 
+    //funtion to create payment intent
     static async proceedForPayment(body) {
-        const response = await axios.post(`${this.BASE_URL}/payments/pay`, body, {
+        const resp = await axios.post(`${this.BASE_URL}/payments/pay`, body, {
             headers: this.getHeader()
         });
-        return response.data; //return the stripe transaction id for this transaction
+        return resp.data; //return the strip transaction id for this transaction
     }
 
-    //to update payment when it has been completed
-    static async updateBookingPayment(body) {
-        const response = await axios.put(`${this.BASE_URL}/payments/update`, body, {
+    //TO UPDATE PAYMENT WHEN IT HAS BEEN COMPLETED
+    static async updateBookingPaymeent(body) {
+        const resp = await axios.put(`${this.BASE_URL}/payments/update`, body, {
             headers: this.getHeader()
         });
-        return response.data;
+        return resp.data;
     }
 
-    //AUTHENTICATION CHECKER
-    static logout() {
-        this.clearAuth();
-    }
 
-    static isAuthenticated() {
-        const token = this.getToken();
-        return !!token;
-    }
+// AUTHENTICATION CHECKER
+static logout() {
+    this.clearAuth();
+}
 
-    static isAdmin() {
-        const role = this.getRole();
-        return role === "ADMIN";
-    }
+static isAuthenticated() {
+    const token = this.getToken();
+    return !!token;
+}
 
-    static isCustomer() {
-        const role = this.getRole();
-        return role === "CUSTOMER";
-    }
+static isAdmin() {
+    const role = this.getRole();
+    return role === "ADMIN";
+}
+
+static isCustomer() {
+    const role = this.getRole();
+    return role === "CUSTOMER";
+}
+
+
 }
