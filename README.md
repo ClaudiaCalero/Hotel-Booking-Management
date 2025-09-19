@@ -1,3 +1,39 @@
+# Hotel Booking Management
+
+Web application for managing hotel bookings. Users can make reservations, and administrators can manage rooms, users, and bookings.
+
+## 📚 Table of Contents
+
+
+## 🧪 Technologies
+- **Frontend**: React, HTML, CSS
+- **Backend**: Java Spring Boot
+- **Database**: MySQL
+- **Authentication**: JWT
+- **Testing**: Postman
+
+## 🛠️ Installation
+#### Clone the repository
+
+    git clone https://github.com/ClaudiaCalero/Hotel-Booking-Management.git
+
+#### Navigate to the project folder
+
+    cd Hotel-Booking-Management
+
+####  Backend: Build and run (assuming Java Spring Boot is installed)
+
+    ./mvnw spring-boot:run
+
+####  Frontend: Navigate to the frontend folder and start
+
+    cd hotel-frontend
+
+    npm install
+
+    npm start
+
+
 ## 🖼️ MockUp
 [Click to view the Figma project](https://www.figma.com/design/RiiARqgNRd5CpYm5VHAzvB/OnyxCrownHotel?node-id=0-1&p=f&t=GYhQ6tYGtqEKdx9E-0)
 
