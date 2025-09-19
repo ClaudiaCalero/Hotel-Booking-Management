@@ -11,7 +11,7 @@ const RoomResult = ({ handSearchResult }) => {
       <div className="room-list">
         {handSearchResult.map((room) => {
           <div className="room-list-item" key={room.id}>
-            <img className="room-list-item-image" src={room.imageUrl} alt="" />
+            <img className="room-list-item-image" src={room.imageUrl} alt={room.roomNumber}/>
             <div className="room-details">
               <h3>{room.type}</h3>
               <p>Price: €{room.pricePerNight / Night}</p>
