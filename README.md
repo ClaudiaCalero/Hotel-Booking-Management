@@ -1,3 +1,8 @@
+## 🖼️ MockUp
+[Click to view the Figma project](https://www.figma.com/design/RiiARqgNRd5CpYm5VHAzvB/OnyxCrownHotel?node-id=0-1&p=f&t=GYhQ6tYGtqEKdx9E-0)
+
+[![OnyxCrownHotel Preview](https://github.com/user-attachments/assets/0e1facdc-86c0-4f44-a4cc-ab175dd31bb4)](https://www.figma.com/design/RiiARqgNRd5CpYm5VHAzvB/OnyxCrownHotel?node-id=0-1&p=f&t=GYhQ6tYGtqEKdx9E-0)
+
 ## 🧪 API Testing (Postman)
 
 ---
