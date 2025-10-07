@@ -6,7 +6,7 @@ export default class ApiService {
     static BASE_URL = "http://localhost:9090/api";
     static ENCRYPTION_KEY = "dennis-secrete-key";
 
-    //enctyp token using cruyptojs
+     //enctyp token using cruyptojs
 
     static encrypt(token) {
         return CryptoJS.AES.encrypt(token, this.ENCRYPTION_KEY.toString());
@@ -197,25 +197,27 @@ export default class ApiService {
     }
 
 
-// AUTHENTICATION CHECKER
-static logout() {
-    this.clearAuth();
-}
 
-static isAuthenticated() {
-    const token = this.getToken();
-    return !!token;
-}
+    //AUTHENTICATION CHECKER
+    static logout(){
+        this.clearAuth();
+    }
 
-static isAdmin() {
-    const role = this.getRole();
-    return role === "ADMIN";
-}
+    static isAthenticated(){
+        const token = this.getToken();
+        return !!token;
+    }
 
-static isCustomer() {
-    const role = this.getRole();
-    return role === "CUSTOMER";
-}
+    static isAdmin(){
+        const role = this.getRole();
+        return role === "ADMIN";
+    }
+
+    static isCustomer(){
+        const role = this.getRole();
+        return role === "CUSTOMER";
+    }
+
 
 
 }
