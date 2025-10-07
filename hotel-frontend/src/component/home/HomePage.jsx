@@ -3,9 +3,9 @@ import RoomResult from "../common/RoomResult";
 import RoomSearch from "../common/RoomSearch";
 
 const HomePage = () => {
-  const [roomSearchResults, setRoomSearchResult] = useState([]);
+  const [roomSearchResult, setRoomSearchResult] = useState([]);
 
-  //function to handle search result
+  //funtion to handle search result
   const handleSearchResult = (results) => {
     setRoomSearchResult(results);
     console.log("RESULT IS: " + results);
@@ -16,31 +16,32 @@ const HomePage = () => {
       <section>
         <header className="header-banner">
           <img
-            src=".\images\hotel\web\bg.jpg"
+            src="./images/hotel/web/bg.jpg"
             alt="Hotel"
             className="header-image"
           />
           <div className="overlay"></div>
-          <div className="animated-text overlay-content">
+          <div className="animated-texts overlay-content">
             <h1>
               Welcome to <span className="onyx-color">Onyx Crown Hotel</span>
             </h1>{" "}
             <br />
-            <h3>Step into a heaven of comfort and care</h3>
+            <h3>Step into a haven of comfort and care</h3>
           </div>
         </header>
       </section>
 
-      <RoomSearch handleSearchResult={handleSearchResult} />
-      <RoomResult roomSearchResults={roomSearchResults} />
+      <RoomSearch handSearchResult={handleSearchResult} />
+      <RoomResult roomSearchResults={roomSearchResult} />
 
       <h4>
         <a className="view-rooms-home" href="/rooms">
           All Rooms
         </a>
       </h4>
+
       <h2 className="home-services">
-        Services at<span className="onyx-color">Onyx Crown Hotel</span>
+        Services at <span className="onyx-color">Onyx Crown Hotel</span>
       </h2>
 
       {/* SERVICES SECTION */}
