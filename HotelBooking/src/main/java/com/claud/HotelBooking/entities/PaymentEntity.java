@@ -19,6 +19,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class PaymentEntity {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -30,7 +31,7 @@ public class PaymentEntity {
     @Enumerated(EnumType.STRING)
     private PaymentGateway paymentGateway;
 
-    protected LocalDateTime paymentDate;
+    private LocalDateTime paymentDate;
 
     @Enumerated(EnumType.STRING)
     private PaymentStatus paymentStatus;
@@ -41,4 +42,5 @@ public class PaymentEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
 }

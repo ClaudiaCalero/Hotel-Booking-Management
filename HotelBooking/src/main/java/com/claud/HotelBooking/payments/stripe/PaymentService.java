@@ -35,7 +35,7 @@ public class PaymentService {
     private String secreteKey;
 
 
-    public String createPaymentIntent(PaymentRequest paymentRequest) {
+    public String createPaymentIntent(PaymentRequest paymentRequest){
         log.info("Inside createPaymentIntent()");
         Stripe.apiKey = secreteKey;
         String bookingReference = paymentRequest.getBookingReference();
@@ -49,7 +49,7 @@ public class PaymentService {
 
         }
 
-        try {
+        try{
             PaymentIntentCreateParams params = PaymentIntentCreateParams.builder()
                     .setAmount(paymentRequest.getAmount().multiply(BigDecimal.valueOf(100)).longValue()) //amount cents
                     .setCurrency("usd")
@@ -59,20 +59,20 @@ public class PaymentService {
             PaymentIntent intent = PaymentIntent.create(params);
             return intent.getClientSecret();
 
-        } catch (Exception e) {
+        }catch (Exception e){
             throw new RuntimeException("Error creating payment intent");
         }
 
     }
 
 
-    public void updatePaymentBooking(PaymentRequest paymentRequest) {
+    public void updatePaymentBooking(PaymentRequest paymentRequest){
 
         log.info("Inside updatePaymentBooking()");
         String bookingReference = paymentRequest.getBookingReference();
 
         Booking booking = bookingRepository.findByBookingReference(bookingReference)
-                .orElseThrow(() -> new NotFoundException("Booing Not Found"));
+                .orElseThrow(()-> new NotFoundException("Booing Not Found"));
 
         PaymentEntity payment = new PaymentEntity();
         payment.setPaymentGateway(PaymentGateway.STRIPE);
@@ -89,7 +89,7 @@ public class PaymentService {
 
         paymentRepository.save(payment); //save payment to database
 
-        //create and send notifiaction
+        //create and send notification
         NotificationDTO notificationDTO = NotificationDTO.builder()
                 .recipient(booking.getUser().getEmail())
                 .type(NotificationType.EMAIL)
@@ -99,7 +99,7 @@ public class PaymentService {
         log.info("About to send notification inside updatePaymentBooking  by sms");
 
 
-        if (paymentRequest.isSuccess()) {
+        if (paymentRequest.isSuccess()){
             booking.setPaymentStatus(PaymentStatus.COMPLETED);
             bookingRepository.save(booking); //Update the booking
 
@@ -107,7 +107,7 @@ public class PaymentService {
             notificationDTO.setBody("Congratulation!! Your payment for booking with reference: " + bookingReference + "is successful");
             notificationService.sendEmail(notificationDTO); //send email
 
-        } else {
+        }else {
 
             booking.setPaymentStatus(PaymentStatus.FAILED);
             bookingRepository.save(booking); //Update the booking
@@ -116,7 +116,6 @@ public class PaymentService {
             notificationDTO.setBody("Your payment for booking with reference: " + bookingReference + "failed with reason: " + paymentRequest.getFailureReason());
             notificationService.sendEmail(notificationDTO); //send email
         }
-
 
     }
 }

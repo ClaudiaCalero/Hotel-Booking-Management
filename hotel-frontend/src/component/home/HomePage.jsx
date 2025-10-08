@@ -8,7 +8,7 @@ const HomePage = () => {
   //funtion to handle search result
   const handleSearchResult = (results) => {
     setRoomSearchResult(results);
-    console.log("RESULT IS: " + results);
+    console.log("RESULT IS: " , results);
   };
 
   return (

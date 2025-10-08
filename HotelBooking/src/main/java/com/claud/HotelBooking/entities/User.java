@@ -22,24 +22,23 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "Email is requested")
+    @NotBlank(message = "Email is required")
     @Column(unique = true)
     private String email;
 
-    @NotBlank(message = "Password is requested")
+    @NotBlank(message = "Password is required")
     private String password;
     private String firstName;
     private String lastName;
 
-    @NotBlank(message = "Phone Number is requested")
+    @NotBlank(message = "Phone Number is required")
     @Column(name = "phone_number")
     private String phoneNumber;
 
     @Enumerated(EnumType.STRING)
-    private UserRole role; //Customer, Admin
+    private UserRole role; //e.g CUSTOMER, ADMIN
 
     private Boolean isActive;
     private final LocalDateTime createdAt = LocalDateTime.now();
-
 
 }

@@ -26,11 +26,13 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
             throws IOException, ServletException {
 
         Response errorResponse = Response.builder()
-                .status(HttpStatus.UNAUTHORIZED.value())//401 invalid token
+                .status(HttpStatus.UNAUTHORIZED.value()) //401 invid token
                 .message(authException.getMessage())
                 .build();
+
         response.setContentType("application/json");
         response.setStatus(HttpStatus.UNAUTHORIZED.value());
         response.getWriter().write(objectMapper.writeValueAsString(errorResponse));
+
     }
 }

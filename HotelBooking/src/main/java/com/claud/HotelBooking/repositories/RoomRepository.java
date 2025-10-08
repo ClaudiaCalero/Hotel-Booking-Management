@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface RoomRepository extends JpaRepository<Room, Long> {
+
     /**
      * Finds all available rooms for the given date range and optional room type.
      * A room is available if:
@@ -17,6 +18,7 @@ public interface RoomRepository extends JpaRepository<Room, Long> {
      * - Its booking status is 'BOOKED' or 'CHECKED_IN'.
      * - The room type matches the given roomType parameter (if it's not null).
      */
+
     @Query("""
             SELECT r FROM Room r
             WHERE
@@ -34,6 +36,7 @@ public interface RoomRepository extends JpaRepository<Room, Long> {
             @Param("checkOutDate") LocalDate checkOutDate,
             @Param("roomType") RoomType roomType
     );
+
     /**
      * Searches for rooms based on a flexible text parameter.
      * It compares the parameter against:
@@ -43,6 +46,7 @@ public interface RoomRepository extends JpaRepository<Room, Long> {
      * - capacity (as string)
      * - description (ignores case and uses LIKE operator)
      */
+
     @Query("""
                 SELECT r FROM Room r
                 WHERE CAST(r.roomNumber AS string) LIKE %:searchParam%
@@ -53,4 +57,6 @@ public interface RoomRepository extends JpaRepository<Room, Long> {
             """)
     List<Room> searchRooms(@Param("searchParam") String searchParam);
 
+
 }
+

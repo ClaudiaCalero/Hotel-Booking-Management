@@ -14,17 +14,20 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
 @Slf4j
+@RequiredArgsConstructor
 public class NotificationServiceImpl implements NotificationService {
 
+
     private final JavaMailSender javaMailSender;
+
     private final NotificationRepository notificationRepository;
 
     @Override
     @Async
     public void sendEmail(NotificationDTO notificationDTO) {
-        log.info("Inside send email");
+        log.info("Sending email ...");
+
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
         simpleMailMessage.setTo(notificationDTO.getRecipient());
         simpleMailMessage.setSubject(notificationDTO.getSubject());
@@ -32,11 +35,12 @@ public class NotificationServiceImpl implements NotificationService {
 
         javaMailSender.send(simpleMailMessage);
 
-        //Save to db
+        //SAVE TO DATABSE
         Notification notificationToSave = Notification.builder()
-        .recipient(notificationDTO.getRecipient())
-        .subject(notificationDTO.getSubject())
-        .bookingReference(notificationDTO.getBookingReference())
+                .recipient(notificationDTO.getRecipient())
+                .subject(notificationDTO.getSubject())
+                .body(notificationDTO.getBody())
+                .bookingReference(notificationDTO.getBookingReference())
                 .type(NotificationType.EMAIL)
                 .build();
 

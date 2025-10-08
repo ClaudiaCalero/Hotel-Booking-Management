@@ -22,7 +22,7 @@ public class JwtUtils {
 
     private SecretKey key;
 
-    @Value("${secretJwtString}")
+    @Value("${secreteJwtString}")
     private String secretJwtString;
 
     @PostConstruct
@@ -39,7 +39,7 @@ public class JwtUtils {
                 .signWith(key)
                 .compact();
     }
-    
+
     public String getUsernameFromToken(String token){
         return extractClaims(token, Claims::getSubject);
     }

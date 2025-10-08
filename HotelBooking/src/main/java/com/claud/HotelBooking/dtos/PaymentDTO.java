@@ -22,22 +22,21 @@ import java.time.LocalDateTime;
 public class PaymentDTO {
 
     private Long id;
-    private BookingDTO bookingDTO;
+    private BookingDTO booking;
 
     private String transactionId;
 
     private BigDecimal amount;
 
-    private PaymentGateway paymentMethod; //Enum PGateaway -> PAYPAL, STRIPE, PAYSTACK, FLUTTERWAVE
+    private PaymentGateway paymentMethod; //e,g Paypal. Stripe, flutterwave, paystack
 
+    private LocalDateTime paymentDate;
 
-    protected LocalDateTime paymentDate;
-
-    private PaymentStatus status;
+    private PaymentStatus status; //failed, e.t.c
 
     private String bookingReference;
     private String failureReason;
 
-    private String approvalLink; //paypal payment approval url
+    private String approvalLink; //paypal payment approval UEL
 
 }

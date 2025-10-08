@@ -26,15 +26,15 @@ function Navbar() {
             </div>
 
             <ul className="navbar-ul">
-                <li><NavLink to={"/home"} activeClassname="active">Home</NavLink></li>
-                <li><NavLink to={"/rooms"} activeClassname="active">Rooms</NavLink></li>
-                <li><NavLink to={"/find-booking"} activeClassname="active">Find My Bookings</NavLink></li>
+                <li><NavLink to={"/home"} activeClassName="active">Home</NavLink></li>
+                <li><NavLink to={"/rooms"} activeClassName="active">Rooms</NavLink></li>
+                <li><NavLink to={"/find-booking"} activeClassName="active">Find My Bookings</NavLink></li>
 
-                { isCustomer && <li><NavLink to={"/profile"} activeClassname="active">Profile</NavLink></li>}
-                {isAdmin && <li><NavLink to={"/admin"} activeClassname="active">Admin</NavLink></li>}
+                { isCustomer && <li><NavLink to={"/profile"} activeClassName="active">Profile</NavLink></li>}
+                {isAdmin && <li><NavLink to={"/admin"} activeClassName="active">Admin</NavLink></li>}
 
-                {!isAuthenticated && <li><NavLink to={"/login"} activeClassname="active">Login</NavLink></li>}
-                {!isAuthenticated && <li><NavLink to={"/register"} activeClassname="active">Register</NavLink></li>}
+                {!isAuthenticated && <li><NavLink to={"/login"} activeClassName="active">Login</NavLink></li>}
+                {!isAuthenticated && <li><NavLink to={"/register"} activeClassName="active">Register</NavLink></li>}
 
                 {isAuthenticated && <li onClick={handleLogout}>Logout</li>}
             </ul>

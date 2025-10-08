@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@JsonInclude(JsonInclude.Include.NON_NULL)// When using BookingDTO as a request, it ignores missing fields. And when used as a response, @JsonInclude only ignores fields that are null.
+@JsonInclude(JsonInclude.Include.NON_NULL) // When using BookingDTO as a request, it ignores missing fields. And when used as a response, @JsonInclude only ignores fields that are null.
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BookingDTO {
 

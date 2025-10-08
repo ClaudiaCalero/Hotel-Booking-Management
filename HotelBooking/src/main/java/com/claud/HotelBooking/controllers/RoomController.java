@@ -23,13 +23,15 @@ public class RoomController {
 
     @PostMapping("/add")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<Response> addRoom(@RequestParam Integer roomNumber,
-                                            @RequestParam RoomType type,
-                                            @RequestParam BigDecimal pricePerNight,
-                                            @RequestParam Integer capacity,
-                                            @RequestParam String description,
-                                            @RequestParam MultipartFile imageFile){
-        RoomDTO roomDTO = RoomDTO.builder()
+    public ResponseEntity<Response> addRoom(
+            @RequestParam Integer roomNumber,
+            @RequestParam RoomType type,
+            @RequestParam BigDecimal pricePerNight,
+            @RequestParam Integer capacity,
+            @RequestParam String  description,
+            @RequestParam MultipartFile imageFile
+    ){
+        RoomDTO roomDTO =RoomDTO.builder()
                 .roomNumber(roomNumber)
                 .type(type)
                 .pricePerNight(pricePerNight)
@@ -37,20 +39,22 @@ public class RoomController {
                 .description(description)
                 .build();
 
-        return ResponseEntity.ok(roomService.addRoom(roomDTO,imageFile));
+        return  ResponseEntity.ok(roomService.addRoom(roomDTO, imageFile));
 
     }
 
     @PutMapping("/update")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<Response> updateRoom(@RequestParam (value = "roomNumber", required = false) Integer roomNumber,
-                                            @RequestParam (value = "type", required = false) RoomType type,
-                                            @RequestParam (value = "pricePerNight", required = false) BigDecimal pricePerNight,
-                                            @RequestParam (value = "capacity", required = false) Integer capacity,
-                                            @RequestParam (value = "description", required = false) String description,
-                                            @RequestParam (value = "imageFile", required = false) MultipartFile imageFile,
-                                            @RequestParam (value = "id", required = true) Long id){
-        RoomDTO roomDTO = RoomDTO.builder()
+    public ResponseEntity<Response> updateRoom(
+            @RequestParam (value = "roomNumber", required = false) Integer roomNumber,
+            @RequestParam (value = "type", required = false) RoomType type,
+            @RequestParam (value = "pricePerNight", required = false) BigDecimal pricePerNight,
+            @RequestParam (value = "capacity", required = false) Integer capacity,
+            @RequestParam (value = "description", required = false) String  description,
+            @RequestParam (value = "imageFile", required = false) MultipartFile imageFile,
+            @RequestParam (value = "id", required = true) Long id
+    ){
+        RoomDTO roomDTO =RoomDTO.builder()
                 .id(id)
                 .roomNumber(roomNumber)
                 .type(type)
@@ -59,7 +63,7 @@ public class RoomController {
                 .description(description)
                 .build();
 
-        return ResponseEntity.ok(roomService.updateRoom(roomDTO,imageFile));
+        return  ResponseEntity.ok(roomService.updateRoom(roomDTO, imageFile));
 
     }
 
@@ -67,6 +71,7 @@ public class RoomController {
     public ResponseEntity<Response> getAllRooms(){
         return ResponseEntity.ok(roomService.getAllRooms());
     }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<Response> getRoomById(@PathVariable Long id){
@@ -81,10 +86,12 @@ public class RoomController {
 
     @GetMapping("/available")
     public ResponseEntity<Response> getAvailableRooms(
+
             @RequestParam LocalDate checkInDate,
             @RequestParam LocalDate checkOutDate,
             @RequestParam(required = false) RoomType roomType
-            ){
+    ){
+
         return ResponseEntity.ok(roomService.getAvailableRooms(checkInDate, checkOutDate, roomType));
     }
 
@@ -97,6 +104,5 @@ public class RoomController {
     public ResponseEntity<Response> searchRoom(@RequestParam String input){
         return ResponseEntity.ok(roomService.searchRoom(input));
     }
-
 
 }

@@ -11,8 +11,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-
 public class BookingReference {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

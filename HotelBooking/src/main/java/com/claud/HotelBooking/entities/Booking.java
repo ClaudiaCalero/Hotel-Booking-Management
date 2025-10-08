@@ -20,11 +20,12 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class Booking {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)  // meaning when a user is deleted all associated booking of the user will be deleted
     @JoinColumn(name = "user_id")
     private User user;
 

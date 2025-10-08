@@ -10,14 +10,13 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<Response> handleAllExceptions(Exception ex) {
+    public ResponseEntity<Response> handleAllUnknowExceptions(Exception ex) {
         Response response = Response.builder()
                 .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
                 .message(ex.getMessage())
                 .build();
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
-
 
     @ExceptionHandler(NotFoundException.class)
     public ResponseEntity<Response> handleNotFoundException(NotFoundException ex) {
@@ -27,6 +26,7 @@ public class GlobalExceptionHandler {
                 .build();
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
+
 
     @ExceptionHandler(NameValueRequiredException.class)
     public ResponseEntity<Response> handleNameValueRequiredException(NameValueRequiredException ex) {

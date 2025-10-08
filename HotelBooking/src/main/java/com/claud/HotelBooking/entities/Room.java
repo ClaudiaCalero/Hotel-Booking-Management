@@ -35,12 +35,13 @@ public class Room {
     @DecimalMin(value = "0.1", message = "Price per night is required")
     private BigDecimal pricePerNight;
 
-    @Min(value = 1, message = "Capacity must be at least 1")
+    @Min(value = 1, message = "capacity must be at least 1")
     private Integer capacity;
 
-    private String description;
-    private List<String> imageUrl; //to hold more than 1 picture
-    //private String imageUrl; //to hold 1 picture
+    private String description; //additional data for the room
+
+    //private List<String> imageUrl; //to hold more than 1 picture
+    private String imageUrl; //to hold 1 picture
 
 
 }

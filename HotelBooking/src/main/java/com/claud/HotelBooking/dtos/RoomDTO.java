@@ -20,6 +20,7 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class RoomDTO {
 
+
     private Long id;
 
     private Integer roomNumber;
@@ -30,9 +31,11 @@ public class RoomDTO {
 
     private Integer capacity;
 
-    private String description;
-    private List<String> imageUrls; //to hold more than 1 picture
-    //private String imageUrl; //to hold 1 picture
+    private String description; //additional data for the room
+
+    //private List<String> images; more than 1 img
+    private String imageUrl; //this will hold the room picture
 
 
 }
+

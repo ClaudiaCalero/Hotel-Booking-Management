@@ -21,6 +21,7 @@ public class UserController {
         return ResponseEntity.ok(userService.getAllUsers());
     }
 
+
     @PutMapping("/update")
     public ResponseEntity<Response> updateOwnAccount(@RequestBody UserDTO userDTO){
         return ResponseEntity.ok(userService.updateOwnAccount(userDTO));
@@ -36,11 +37,11 @@ public class UserController {
         return ResponseEntity.ok(userService.getOwnAccountDetails());
     }
 
+
     @GetMapping("/bookings")
     public ResponseEntity<Response> getMyBookingHistory(){
         return ResponseEntity.ok(userService.getMyBookingHistory());
     }
-
 
 }
 

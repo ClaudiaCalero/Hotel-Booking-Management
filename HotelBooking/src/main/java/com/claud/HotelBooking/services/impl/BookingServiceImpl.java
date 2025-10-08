@@ -34,6 +34,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BookingServiceImpl implements BookingService {
 
+
     private final BookingRepository bookingRepository;
     private final RoomRepository roomRepository;
     private final NotificationService notificationService;
@@ -134,7 +135,7 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public Response findBookingByReferenceNum(String bookingReference) {
         Booking booking = bookingRepository.findByBookingReference(bookingReference)
-                .orElseThrow(()-> new NotFoundException("Booking with reference Num: " + bookingReference + "Not found"));
+                .orElseThrow(()-> new NotFoundException("Booking with reference No: " + bookingReference + "Not found"));
 
         BookingDTO bookingDTO = modelMapper.map(booking, BookingDTO.class);
         return  Response.builder()
@@ -173,6 +174,5 @@ public class BookingServiceImpl implements BookingService {
         long days = ChronoUnit.DAYS.between(bookingDTO.getCheckInDate(), bookingDTO.getCheckOutDate());
         return pricePerNight.multiply(BigDecimal.valueOf(days));
     }
-
 
 }
