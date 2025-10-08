@@ -31,22 +31,23 @@ public class Response {
     private UserDTO user;
     private List<UserDTO> users;
 
-    //booking data output
+    //Booking data output
     private BookingDTO booking;
     private List<BookingDTO> bookings;
 
-    //room data output
+    //Room data output
     private RoomDTO room;
     private List<RoomDTO> rooms;
 
-    //payment data output
+    //Payment data output
     private PaymentDTO payment;
     private List<PaymentDTO> payments;
 
-    //notification data output
+    //Payment data output
     private NotificationDTO notification;
     private List<NotificationDTO> notifications;
 
     private final LocalDateTime timestamp = LocalDateTime.now();
+
 
 }

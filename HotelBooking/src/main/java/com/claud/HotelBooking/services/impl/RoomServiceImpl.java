@@ -20,6 +20,7 @@ import java.io.File;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -32,10 +33,10 @@ public class RoomServiceImpl implements RoomService {
     private final RoomRepository roomRepository;
     private final ModelMapper modelMapper;
 
-//    private static final String IMAGE_DIRECTORY = System.getProperty("user.dir") + "/product-image/";
+    //private static final String IMAGE_DIRECTORY = System.getProperty("user.dir") + "/product-image/";
 
-    //image directory for our frontens appp
-    private static final String IMAGE_DIRECTORY_FRONTEND = "/Users/dennismac/phegonDev/hotel-react-frontend/public/rooms/";
+    //image directory for our frontend app
+    private static final String IMAGE_DIRECTORY_FRONTEND = "C:\\Users\\Cyltia\\HotelBooking\\hotel-frontend\\public\\rooms\\";
 
 
 
@@ -56,7 +57,6 @@ public class RoomServiceImpl implements RoomService {
                 .message("Room successfully added")
                 .build();
     }
-
     @Override
     public Response updateRoom(RoomDTO roomDTO, MultipartFile imageFile) {
         Room existingRoom = roomRepository.findById(roomDTO.getId())
@@ -88,9 +88,6 @@ public class RoomServiceImpl implements RoomService {
                 .status(200)
                 .message("Room updated successfully")
                 .build();
-
-
-
 
     }
 
@@ -187,8 +184,6 @@ public class RoomServiceImpl implements RoomService {
 
 
 
-
-
     //save image to backend folder
 
 //    private String saveImage(MultipartFile imageFile){
@@ -247,4 +242,3 @@ public class RoomServiceImpl implements RoomService {
 
     }
 }
-

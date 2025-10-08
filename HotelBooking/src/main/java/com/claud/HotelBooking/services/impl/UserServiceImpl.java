@@ -32,6 +32,7 @@ public class UserServiceImpl implements UserService {
     private final ModelMapper modelMapper;
     private final BookingRepository bookingRepository;
 
+
     @Override
     public Response registerUser(RegistrationRequest registrationRequest) {
         UserRole role = UserRole.CUSTOMER;
@@ -49,22 +50,27 @@ public class UserServiceImpl implements UserService {
                 .role(role)
                 .isActive(Boolean.TRUE)
                 .build();
+
         userRepository.save(userToSave);
 
         return Response.builder()
                 .status(200)
                 .message("user created successfully")
                 .build();
+
     }
 
     @Override
     public Response loginUser(LoginRequest loginRequest) {
         User user = userRepository.findByEmail(loginRequest.getEmail())
-                .orElseThrow(() -> new NotFoundException("Email Not Found"));
+                .orElseThrow(()-> new NotFoundException("Email Not Found"));
+
         if (!passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
             throw new InvalidCredentialException("Password doesn't match");
         }
+
         String token = jwtUtils.generateToken(user.getEmail());
+
 
         return Response.builder()
                 .status(200)
@@ -79,6 +85,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Response getAllUsers() {
         List<User> users = userRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
+
         List<UserDTO> userDTOList = modelMapper.map(users, new TypeToken<List<UserDTO>>(){}.getType());
 
         return Response.builder()
@@ -91,10 +98,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public Response getOwnAccountDetails() {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
+
         User user = userRepository.findByEmail(email)
                 .orElseThrow(()-> new NotFoundException("User Not Found"));
 
+
         log.info("Inside getOwnAccountDetails user email is {}", email);
+
         UserDTO userDTO = modelMapper.map(user, UserDTO.class);
 
         return Response.builder()
@@ -106,12 +116,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getCurrentLoggedInUser() {
+
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
+
         return userRepository.findByEmail(email)
                 .orElseThrow(()-> new NotFoundException("User Not Found"));
     }
-
-
 
     @Override
     public Response updateOwnAccount(UserDTO userDTO) {
@@ -147,8 +157,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Response getMyBookingHistory() {
+
         User user = getCurrentLoggedInUser();
+
         List<Booking> bookingList = bookingRepository.findByUserId(user.getId());
+
+
         List<BookingDTO> bookingDTOList = modelMapper.map(bookingList, new TypeToken<List<BookingDTO>>(){}.getType());
 
         return Response.builder()
@@ -158,5 +172,6 @@ public class UserServiceImpl implements UserService {
                 .build();
 
     }
-}
 
+
+}

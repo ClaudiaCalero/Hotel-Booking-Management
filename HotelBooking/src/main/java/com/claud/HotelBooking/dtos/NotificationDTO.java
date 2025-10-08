@@ -35,4 +35,5 @@ public class NotificationDTO {
     private NotificationType type;
 
     private LocalDateTime createdAt;
+
 }

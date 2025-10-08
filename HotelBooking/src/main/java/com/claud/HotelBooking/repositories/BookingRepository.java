@@ -12,7 +12,6 @@ import java.util.Optional;
 public interface BookingRepository extends JpaRepository<Booking, Long> {
     // Retrieves all bookings associated with a specific user ID.
     List<Booking> findByUserId(Long userId);
-
     // Finds a booking by its unique booking reference.
     Optional<Booking> findByBookingReference(String bookingReference);
 
@@ -26,15 +25,14 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
      * Returns true if no conflicting bookings are found, otherwise false.
      */
     @Query("""
-       SELECT CASE WHEN COUNT(b) = 0 THEN true ELSE false END
-       FROM Booking b
-       WHERE b.room.id = :roomId
-         AND :checkInDate <= b.checkOutDate
-         AND :checkOutDate >= b.checkInDate
-         AND b.bookingStatus IN ('BOOKED', 'CHECKED_IN')
-       """)
+               SELECT CASE WHEN COUNT(b) = 0 THEN true ELSE false END
+                FROM Booking b
+                WHERE b.room.id = :roomId
+                  AND :checkInDate <= b.checkOutDate
+                  AND :checkOutDate >= b.checkInDate
+                  AND b.bookingStatus IN ('BOOKED', 'CHECKED_IN')
+            """)
     boolean isRoomAvailable(@Param("roomId") Long roomId,
                             @Param("checkInDate") LocalDate checkInDate,
                             @Param("checkOutDate") LocalDate checkOutDate);
-
 }

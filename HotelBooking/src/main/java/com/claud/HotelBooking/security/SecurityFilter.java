@@ -61,4 +61,6 @@ public class SecurityFilter {
 
         return authenticationConfiguration.getAuthenticationManager();
     }
+
+
 }

@@ -24,7 +24,7 @@ public class Notification {
 
     private String subject;
 
-    @NotBlank(message = "Recipient is required")
+    @NotBlank(message = "recipient is required")
     private String recipient;
 
     private String body;
@@ -35,4 +35,6 @@ public class Notification {
     private NotificationType type;
 
     private final LocalDateTime createdAt = LocalDateTime.now();
+
 }
+

@@ -21,15 +21,20 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class AuthFilter extends OncePerRequestFilter {
 
+
     private final JwtUtils jwtUtils;
+
     private final CustomUserDetailsService customUserDetailsService;
+
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
 
+
         String token = getTokenFromRequest(request);
+
         if (token != null) {
             String email = jwtUtils.getUsernameFromToken(token);
             UserDetails userDetails = customUserDetailsService.loadUserByUsername(email);
@@ -42,19 +47,22 @@ public class AuthFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
             }
         }
+
         try {
             filterChain.doFilter(request, response);
-        } catch (Exception e){
+        } catch (Exception e) {
             log.error(e.getMessage());
         }
 
+
     }
+
+
     private String getTokenFromRequest(HttpServletRequest request) {
         String tokenWithBearer = request.getHeader("Authorization");
-        if(tokenWithBearer != null && tokenWithBearer.startsWith("Bearer")) {
+        if (tokenWithBearer != null && tokenWithBearer.startsWith("Bearer ")) {
             return tokenWithBearer.substring(7);
         }
         return null;
-
     }
 }

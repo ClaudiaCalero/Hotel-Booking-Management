@@ -67,7 +67,6 @@ const RoomSearch = ({ handSearchResult }) => {
         ? endDate.toLocaleDateString("en-CA")
         : null;
 
-
       const resp = await ApiService.getAvailableRooms(
         formattedStartDate,
         formattedEndDate,
@@ -87,12 +86,10 @@ const RoomSearch = ({ handSearchResult }) => {
     }
   };
 
-
-return (
+  return (
     <section>
       <div className="search-container">
-  
-          {/* checkj in date and calander field */}
+        {/* checkj in date and calander field */}
         <div className="search-field" style={{ position: "relative" }}>
           <label>Check-in Date</label>
           <input
@@ -102,7 +99,7 @@ return (
             onFocus={() => setStartDatePickerVisible(true)}
             readOnly
           />
-  
+
           {isStartDatePickerVisible && (
             <div className="datepicker-container" ref={startDateRef}>
               <DayPicker
@@ -116,10 +113,8 @@ return (
             </div>
           )}
         </div>
-  
-  
-          
-          {/* checkj out date and calander field */}
+
+        {/* checkj out date and calander field */}
         <div className="search-field" style={{ position: "relative" }}>
           <label>Check-Out Date</label>
           <input
@@ -129,7 +124,7 @@ return (
             onFocus={() => setEndDatePickerVisible(true)}
             readOnly
           />
-  
+
           {isEndDatePickerVisible && (
             <div className="datepicker-container" ref={endDateRef}>
               <DayPicker
@@ -143,30 +138,34 @@ return (
             </div>
           )}
         </div>
-  
+
         {/* ROOM TYPE SELECTION FIELDS */}
         <div className="search-field">
           <label>Room Type</label>
-          <select value={roomType} onChange={(e)=> setRoomType(e.target.value)}>
-              <option disabled value="">Select Room Type</option>
-              {roomTypes.map((roomType) =>(
-                  <option value={roomType} key={roomType}>
-                      {roomType}
-                  </option>
-              ))}
+          <select
+            value={roomType}
+            onChange={(e) => setRoomType(e.target.value)}
+          >
+            <option disabled value="">
+              Select Room Type
+            </option>
+            {roomTypes.map((roomType) => (
+              <option value={roomType} key={roomType}>
+                {roomType}
+              </option>
+            ))}
           </select>
         </div>
-  
+
         {/* SEARCH BUTTON */}
         <button className="home-search-button" onClick={handleInternalSearch}>
           Search Roooms
         </button>
       </div>
-  
+
       {error && <p className="error-message">{error}</p>}
     </section>
   );
 };
-
 
 export default RoomSearch;
