@@ -6,6 +6,8 @@ import LoginPage from "./component/auth/LoginPage";
 import HomePage from "./component/home/HomePage";
 import AllRoomsPage from "./component/booking_rooms/AllRoomsPage";
 import RoomDetailsPage from "../../../AppData/Local/Temp/0a4202d7-3e0d-4810-a16e-8fe57a9af885_HBS-react-spring.zip.885/HBS-react-spring/hotel-react-frontend/src/component/booking_rooms/RoomDetailsPage";
+import ProfilePage from "./component/profile/ProfilePage";
+import EditProfilePage from "./component/profile/EditProfilePage";
 
 
 function App() {
@@ -19,9 +21,12 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/home" element={<HomePage />} />
             <Route path="/rooms" element={<AllRoomsPage />} />
+            <Route path="/find-booking" element={<FindBookingPage />} />
             <Route path="/rooms" element={<RoomDetailsPage />} />
 
-
+            <Route path="/room-details/:roomId" element={<CustomerRoute element={<RoomDetailsPage />} />} />
+            <Route path="/profile" element={<CustomerRoute element={<ProfilePage />} />} />
+            <Route path="/edit-profile" element={<CustomerRoute element={<EditProfilePage />} />} />
 
 
 
