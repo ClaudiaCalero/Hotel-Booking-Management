@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import ApiService from "../../service/ApiService";
-import ProfilePage from "../../../../../AppData/Local/Temp/d21db7e7-ccf1-4e2e-bab6-2e2ec0638cb0_HBS-react-spring.zip.cb0/HBS-react-spring/hotel-react-frontend/src/component/profile/ProfilePage";
 
 const ProfilePage = () => {
   const [user, setUser] = useState(null);
