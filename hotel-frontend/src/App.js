@@ -17,6 +17,7 @@ import PaymentFailure from "./component/payments/PaymentFailure";
 import AdminPage from "./component/admin/AdminPage";
 import ManageRoomPage from "./component/admin/ManageRoomPage";
 import AddRoomPage from "./component/admin/AddRoomPage";
+import EditRoomPage from "./component/admin/EditRoomPage";
 
 
 
@@ -47,8 +48,8 @@ function App() {
                 <Route path="/admin" element={<AdminRoute element={<AdminPage/>}/>}/>
                 <Route path="/admin/manage-rooms" element={<AdminRoute element={<ManageRoomPage/>}/>}/>
                 <Route path="/admin/add-room" element={<AdminRoute element={<AddRoomPage/>}/>}/>
-                {/*<Route path="/admin/edit-room/:roomId" element={<AdminRoute element={<EditRoomPage/>}/>}/>
-                <Route path="/admin/manage-bookings" element={<AdminRoute element={<ManageBookingsPage/>}/>}/>
+                <Route path="/admin/edit-room/:roomId" element={<AdminRoute element={<EditRoomPage/>}/>}/>
+                      {/*  <Route path="/admin/manage-bookings" element={<AdminRoute element={<ManageBookingsPage/>}/>}/>
                 <Route path="/admin/edit-booking/:bookingCode" element={<AdminRoute element={<EditBookingPage/>}/>}/>
                
 
