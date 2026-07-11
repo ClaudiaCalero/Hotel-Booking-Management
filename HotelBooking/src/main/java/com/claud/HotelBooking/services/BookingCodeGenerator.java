@@ -1,6 +1,5 @@
 package com.claud.HotelBooking.services;
 
-import com.claud.HotelBooking.entities.Booking;
 import com.claud.HotelBooking.entities.BookingReference;
 import com.claud.HotelBooking.repositories.BookingReferenceRepository;
 import lombok.RequiredArgsConstructor;
