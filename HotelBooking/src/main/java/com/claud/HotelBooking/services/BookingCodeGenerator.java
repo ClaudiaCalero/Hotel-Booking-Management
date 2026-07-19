@@ -19,9 +19,9 @@ public class BookingCodeGenerator {
 
         // keep generating until a unique code is found
         do{
-            bookingReference = generateRandomAlphaNumericCode(10); //generate code of length 10
+            bookingReference = generateRandomAlphaNumericCode(10); //genrate code of length 10
 
-        }while (isBookingReferenceExist(bookingReference)); //check if the code already exist. if it doesn't, exit
+        }while (isBookingReferenceExist(bookingReference)); //check if the code already exist. if it does't, exit
 
         saveBookingReferenceToDatabase(bookingReference); //save the code to database
 

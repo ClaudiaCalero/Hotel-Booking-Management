@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -32,15 +33,34 @@ public class UserServiceImpl implements UserService {
     private final ModelMapper modelMapper;
     private final BookingRepository bookingRepository;
 
+    //Took the master email from the application.properties
+    @Value("${hotel.admin.email}")
+    private String adminEmail;
+
 
     @Override
     public Response registerUser(RegistrationRequest registrationRequest) {
+
+        // 1. Check if the email already exists before proceed
+        if (userRepository.existsByEmail(registrationRequest.getEmail())) {
+            throw new InvalidCredentialException("El correo electrónico ya está registrado.");
+        }
+
+        // 2. We establish a default base role
         UserRole role = UserRole.CUSTOMER;
 
+        // 3. If the frontend sends an explicit role, it is temporarily respected
         if (registrationRequest.getRole() != null) {
             role = registrationRequest.getRole();
         }
 
+        // 4. MASTER RULE (ALWAYS AT THE END): If the email matches the admin,
+        /// we force the ADMIN role no matter what.
+        if (registrationRequest.getEmail().equalsIgnoreCase(adminEmail)) {
+            role = UserRole.ADMIN;
+        }
+
+        // 5.Build and save the user with the final filtered role
         User userToSave = User.builder()
                 .firstName(registrationRequest.getFirstName())
                 .lastName(registrationRequest.getLastName())
@@ -57,7 +77,6 @@ public class UserServiceImpl implements UserService {
                 .status(200)
                 .message("user created successfully")
                 .build();
-
     }
 
     @Override
@@ -172,6 +191,4 @@ public class UserServiceImpl implements UserService {
                 .build();
 
     }
-
-
 }
