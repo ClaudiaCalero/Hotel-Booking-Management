@@ -16,4 +16,6 @@ public interface UserService {
     Response updateOwnAccount(UserDTO userDTO);
     Response deleteOwnAccount();
     Response getMyBookingHistory();
+    Response forgotPassword(String email);
+    Response resetPassword(String token, String newPassword);
 }

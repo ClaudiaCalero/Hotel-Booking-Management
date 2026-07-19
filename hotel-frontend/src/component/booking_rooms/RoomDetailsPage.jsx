@@ -3,7 +3,6 @@ import ApiService from "../../service/ApiService";
 import { useNavigate, useParams } from "react-router-dom";
 import { DayPicker } from "react-day-picker";
 
-
 const RoomDetailsPage = () => {
   const navigate = useNavigate();
   const { roomId } = useParams();

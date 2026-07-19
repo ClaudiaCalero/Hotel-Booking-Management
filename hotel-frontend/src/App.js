@@ -19,6 +19,10 @@ import ManageRoomPage from "./component/admin/ManageRoomPage";
 import AddRoomPage from "./component/admin/AddRoomPage";
 import EditRoomPage from "./component/admin/EditRoomPage";
 import ManageBookingsPage from "./component/admin/ManageBookingsPage";
+import EditBookingPage from "./component/admin/EditBookingPage";
+import AdminRegisterPage from "./component/admin/AdminRegisterPage";
+import ForgotPassword from "./component/auth/ForgotPassword";
+import ResetPassword from "./component/auth/ResetPassword";
 
 
 
@@ -31,6 +35,10 @@ function App() {
               <Routes>
                 <Route path="/register" element={<RegisterPage/>}/>
                 <Route path="/login" element={<LoginPage/>}/>
+                <Route path="/forgot-password" element={<ForgotPassword />} />
+
+                <Route path="/reset-password" element={<ResetPassword />} />
+
                 <Route exact path="/home" element={<HomePage/>}/>
                 <Route path="/rooms" element={<AllRoomsPage/>}/>
                 <Route path="/find-booking" element={<FindBookingPage/>}/>
@@ -55,7 +63,6 @@ function App() {
                
 
                 <Route path="/admin-register" element={<AdminRoute element={<AdminRegisterPage/>}/>}/>
- */}
 
                 {/* FALLBACK URL */}
                 <Route path="*" element={<Navigate to={"/home"}/>}/>
