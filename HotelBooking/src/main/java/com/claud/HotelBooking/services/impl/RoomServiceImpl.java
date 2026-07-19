@@ -32,10 +32,10 @@ public class RoomServiceImpl implements RoomService {
     private final RoomRepository roomRepository;
     private final ModelMapper modelMapper;
 
-    //private static final String IMAGE_DIRECTORY = System.getProperty("user.dir") + "/product-image/";
+//    private static final String IMAGE_DIRECTORY = System.getProperty("user.dir") + "/product-image/";
 
-    //image directory for our frontend app
-    private static final String IMAGE_DIRECTORY_FRONTEND = "C:\\Users\\Cyltia\\HotelBooking\\hotel-frontend\\public\\rooms\\";
+    //image directory for our frontens appp
+    private static final String IMAGE_DIRECTORY_FRONTEND = "/Users/dennismac/phegonDev/hotel-react-frontend/public/rooms/";
 
 
 
@@ -56,6 +56,7 @@ public class RoomServiceImpl implements RoomService {
                 .message("Room successfully added")
                 .build();
     }
+
     @Override
     public Response updateRoom(RoomDTO roomDTO, MultipartFile imageFile) {
         Room existingRoom = roomRepository.findById(roomDTO.getId())
@@ -88,20 +89,23 @@ public class RoomServiceImpl implements RoomService {
                 .message("Room updated successfully")
                 .build();
 
+
+
+
     }
 
     @Override
     public Response getAllRooms() {
 
-        List<Room> roomList = roomRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
+       List<Room> roomList = roomRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
 
-        List<RoomDTO> roomDTOList = modelMapper.map(roomList,new TypeToken<List<RoomDTO>>() {}.getType());
+       List<RoomDTO> roomDTOList = modelMapper.map(roomList,new TypeToken<List<RoomDTO>>() {}.getType());
 
-        return Response.builder()
-                .status(200)
-                .message("success")
-                .rooms(roomDTOList)
-                .build();
+       return Response.builder()
+               .status(200)
+               .message("success")
+               .rooms(roomDTOList)
+               .build();
     }
 
     @Override
@@ -180,6 +184,8 @@ public class RoomServiceImpl implements RoomService {
                 .rooms(roomDTOList)
                 .build();
     }
+
+
 
 
 

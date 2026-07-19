@@ -54,4 +54,15 @@ public class GlobalExceptionHandler {
                 .build();
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
+    // Captura la validación previa que agregamos en el servicio
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<String> handleIllegalArgument(IllegalArgumentException ex) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage()); // Devuelve 409 Conflict
+    }
+
+    // Captura el error directo de SQL en caso de que se salte la validación previa
+    @ExceptionHandler(org.springframework.dao.DataIntegrityViolationException.class)
+    public ResponseEntity<String> handleDataIntegrityViolation(org.springframework.dao.DataIntegrityViolationException ex) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body("El correo electrónico ya se encuentra registrado.");
+    }
 }

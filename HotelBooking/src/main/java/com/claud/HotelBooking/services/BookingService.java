@@ -9,4 +9,5 @@ public interface BookingService {
     Response createBooking(BookingDTO bookingDTO);
     Response findBookingByReferenceNum(String  bookingReference);
     Response updateBooking(BookingDTO bookingDTO);
+
 }

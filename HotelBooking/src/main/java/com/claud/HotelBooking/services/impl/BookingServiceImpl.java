@@ -85,7 +85,7 @@ public class BookingServiceImpl implements BookingService {
         }
 
         //validate room availability
-        boolean isAvailable = bookingRepository.isRoomAvailable(room.getId(), bookingDTO.getCheckInDate(), bookingDTO.getCheckOutDate());
+       boolean isAvailable = bookingRepository.isRoomAvailable(room.getId(), bookingDTO.getCheckInDate(), bookingDTO.getCheckOutDate());
         if (!isAvailable) {
             throw new InvalidBookingStateAndDateException("Room is not available for the selected date ranges");
         }
@@ -109,11 +109,11 @@ public class BookingServiceImpl implements BookingService {
         bookingRepository.save(booking); //save to database
 
         //generate the payment url which will be sent via mail
-        String paymentUrl = "http://localhost:3000/payment/" + bookingReference + "/" + totalPrice;
+         String paymentUrl = "http://localhost:3000/payment/" + bookingReference + "/" + totalPrice;
 
-        log.info("PAYMENT LINK: {}", paymentUrl);
+         log.info("PAYMENT LINK: {}", paymentUrl);
 
-        //send notification via email
+         //send notification via email
         NotificationDTO notificationDTO = NotificationDTO.builder()
                 .recipient(currentUser.getEmail())
                 .subject("Booking Confirmation")
@@ -174,5 +174,9 @@ public class BookingServiceImpl implements BookingService {
         long days = ChronoUnit.DAYS.between(bookingDTO.getCheckInDate(), bookingDTO.getCheckOutDate());
         return pricePerNight.multiply(BigDecimal.valueOf(days));
     }
+
+
+
+
 
 }
