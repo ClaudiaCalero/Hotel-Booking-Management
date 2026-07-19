@@ -9,6 +9,7 @@ import com.claud.HotelBooking.exceptions.NotFoundException;
 import com.claud.HotelBooking.repositories.BookingRepository;
 import com.claud.HotelBooking.repositories.UserRepository;
 import com.claud.HotelBooking.security.JwtUtils;
+import com.claud.HotelBooking.services.EmailService;
 import com.claud.HotelBooking.services.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +21,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -33,6 +35,7 @@ public class UserServiceImpl implements UserService {
     private final ModelMapper modelMapper;
     private final BookingRepository bookingRepository;
 
+    private final EmailService emailService;
     //Took the master email from the application.properties
     @Value("${hotel.admin.email}")
     private String adminEmail;
@@ -190,5 +193,53 @@ public class UserServiceImpl implements UserService {
                 .bookings(bookingDTOList)
                 .build();
 
+    }
+
+    @Override
+    public Response forgotPassword(String email) {
+        // Check if the user exists
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new NotFoundException("No se encontró ningún usuario con ese correo electrónico."));
+
+        // Generate random unique token
+        String token = java.util.UUID.randomUUID().toString();
+
+        // Save token and the expiration date (15 min)
+        user.setResetPasswordToken(token);
+        user.setTokenExpirationDate(LocalDateTime.now().plusMinutes(15));
+        userRepository.save(user);
+
+        // Send the email using the emailService
+        emailService.sendResetPasswordEmail(user.getEmail(), token);
+
+        return Response.builder()
+                .status(200)
+                .message("Se ha enviado un enlace de recuperación a tu correo electrónico.")
+                .build();
+    }
+
+    @Override
+    public Response resetPassword(String token, String newPassword) {
+        // Search the user with their token
+        User user = userRepository.findByResetPasswordToken(token)
+                .orElseThrow(() -> new NotFoundException("El enlace de recuperación es inválido o no existe."));
+
+        // Verify if the token is expired
+        if (user.getTokenExpirationDate().isBefore(LocalDateTime.now())) {
+            throw new InvalidCredentialException("El enlace de recuperación ha expirado.");
+        }
+
+        // Encrypt the new password and save it
+        user.setPassword(passwordEncoder.encode(newPassword));
+
+        // Clean the token from de bd so we can't use it again
+        user.setResetPasswordToken(null);
+        user.setTokenExpirationDate(null);
+        userRepository.save(user);
+
+        return Response.builder()
+                .status(200)
+                .message("Contraseña actualizada correctamente.")
+                .build();
     }
 }

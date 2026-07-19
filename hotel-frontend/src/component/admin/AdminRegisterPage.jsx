@@ -3,14 +3,15 @@ import { useNavigate } from "react-router-dom";
 import ApiService from "../../service/ApiService";
 
 
-const RegisterPage = () => {
+const AdminRegisterPage = () => {
 
     const [formData, setFormData] = useState({
         firstName: "",
         lastName: "",
         email: "",
         password: "",
-        phoneNumber: ""
+        phoneNumber: "",
+        role:""
     });
 
     const [message, setMessage] = useState({type: "", text: ""});
@@ -31,10 +32,25 @@ const RegisterPage = () => {
             setTimeout(()=> setMessage({}), 5000);
             return;
         }
+
+        // THIS OR BELOW WILL WORK
+        // if (!ApiService.myProfile().user.role === "ADMIN") {
+        //     setMessage({type: "error", text: "Anautorizedm Admin Page only"})
+        //     setTimeout(()=> setMessage({}), 5000);
+        //     return;
+            
+        // }
+
+        if (!ApiService.isAdmin()) {
+            setMessage({type: "error", text: "Anautorizedm Admin Page only"})
+            setTimeout(()=> setMessage({}), 5000);
+            return;
+        }
+
         try {
             const resp = await ApiService.registerUser(formData);
             if (resp.status === 200) {
-                setMessage({type: "success", text: "User Registered successfully"})
+                setMessage({type: "success", text: "Admin Registered successfully"})
                 setTimeout(()=> navigate("/login"), 3000);
             }
             
@@ -50,9 +66,9 @@ const RegisterPage = () => {
         <div className="auth-container">
             {message.text && (<p className={`${message.type}-message`}>{message.text}</p>)}
 
-            <h2>Register</h2>
+            <h2>Admin Registration Page</h2>
             <form onSubmit={handleSubmit}>
-                {["firstName", "lastName", "email", "phoneNumber", "password"].map(
+                {["firstName", "lastName", "email", "phoneNumber", "password", "role"].map(
                     (field) => (
                         <div className="form-group" key={field}>
                             <label>{field.replace(/([A-Z])/g, " $1").trim()}: </label>
@@ -65,7 +81,7 @@ const RegisterPage = () => {
                         </div>
                     )
                 )}
-                <button type="submit">Register</button>
+                <button type="submit">Add Admin</button>
             </form>
             <p className="register-link"> Already have an account? <a href="/login">Login</a></p>
 
@@ -74,4 +90,4 @@ const RegisterPage = () => {
 
 }
 
-export default RegisterPage;
+export default AdminRegisterPage;

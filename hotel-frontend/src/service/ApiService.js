@@ -3,10 +3,10 @@ import CryptoJS from "crypto-js";
 
 export default class ApiService {
 
-    static BASE_URL = "http://localhost:9090/api";
-    static ENCRYPTION_KEY = "dennis-secrete-key";
+    static BASE_URL = "http://localhost:8080/api";
+    static ENCRYPTION_KEY = "claud-secrete-key";
 
-     //enctyp token using cruyptojs
+    //enctyp token using cruyptojs
 
     static encrypt(token) {
         return CryptoJS.AES.encrypt(token, this.ENCRYPTION_KEY.toString());
@@ -66,20 +66,20 @@ export default class ApiService {
         return resp.data;
     }
 
-
     static async loginUser(loginData) {
         const resp = await axios.post(`${this.BASE_URL}/auth/login`, loginData);
         return resp.data;
     }
 
-    // USERS
-    static async myProfile() {
-        const resp = await axios.get(`${this.BASE_URL}/users/account`, {
-            headers: this.getHeader()
-        })
-        return resp.data;
+    static async forgotPassword(email) {
+        const response = await axios.post(`${this.BASE_URL}/auth/forgot-password`, { email });
+        return response.data;
     }
 
+    static async resetPassword(resetData) {
+        const response = await axios.post(`${this.BASE_URL}/auth/reset-password`, resetData);
+        return response.data;
+    }
     static async myBookings() {
         const resp = await axios.get(`${this.BASE_URL}/users/bookings`, {
             headers: this.getHeader()
@@ -199,21 +199,21 @@ export default class ApiService {
 
 
     //AUTHENTICATION CHECKER
-    static logout(){
+    static logout() {
         this.clearAuth();
     }
 
-    static isAthenticated(){
+    static isAthenticated() {
         const token = this.getToken();
         return !!token;
     }
 
-    static isAdmin(){
+    static isAdmin() {
         const role = this.getRole();
         return role === "ADMIN";
     }
 
-    static isCustomer(){
+    static isCustomer() {
         const role = this.getRole();
         return role === "CUSTOMER";
     }

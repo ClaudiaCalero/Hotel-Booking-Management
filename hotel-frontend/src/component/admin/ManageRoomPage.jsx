@@ -96,6 +96,8 @@ const ManageRoomPage = () => {
 
         </div>
       );
+
+
 }
 
 export default ManageRoomPage;

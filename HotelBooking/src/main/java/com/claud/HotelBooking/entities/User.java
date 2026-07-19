@@ -40,5 +40,7 @@ public class User {
 
     private Boolean isActive;
     private final LocalDateTime createdAt = LocalDateTime.now();
+    private String resetPasswordToken;
+    private LocalDateTime tokenExpirationDate;
 
 }

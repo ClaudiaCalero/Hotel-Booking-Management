@@ -37,7 +37,7 @@ const PaymentForm = ({clientSecrete, amount, onPaymentSuccess, onPaymentError}) 
             console.log("PaymentForm is successful: " + paymentIntent);
             setSucceeded(true)
             setProcessing(false)
-            onPaymentSuccess(paymentIntent.id) //notify the parent component of a sucessful transaction
+            onPaymentSuccess(paymentIntent.id) //notifyb the parent component of a sucessful transaction
         }
 
     }
