@@ -1,5 +1,18 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
+import './styles/index.css';
+import React from 'react';
+import './styles/index.css';
+import './styles/navbar.css';
+import './styles/auth.css';
+import './styles/home.css';
+import './styles/rooms.css';
+import './styles/room-details.css';
+import './styles/admin.css';
+import './styles/payment.css';
+import './styles/footer.css';
+
+
 import Navbar from "./component/common/Navbar";
 import Footer from "./component/common/Footer";
 import RegisterPage from "./component/auth/Register";

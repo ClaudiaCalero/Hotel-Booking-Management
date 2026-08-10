@@ -1,0 +1,111 @@
+.admin-page {
+  max-width: 800px;
+  margin: 50px auto;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.welcome-message {
+  font-size: 2em;
+  font-weight: bold;
+  color: var(--primary-color);
+  margin-bottom: 20px;
+}
+
+.admin-actions {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.admin-button {
+  padding: 15px 30px;
+  font-size: 1em;
+  color: white;
+  background-color: var(--primary-color);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.admin-button:hover {
+  background-color: var(--hover-blue);
+}
+
+.edit-room-button {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.edit-room-button:hover {
+  opacity: 0.8;
+}
+
+/* Caja de Edición de Formulario de Administración */
+.edit-room-container {
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.edit-room-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: var(--primary-color);
+}
+
+.edit-room-form .form-group textarea {
+  width: calc(100% - 22px);
+  padding: 10px;
+  border: .5px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+  resize: none;
+  height: 100px;
+}
+
+.update-button {
+  background-color: #28a745;
+  color: white;
+}
+
+.delete-button {
+  background-color: #dc3545;
+  color: white;
+}
+
+.update-button:hover,
+.delete-button:hover {
+  opacity: 0.8;
+}
+
+/* Responsivo Admin */
+@media (max-width: 768px) {
+  .admin-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .admin-button {
+    width: 100%;
+    padding: 15px;
+    font-size: 1em;
+  }
+  .admin-page {
+    max-width: 100%;
+    padding: 15px;
+  }
+}

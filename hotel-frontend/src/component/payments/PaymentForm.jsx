@@ -3,6 +3,7 @@ import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { id } from "react-day-picker/locale";
 
 
+
 const PaymentForm = ({clientSecrete, amount, onPaymentSuccess, onPaymentError}) => {
     const stripe = useStripe();
     const element = useElements()

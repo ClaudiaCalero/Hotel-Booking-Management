@@ -1,0 +1,83 @@
+.all-rooms {
+  margin: 50px 0px 90px 0px;
+}
+
+.all-rooms h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: var(--primary-color);
+}
+
+.all-room-filter-div {
+  margin-left: 5rem;
+}
+
+.all-room-filter-div label {
+  color: var(--primary-color);
+  font-weight: 800;
+  font-size: 20px;
+}
+
+.all-room-filter-div select {
+  width: auto;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.filter-select-div {
+  width: 100%;
+  margin: 0px 0px 0px 4rem;
+}
+
+.add-room-button {
+  float: right;
+  margin-right: 70px;
+  font-weight: 600;
+}
+
+/* Sistema de Paginación */
+.pagination-nav {
+  display: flex;
+  justify-content: center;
+  padding: 10px 0px;
+}
+
+.pagination-ul {
+  list-style-type: none;
+  display: flex;
+  padding: 0;
+}
+
+.pagination-li {
+  margin: 0 5px;
+}
+
+.pagination-button {
+  background-color: #fff;
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+  border-radius: 5px;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.pagination-button:hover {
+  background-color: var(--hover-blue);
+  color: #fff;
+}
+
+.current-page {
+  background-color: var(--primary-color);
+  color: #fff;
+}
+
+/* Responsivo Catálogo */
+@media (max-width: 768px) {
+  .all-room-filter-div { margin: 0px; }
+  .filter-select-div { width: 100%; }
+  .pagination-ul { flex-direction: column; padding: 0; }
+  .pagination-li { margin: 5px 0; }
+}

@@ -1,0 +1,42 @@
+:root {
+  /* Fondo general / Tarjetas */
+  --bg-cream: #FFF4F8;         
+  --bg-white: #FFFFFF;
+  /*#f0e8e8
+  
+  /* Colores de marca Principales (Botones y enlaces) */
+  --hotel-green: #588569;       
+  --hotel-coral: #EFA899;      
+  --hotel-pink: #E07F99;       
+  --hotel-gold: #A4805C;        
+  
+  /* Colores oscuros y Textos */
+  --text-dark: #333333;         
+  --text-muted: #555555;        
+  --text-black: #000000;
+  --hotel-burgundy: #48281B;
+}
+ 
+* {
+  margin: 0;
+  box-sizing: border-box; /* Activado para que los paddings no deformen las cajas */
+  font-family: Arial, sans-serif;
+
+}
+
+body {
+  overflow-x: hidden;
+  background-color: var(--bg-white);
+}
+
+.colors {
+  color: var(--hotel-pink);
+  color: var(--hotel-green);
+  color: var(--hotel-burgundy);
+  color: var(--text-dark);
+}
+
+/*.onyx-color {
+  color: var(--hotel-pink);
+  color: var(--hotel-coral);
+}*/

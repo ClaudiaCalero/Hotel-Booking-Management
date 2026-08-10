@@ -1,0 +1,149 @@
+.datepicker-container {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    width: 300px;
+    min-height: 340px;
+    padding: 12px;
+    background-color: #fffaf2;
+    border: 1px solid #e2d8cc;
+    border-radius: 6px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    box-sizing: border-box;
+    overflow: visible;
+}
+
+.header-banner {
+    position: relative;
+    width: 100%;
+    min-height: 520px;
+    overflow: visible;
+}
+
+.datepicker-container .rdp {
+    width: 100%;
+    height: auto !important;
+    max-height: none !important;
+    margin: 0;
+    overflow: visible !important;
+}
+
+.datepicker-container .rdp-month {
+    width: 100%;
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+}
+
+.datepicker-container .rdp-month_caption {
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 700;
+    color: #48281B;
+}
+
+.datepicker-container .rdp-button_previous,
+.datepicker-container .rdp-button_next {
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: transparent;
+    color: #a4805c;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.datepicker-container .rdp-button_previous:hover,
+.datepicker-container .rdp-button_next:hover {
+    background-color: #f1b3a3;
+}
+
+.datepicker-container .rdp-weekday {
+    height: 32px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #5c2c23;
+}
+
+.datepicker-container .rdp-month_grid {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.datepicker-container .rdp-day {
+    width: 38px;
+    height: 38px;
+    padding: 2px;
+}
+
+.datepicker-container .rdp-day_button {
+    width: 34px;
+    height: 34px;
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    font-size: 12px;
+    color: #48281B;
+    cursor: pointer;
+}
+
+
+.datepicker-container .rdp-day_button:hover {
+    background-color: #f1b3a3;
+    color: #48281B;
+}
+
+
+.datepicker-container .rdp-selected .rdp-day_button {
+    background-color: #a4805c;
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.datepicker-container .rdp-today .rdp-day_button {
+    border: 1px solid #a4805c;
+    font-weight: 700;
+}
+
+
+.datepicker-container .rdp-disabled .rdp-day_button {
+    color: #c9c0b8;
+    cursor: default;
+    background: transparent;
+}
+
+
+.datepicker-container .rdp-outside .rdp-day_button {
+    color: #cfc7c0;
+}
+
+
+.datepicker-container input,
+.datepicker-container button {
+    box-sizing: border-box;
+}
+
+
+@media (max-width: 768px) {
+
+    .datepicker-container {
+        width: 280px;
+        left: 0;
+        transform: none;
+    }
+
+    .datepicker-container .rdp-day {
+        width: 34px;
+        height: 34px;
+    }
+
+    .datepicker-container .rdp-day_button {
+        width: 30px;
+        height: 30px;
+    }
+}
