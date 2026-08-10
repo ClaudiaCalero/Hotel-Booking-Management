@@ -1,0 +1,15 @@
+.my-footer {
+  color: #f0e8e8;
+  background-color: #444;
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  font-weight: 500;
+  padding: 15px 10px;
+  font-size: 14px;
+  flex: 0 0 auto;         /* tamaño fijo, no se estira ni se comprime */
+  position: relative;     /* crea su propio contexto de apilamiento */
+  z-index: 20;            /* por encima de cualquier imagen o overlay */
+ /* background-color: #2b2b2b !important; /* fondo sólido, ajusta al color real de tu footer */
+}

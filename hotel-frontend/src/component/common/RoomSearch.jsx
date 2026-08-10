@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import ApiService from "../../service/ApiService";
 import { DayPicker } from "react-day-picker";
-
+import "../../styles/daypicker.css";
 const RoomSearch = ({ handSearchResult }) => {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndtDate] = useState(null);

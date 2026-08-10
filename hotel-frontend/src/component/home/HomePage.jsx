@@ -5,33 +5,35 @@ import RoomSearch from "../common/RoomSearch";
 const HomePage = () => {
   const [roomSearchResult, setRoomSearchResult] = useState([]);
 
-  //funtion to handle search result
   const handleSearchResult = (results) => {
     setRoomSearchResult(results);
-    console.log("RESULT IS: " , results);
+    //console.log("RESULT IS: " , results);
   };
 
   return (
-    <div className="home">
+    <div className="home-background">
+    <div className="main-window">
       <section>
         <header className="header-banner">
-          <img
-            src="./images/hotel/web/bg.jpg"
-            alt="Hotel"
-            className="header-image"
-          />
           <div className="overlay"></div>
+          
+          {/* CAJA 1: Textos principales */}
           <div className="animated-texts overlay-content">
             <h1>
               Welcome to <span className="onyx-color">Onyx Crown Hotel</span>
-            </h1>{" "}
+            </h1>
             <br />
             <h3>Step into a haven of comfort and care</h3>
+          </div>
+
+          {/* CAJA 2: Metemos el buscador aquí dentro para que se dibuje SOBRE la imagen de fondo */}
+          <div className="search-placement">
+            <RoomSearch handSearchResult={handleSearchResult} />
           </div>
         </header>
       </section>
 
-      <RoomSearch handSearchResult={handleSearchResult} />
+      {/* Los resultados y servicios van fuera del banner, abajo */}
       <RoomResult roomSearchResults={roomSearchResult} />
 
       <h4>
@@ -44,7 +46,7 @@ const HomePage = () => {
         Services at <span className="onyx-color">Onyx Crown Hotel</span>
       </h2>
 
-      {/* SERVICES SECTION */}
+      {/* SECCIÓN DE SERVICIOS */}
       <section className="service-section">
         <div className="service-card">
           <img src="./images/ac.png" alt="Air Conditioning" />
@@ -87,6 +89,7 @@ const HomePage = () => {
           </div>
         </div>
       </section>
+    </div>
     </div>
   );
 };

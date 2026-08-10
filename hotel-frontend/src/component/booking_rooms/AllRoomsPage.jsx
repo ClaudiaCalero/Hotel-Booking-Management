@@ -5,6 +5,7 @@ import React, { useState, useEffect } from "react";
  import RoomSearch from "../common/RoomSearch";
 
 
+
  
  const AllRoomsPage =() => {
     const [rooms, setRooms] = useState([]);

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import ApiService from "../../service/ApiService";
+import '../../styles/auth.css'; // Vincula tu archivo de estilos limpio
 
 const LoginPage = () => {
   const [formData, setFormData] = useState({
@@ -9,7 +10,7 @@ const LoginPage = () => {
   });
 
   const [error, setError] = useState("");
-// NEW STATUS: Controls whether the recovery link should be displayed
+  // NEW STATUS: Controls whether the recovery link should be displayed
   const [showForgotLink, setShowForgotLink] = useState(false);
 
   const navigate = useNavigate();
@@ -65,41 +66,48 @@ const LoginPage = () => {
     }
   }
 
-  return(
-    <div className="auth-container">
-        {/* Modify the error parragraf to include the link next to it */}
+  return (
+    <div className="login-background-wrapper">
+      <div className="auth-container">
+        
+        {/* Bloque de error dinámico adaptado al diseño */}
         {error && (
-            <p className="error-message">
-                {error}
-                {showForgotLink && (
-                    <a href="/forgot-password" style={{ marginLeft: '8px', color: '#007bff', textDecoration: 'underline' }}>
-                        Forgot password?
-                    </a>
-                )}
-            </p>
+          <div className="error-alert-box">
+            <span className="error-text-content">{error}</span>
+            {showForgotLink && (
+              <a href="/forgot-password" className="forgot-password-link">
+                Forgot password?
+              </a>
+            )}
+          </div>
         )}
 
         <h2>Login</h2>
         <form onSubmit={handleSubmit}>
-            {["email", "password"].map(
-                (field) => (
-                    <div className="form-group" key={field}>
-                        <label>{field.charAt(0).toLocaleUpperCase() + field.slice(1)}: </label>
-                        <input type={field} 
-                        name={field}
-                        value={formData[field]}
-                        onChange={handleChange}
-                        required
-                        />
-                    </div>
-                )
-            )}
-            <button type="submit">Login</button>
+          {["email", "password"].map((field) => (
+            <div className="form-group" key={field}>
+              <label>
+                {field.charAt(0).toLocaleUpperCase() + field.slice(1)}:{" "}
+              </label>
+              <input
+                type={field}
+                name={field}
+                value={formData[field]}
+                onChange={handleChange}
+                required
+              />
+            </div>
+          ))}
+          <button type="submit" className="login-submit-btn">Login</button>
         </form>
-        
-        <p className="register-link"> Don't have an account? <a href="/register">Register</a></p>
+
+        <p className="register-link">
+          Don't have an account? <a href="/register">Register</a>
+        </p>
+      </div>
     </div>
-  )
+  );
 };
 
 export default LoginPage;
+
