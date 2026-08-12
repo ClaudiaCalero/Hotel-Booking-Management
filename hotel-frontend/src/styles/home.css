@@ -2,14 +2,14 @@
     position: relative;
     width: 100%;
     min-height: 100vh;
-    background-color: #f8f3ed;
+    background-color: #fff4f8;
     padding: 0 20px;
     box-sizing: border-box;
 }
 
 .home-background::before {
     content: "";
-    position: fixed;
+    position: absolute;
     top: 0;
     bottom: 0;
     left: 20px;
@@ -20,15 +20,14 @@
     background-position: center center;
     z-index: 0;
 }
-
 .home-background::after {
     content: "";
-    position: fixed;
+    position: absolute;
     top: 0;
     bottom: 0;
     left: 20px;
     right: 20px;
-    background: rgba(255, 255, 255, 0.20);
+    background: rgba(255, 255, 255, 0.25);
     z-index: 0;
 }
 
@@ -105,7 +104,7 @@
     flex-direction: column !important;
     gap: 5px !important;
     margin: 0 !important;
-    background-color: #f1b3a3 !important;
+    background-color: rgba(241, 179, 163, 0.92) !important;
     padding: 9px 10px !important;
     border-radius: 4px !important;
     box-sizing: border-box;
@@ -136,7 +135,7 @@
     flex: 0 0 135px !important;
     height: 44px;
     padding: 0 12px !important;
-    background-color: #46775b !important;
+    background-color: rgba(70, 119, 91, 0.95) !important;
     color: #ffffff !important;
     font-weight: 600 !important;
     font-size: 11px !important;
@@ -148,7 +147,6 @@
     align-items: center;
     justify-content: center;
     box-sizing: border-box;
-    transition: background-color 0.2s ease;
 }
 
 .home-search-button:hover {
@@ -280,47 +278,335 @@
     line-height: 1.2;
 }
 
-@media (max-width: 768px) {
+/* =========================================================
+   DESKTOP
+   ========================================================= */
 
+/* Tus estilos actuales */
+/* 1025px en adelante */
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (min-width: 769px) and (max-width: 1024px) {
+
+    /* Navbar */
+    .navbar {
+        padding: 12px 30px;
+        font-size: 13px;
+    }
+
+    .navbar-brand a {
+        font-size: 17px;
+    }
+
+    .navbar-ul li {
+        margin-left: 16px;
+    }
+
+    /* Hero */
     .header-banner {
-        min-height: 60vh;
+        min-height: 735px;
     }
 
     .overlay-content h1 {
-        font-size: 20px;
+        font-size: 22px;
     }
 
     .overlay-content h3 {
-        font-size: 14px;
+        font-size: 12px;
+    }
+
+    /* Buscador en UNA fila */
+    .search-placement {
+        top: 48%;
+        width: 88%;
+        max-width: 730px;
     }
 
     .search-container {
-        flex-direction: column !important;
         gap: 10px !important;
     }
 
     .search-field {
-        width: 100%;
+        padding: 8px 9px !important;
+    }
+
+    .search-field label {
+        font-size: 9px;
+    }
+
+    .search-field input,
+    .search-field select {
+        height: 27px;
+        font-size: 10px;
     }
 
     .home-search-button {
-        width: 100%;
-        min-height: 45px;
+        flex: 0 0 115px !important;
+        height: 42px;
+        font-size: 10px !important;
     }
 
+    /* All Rooms */
     .view-rooms-home {
-        margin-left: 1rem;
+        margin-left: 3rem;
+        font-size: 12px;
+    }
+
+    /* Services */
+    .home-services {
+        font-size: 17px;
+        margin: 5px auto 25px;
     }
 
     .service-section {
-        grid-template-columns: 1fr;
-
+        max-width: 700px;
+        column-gap: 20px;
         row-gap: 20px;
-
-        padding: 0 15px 40px;
+        padding-bottom: 40px;
     }
 
     .service-card {
-        width: 100%;
+        padding: 10px 12px;
+    }
+
+    .service-card img {
+        width: 34px;
+        margin-right: 10px;
+    }
+
+    .service-title {
+        font-size: 12px;
+    }
+
+    .service-description {
+        font-size: 9px;
+    }
+}
+
+
+/* =========================================================
+   MÓVIL
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+    /* =========================
+       NAVBAR
+       ========================= */
+
+    .navbar {
+        padding: 10px 12px;
+        flex-direction: column;
+        gap: 7px;
+        box-sizing: border-box;
+    }
+
+    .navbar-brand a {
+        font-size: 17px;
+    }
+
+    .navbar-ul {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 5px 10px;
+    }
+
+    .navbar-ul li {
+        margin-left: 0;
+        margin-bottom: 0;
+    }
+
+    .navbar-ul li a {
+        display: inline-block;
+        margin: 0;
+        font-size: 11px;
+    }
+
+
+    /* =========================
+       HERO
+       ========================= */
+
+    .header-banner {
+        min-height: 850px;
+        overflow: visible;
+    }
+
+
+    /* =========================
+       TÍTULOS
+       ========================= */
+
+    .overlay-content {
+        position: absolute;
+        top: 75px;
+        left: 50%;
+        width: 90%;
+        transform: translateX(-50%);
+    }
+
+    .overlay-content h1 {
+        margin-top: 0;
+        font-size: 20px;
+        line-height: 1.2;
+    }
+
+    .overlay-content h3 {
+        margin-top: 8px;
+        font-size: 12px;
+    }
+
+
+    /* =========================
+       BUSCADOR
+       ========================= */
+
+    .search-placement {
+        position: absolute;
+        top: 180px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 82%;
+        max-width: none;
+    }
+
+    .search-container {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 10px !important;
+    }
+
+    .search-field {
+        width: 100% !important;
+        flex: none !important;
+        padding: 8px 9px !important;
+        box-sizing: border-box;
+    }
+
+    .search-field label {
+        font-size: 9px;
+        margin-bottom: 3px;
+    }
+
+    .search-field input,
+    .search-field select {
+        width: 100% !important;
+        height: 30px;
+        font-size: 10px;
+    }
+
+
+    /* =========================
+       BOTÓN
+       ========================= */
+
+    .home-search-button {
+        width: 100% !important;
+        height: 45px !important;
+        min-height: 45px;
+        flex: none !important;
+        font-size: 10px !important;
+    }
+
+
+    /* =========================
+       ALL ROOMS
+       ========================= */
+
+    .view-rooms-home {
+        position: absolute;
+        top: 535px;
+        left: 0;
+        margin-left: 15px;
+        font-size: 11px;
+    }
+
+
+    /* =========================
+       SERVICES
+       ========================= */
+
+    .home-services {
+        position: relative;
+        margin: 0 auto 20px;
+        padding-top: 0;
+        font-size: 18px;
+    }
+
+    .service-section {
+        width: 90%;
+        max-width: none;
+        margin: 0 auto;
+        padding: 0 0 40px;
+
+        display: grid;
+        grid-template-columns: 1fr;
+
+        row-gap: 15px;
+    }
+
+    .service-card {
+        width: 100% !important;
+        padding: 10px 12px;
+    }
+
+    .service-card img {
+        width: 32px;
+        margin-right: 10px;
+    }
+
+    .service-title {
+        font-size: 12px;
+    }
+
+    .service-description {
+        font-size: 9px;
+        line-height: 1.25;
+    }
+}
+@media (max-width: 400px) {
+
+    .navbar {
+        padding: 8px 10px;
+    }
+
+    .navbar-brand a {
+        font-size: 16px;
+    }
+
+    .navbar-ul {
+        gap: 4px 8px;
+    }
+
+    .navbar-ul li a {
+        font-size: 10px;
+    }
+
+    .overlay-content {
+        width: 92%;
+    }
+
+    .overlay-content h1 {
+        font-size: 18px;
+    }
+
+    .overlay-content h3 {
+        font-size: 11px;
+    }
+
+    .search-placement {
+        width: 88%;
+        top: 175px;
+    }
+
+    .home-services {
+        font-size: 16px;
     }
 }
