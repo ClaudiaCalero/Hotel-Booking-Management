@@ -1,6 +1,10 @@
 # Hotel Booking Management
 
-Web application for managing hotel bookings. Users can make reservations, and administrators can manage rooms, users, and bookings.
+## 🏨 About the Project
+This project is a web application for managing hoyrl bookings. It allows users to register, recover their credentials through a password reset system, and make room reservations. Additionally, it features an advanced administrative module to manage room inventory, user roles, and booking statuses.
+
+## 🎨 Creative Concept
+When I think about the movie "The Grand Budapest Hotel", directed by Wes Anderson, I find it curious to imagine what its website would look like. Originally, this project was born as a part of my portfolio. However, while setting up the mockup, choosing the style, selecting the photos, the colors, etc., I couldn't help out but think of that movie. Could it be because I watched it shortly before working on the design? Who knows. The point is, I find it fun to think that, if it had one, this could be the official website of the Grand Budapest Hotel.
 
 ## 📚 Table of Contents
 
