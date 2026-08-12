@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import ApiService from "../../service/ApiService";
-import '../../styles/auth.css'; // Vincula tu archivo de estilos limpio
+import '../../styles/login.css';
 
 const LoginPage = () => {
   const [formData, setFormData] = useState({
