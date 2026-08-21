@@ -1,165 +1,126 @@
-/* =========================================================
-   REGISTER
-   ========================================================= */
+.register-page-container {
+    width: 100%;
+    display: block;
+    isolation: isolate;
+}
+
+.register-background-wrapper {
+    position: relative;
+    width: 100%;
+    min-height: calc(100vh - 75px);
+    background-color: var(--bg-cream);
+    padding: 0 20px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.register-background-wrapper::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 20px;
+    right: 20px;
+    background-image: url("../../public/images/hotel/Hotelweb/logreg.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center 60%;
+    z-index: 0;
+}
+
+.register-background-wrapper::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 20px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.25);
+    z-index: 0;
+}
+
+.register-background-wrapper > * {
+    position: relative;
+    z-index: 1;
+}
 
 .register-auth-container {
     position: relative;
     z-index: 1;
-
-    width: 370px;
-    max-width: 90%;
-
-    padding: 30px 40px;
-
-    margin: 40px auto;
-
+    width: 330px;
+    max-width: calc(100% - 40px);
+    margin: 0;
+    padding: 25px 35px;
     box-sizing: border-box;
-
-    background: rgba(255, 255, 255, 0.20);
+    background: var(--bg-white);
 }
-
-
-/* =========================================================
-   FONDO
-   ========================================================= */
-
-.register-auth-container::before {
-    content: "";
-
-    position: fixed;
-    inset: 0;
-
-    background-image: url("../../public/images/hotel/Hotelweb/logreg.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center center;
-
-    z-index: -2;
-}
-
-
-/* =========================================================
-   OVERLAY
-   Blanco al 20%
-   ========================================================= */
-
-.register-auth-container::after {
-    content: "";
-
-    position: fixed;
-    inset: 0;
-
-    background: rgba(255, 255, 255, 0.20);
-
-    z-index: -1;
-}
-
-
-/* =========================================================
-   TÍTULO
-   ========================================================= */
 
 .register-auth-container h2 {
-    margin: 0 0 20px;
-
+    margin: 0 0 10px;
     text-align: center;
-
-    color: #ffffff;
-
-    font-size: 22px;
+    color:  var(--hotel-burgundy);
+    font-size: 20px;
     font-weight: 700;
 }
 
-
-/* =========================================================
-   CAMPOS
-   ========================================================= */
-
 .register-auth-container .form-group {
-    margin-bottom: 14px;
+    margin-bottom: 16px;
 }
 
 .register-auth-container .form-group label {
-    display: block;
-
-    margin-bottom: 7px;
-
-    color: #111111;
-
-    font-size: 15px;
-    font-weight: 500;
+    display: block !important;
+    margin-bottom: 7px !important;
+    color: var(--text-dark) !important; 
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    text-align: left !important;
 }
 
 .register-auth-container .form-group input {
     width: 100%;
-    height: 35px;
-
-    padding: 0 10px;
-
-    box-sizing: border-box;
-
-    border: none;
-    border-radius: 2px;
-
-    background-color: rgba(255, 255, 255, 0.92);
-
-    color: #222222;
-
+    height: 34px;
     font-size: 13px;
-
+    padding: 0 10px;
+    box-sizing: border-box;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    background-color: var(--bg-white);
+    color: var(--text-dark);
     outline: none;
 }
 
 
-/* =========================================================
-   BOTÓN REGISTER
-   ========================================================= */
-
 .register-auth-container button[type="submit"] {
     width: 100%;
-    height: 42px;
-
-    margin-top: 5px;
-
+    height: 38px;
+    margin-top: 4px;
     padding: 0 12px;
-
     border: none;
     border-radius: 2px;
-
-    background-color: rgba(70, 119, 91, 0.95);
-
-    color: #ffffff;
-
+    background-color: var(--hotel-green);
+    color: var(--bg-white);
     font-size: 17px;
     font-weight: 600;
-
     cursor: pointer;
+    transition: background-color 0.2s ease;
 }
 
 .register-auth-container button[type="submit"]:hover {
-    background-color: rgba(56, 96, 72, 0.95);
+    background-color: #527c64;
 }
 
-
-/* =========================================================
-   LINK LOGIN
-   ========================================================= */
-
 .register-auth-container .register-link {
-    margin: 25px 0 0;
-
+    margin: 20px 0 0;
     text-align: center;
-
     color: #111111;
-
-    font-size: 15px;
+    font-size: 14px;
 }
 
 .register-auth-container .register-link a {
-    color: #111111;
-
+    color: var(--hotel-coral);
     font-weight: 600;
-
     text-decoration: none;
 }
 
@@ -168,82 +129,45 @@
 }
 
 
-/* =========================================================
-   MENSAJES
-   ========================================================= */
-
 .register-auth-container .error-message {
     margin-bottom: 15px;
     padding: 8px 10px;
-
     text-align: center;
-
-    background: rgba(255, 220, 220, 0.85);
-
+    background: rgba(255, 220, 220, 0.9);
     color: #8b2222;
-
     font-size: 13px;
+    border-radius: 4px;
 }
-
 
 .register-auth-container .success-message {
     margin-bottom: 15px;
     padding: 8px 10px;
-
     text-align: center;
-
-    background: rgba(220, 245, 225, 0.85);
-
+    background: rgba(220, 245, 225, 0.9);
     color: #28613b;
-
     font-size: 13px;
+    border-radius: 4px;
 }
-
-
-/* =========================================================
-   RESPONSIVE
-   ========================================================= */
 
 @media (max-width: 768px) {
-
     .register-auth-container {
-        width: 370px;
+        width: 330px;
         max-width: 90%;
-
         padding: 30px 35px;
-
-        margin: 40px auto;
-    }
-
-    .register-auth-container h2 {
-        font-size: 20px;
-    }
-
-    .register-auth-container .form-group label {
-        font-size: 14px;
-    }
-
-    .register-auth-container .register-link {
-        font-size: 14px;
+        box-sizing: border-box;
     }
 }
 
-
 @media (max-width: 400px) {
-
     .register-auth-container {
         width: 92%;
         max-width: 92%;
-
         padding: 25px;
-
-        margin: 30px auto;
+        box-sizing: border-box;
     }
 
     .register-auth-container h2 {
         font-size: 19px;
-
-        margin-bottom: 20px;
     }
 
     .register-auth-container .form-group {
@@ -252,25 +176,21 @@
 
     .register-auth-container .form-group label {
         font-size: 13px;
-
-        margin-bottom: 6px;
     }
 
     .register-auth-container .form-group input {
-        height: 32px;
-
-        font-size: 12px;
+        width: 100%;
+        height: 30px;
+        box-sizing: border-box;
     }
 
     .register-auth-container button[type="submit"] {
+        width: 100%;
         height: 40px;
-
         font-size: 15px;
     }
 
     .register-auth-container .register-link {
-        margin-top: 20px;
-
         font-size: 13px;
     }
 }
