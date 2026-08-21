@@ -8,13 +8,14 @@
     position: relative;
     width: 100%;
     min-height: calc(100vh - 75px);
-    background-color: #fff4f8;
+    background-color: var(--bg-cream);
     padding: 0 20px;
     box-sizing: border-box;
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
 .login-background-wrapper::before {
     content: "";
     position: absolute;
@@ -29,6 +30,7 @@
 
     z-index: 0;
 }
+
 .login-background-wrapper::after {
     content: "";
     position: absolute;
@@ -50,17 +52,13 @@
     top: 50% !important;
     left: 50% !important;
     transform: translate(-50%, -50%) !important;
-
     display: flex !important;
     flex-direction: column !important;
-
     width: 330px !important;
     min-height: auto !important;
     box-sizing: border-box !important;
-
     padding: 30px 35px !important;
-
-    background: #fcfcfb !important;
+    background: var(--bg-white) !important;
     opacity: 1 !important;
     visibility: visible !important;
     z-index: 2 !important;
@@ -68,7 +66,7 @@
 .login-background-wrapper .login-auth-container h2 {
     margin: 0 0 24px !important;
     text-align: center !important;
-    color: #4a2820 !important;
+    color:  var(--hotel-burgundy) !important;
     font-size: 20px !important;
     font-weight: 700 !important;
 }
@@ -80,7 +78,7 @@
 .login-background-wrapper .form-group label {
     display: block !important;
     margin-bottom: 7px !important;
-    color: #111111 !important; 
+    color: var(--text-dark) !important; 
     font-size: 15px !important;
     font-weight: 600 !important;
     text-align: left !important;
@@ -94,11 +92,10 @@
     box-sizing: border-box;
     border: 1px solid #cccccc; 
     border-radius: 4px;
-    background-color: #ffffff; 
-    color: #222222;
+    background-color: var(--bg-white); 
+    color: var(--text-dark);
     outline: none;
 }
-
 
 .login-background-wrapper .login-submit-btn {
     width: 100%;
@@ -115,7 +112,7 @@
 }
 
 .login-background-wrapper .login-submit-btn:hover {
-    background-color: rgba(56, 96, 72, 0.95);
+    background-color: var(--hotel-green);
 }
 
 .login-background-wrapper .register-link {
@@ -126,7 +123,7 @@
 }
 
 .login-background-wrapper .register-link a {
-    color: #f19086 !important; 
+    color: var(--hotel-coral) !important; 
     font-weight: 600;
     text-decoration: none;
 }
