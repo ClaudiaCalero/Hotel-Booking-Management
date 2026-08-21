@@ -16,37 +16,27 @@ const HomePage = () => {
       <section>
         <header className="header-banner">
           <div className="overlay"></div>
-          
-          {/* CAJA 1: Textos principales */}
-          <div className="animated-texts overlay-content">
+                    <div className="animated-texts overlay-content">
             <h1>
               Welcome to <span className="onyx-color">Onyx Crown Hotel</span>
             </h1>
             <br />
             <h3>Step into a haven of comfort and care</h3>
           </div>
-
-          {/* CAJA 2: Metemos el buscador aquí dentro para que se dibuje SOBRE la imagen de fondo */}
           <div className="search-placement">
             <RoomSearch handSearchResult={handleSearchResult} />
           </div>
         </header>
       </section>
-
-      {/* Los resultados y servicios van fuera del banner, abajo */}
       <RoomResult roomSearchResults={roomSearchResult} />
-
       <h4>
         <a className="view-rooms-home" href="/rooms">
           All Rooms
         </a>
       </h4>
-
       <h2 className="home-services">
         Services at <span className="onyx-color">Onyx Crown Hotel</span>
       </h2>
-
-      {/* SECCIÓN DE SERVICIOS */}
       <section className="service-section">
         <div className="service-card">
           <img src="./images/ac.png" alt="Air Conditioning" />

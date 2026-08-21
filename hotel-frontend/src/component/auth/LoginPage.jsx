@@ -67,10 +67,10 @@ const LoginPage = () => {
   }
 
   return (
+  <div className="login-page-container"> {/* ← Agrega este contenedor aquí */}
     <div className="login-background-wrapper">
-      <div className="auth-container">
+      <div className="login-auth-container">
         
-        {/* Bloque de error dinámico adaptado al diseño */}
         {error && (
           <div className="error-alert-box">
             <span className="error-text-content">{error}</span>
@@ -86,11 +86,12 @@ const LoginPage = () => {
         <form onSubmit={handleSubmit}>
           {["email", "password"].map((field) => (
             <div className="form-group" key={field}>
-              <label>
-                {field.charAt(0).toLocaleUpperCase() + field.slice(1)}:{" "}
+              <label htmlFor={field}>
+                {field.charAt(0).toUpperCase() + field.slice(1)}:
               </label>
               <input
-                type={field}
+                type={field === "password" ? "password" : "email"}
+                id={field}
                 name={field}
                 value={formData[field]}
                 onChange={handleChange}
@@ -98,16 +99,23 @@ const LoginPage = () => {
               />
             </div>
           ))}
-          <button type="submit" className="login-submit-btn">Login</button>
+          
+          <button type="submit" className="login-submit-btn">
+            Login
+          </button>
         </form>
 
-        <p className="register-link">
+        <div className="register-link">
           Don't have an account? <a href="/register">Register</a>
-        </p>
+        </div>
+
       </div>
     </div>
-  );
+  </div> /* ← Cierra el contenedor aquí */
+);
+
 };
 
 export default LoginPage;
+
 

@@ -278,21 +278,7 @@
     line-height: 1.2;
 }
 
-/* =========================================================
-   DESKTOP
-   ========================================================= */
-
-/* Tus estilos actuales */
-/* 1025px en adelante */
-
-
-/* =========================================================
-   TABLET
-   ========================================================= */
-
 @media (min-width: 769px) and (max-width: 1024px) {
-
-    /* Navbar */
     .navbar {
         padding: 12px 30px;
         font-size: 13px;
@@ -306,7 +292,6 @@
         margin-left: 16px;
     }
 
-    /* Hero */
     .header-banner {
         min-height: 735px;
     }
@@ -319,7 +304,6 @@
         font-size: 12px;
     }
 
-    /* Buscador en UNA fila */
     .search-placement {
         top: 48%;
         width: 88%;
@@ -350,29 +334,24 @@
         font-size: 10px !important;
     }
 
-    /* All Rooms */
     .view-rooms-home {
         margin-left: 3rem;
         font-size: 12px;
     }
 
-    /* Services */
     .home-services {
         font-size: 17px;
         margin: 5px auto 25px;
     }
-
     .service-section {
         max-width: 700px;
         column-gap: 20px;
         row-gap: 20px;
         padding-bottom: 40px;
     }
-
     .service-card {
         padding: 10px 12px;
     }
-
     .service-card img {
         width: 34px;
         margin-right: 10px;
@@ -388,15 +367,7 @@
 }
 
 
-/* =========================================================
-   MÓVIL
-   ========================================================= */
-
 @media (max-width: 768px) {
-
-    /* =========================
-       NAVBAR
-       ========================= */
 
     .navbar {
         padding: 10px 12px;
@@ -428,20 +399,10 @@
         font-size: 11px;
     }
 
-
-    /* =========================
-       HERO
-       ========================= */
-
     .header-banner {
         min-height: 850px;
         overflow: visible;
     }
-
-
-    /* =========================
-       TÍTULOS
-       ========================= */
 
     .overlay-content {
         position: absolute;
@@ -461,11 +422,6 @@
         margin-top: 8px;
         font-size: 12px;
     }
-
-
-    /* =========================
-       BUSCADOR
-       ========================= */
 
     .search-placement {
         position: absolute;
@@ -502,11 +458,6 @@
         font-size: 10px;
     }
 
-
-    /* =========================
-       BOTÓN
-       ========================= */
-
     .home-search-button {
         width: 100% !important;
         height: 45px !important;
@@ -515,11 +466,6 @@
         font-size: 10px !important;
     }
 
-
-    /* =========================
-       ALL ROOMS
-       ========================= */
-
     .view-rooms-home {
         position: absolute;
         top: 535px;
@@ -527,12 +473,6 @@
         margin-left: 15px;
         font-size: 11px;
     }
-
-
-    /* =========================
-       SERVICES
-       ========================= */
-
     .home-services {
         position: relative;
         margin: 0 auto 20px;
