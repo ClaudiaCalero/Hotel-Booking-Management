@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import ApiService from '../../service/ApiService'; // Assuming your service is in a file called ApiService.js
-
+import '../../styles/find-booking.css'
 const FindBookingPage = () => {
     const [confirmationCode, setConfirmationCode] = useState(''); // State variable for confirmation code
     const [bookingDetails, setBookingDetails] = useState(null); // State variable for booking details
