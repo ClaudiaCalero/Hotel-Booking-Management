@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import ApiService from "../../service/ApiService";
+import "../../styles/password-recovery.css";
+
 const ResetPassword = () => {
   const [searchParams] = useSearchParams();
-  const token = searchParams.get("token"); // Read url token
+  const token = searchParams.get("token");
+
   const navigate = useNavigate();
 
   const [newPassword, setNewPassword] = useState("");
@@ -13,6 +16,7 @@ const ResetPassword = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     setMessage("");
     setError("");
 
@@ -22,50 +26,92 @@ const ResetPassword = () => {
     }
 
     try {
-      // CORRECCIÓN CRUCIAL: El nombre de la propiedad debe ser "token" en minúsculas
-      // para que coincida exactamente con tu DTO de Java.
       const response = await ApiService.resetPassword({
-        token: token, // Asegúrate de que aquí se envíe "token" en minúscula
+        token: token,
         newPassword: newPassword,
       });
 
-      setMessage(response.message || "Password updated successfully!");
+      setMessage(
+        response.message ||
+          "Password updated successfully!"
+      );
 
       setTimeout(() => {
         navigate("/login");
       }, 2000);
     } catch (err) {
-      setError(err.response?.data?.message || "Invalid or expired token.");
+      setError(
+        err.response?.data?.message ||
+          "Invalid or expired token."
+      );
     }
   };
 
   return (
-    <div className="auth-container">
-      <h2>Create New Password</h2>
-      {message && <p style={{ color: "green" }}>{message}</p>}
-      {error && <p style={{ color: "red" }}>{error}</p>}
+    <div className="password-recovery-page">
+      <div className="password-recovery-background">
+        <div className="password-recovery-card">
 
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label>New Password:</label>
-          <input
-            type="password"
-            value={newPassword}
-            onChange={(e) => setNewPassword(e.target.value)}
-            required
-          />
+          <h2>Create New Password</h2>
+
+          {message && (
+            <p className="success-message">
+              {message}
+            </p>
+          )}
+
+          {error && (
+            <p className="error-message">
+              {error}
+            </p>
+          )}
+
+          <form onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label htmlFor="newPassword">
+                New Password:
+              </label>
+
+              <input
+                id="newPassword"
+                type="password"
+                value={newPassword}
+                onChange={(e) =>
+                  setNewPassword(e.target.value)
+                }
+                required
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="confirmPassword">
+                Confirm Password:
+              </label>
+
+              <input
+                id="confirmPassword"
+                type="password"
+                value={confirmPassword}
+                onChange={(e) =>
+                  setConfirmPassword(e.target.value)
+                }
+                required
+              />
+            </div>
+
+            <button type="submit">
+              Reset Password
+            </button>
+          </form>
+
+          <p className="password-recovery-link">
+            <a href="/login">
+              Back to Login
+            </a>
+          </p>
+
         </div>
-        <div className="form-group">
-          <label>Confirm Password:</label>
-          <input
-            type="password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            required
-          />
-        </div>
-        <button type="submit">Reset Password</button>
-      </form>
+      </div>
     </div>
   );
 };
