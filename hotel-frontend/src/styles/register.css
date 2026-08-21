@@ -2,7 +2,7 @@
    REGISTER
    ========================================================= */
 
-.auth-container {
+.register-auth-container {
     position: relative;
     z-index: 1;
 
@@ -23,7 +23,7 @@
    FONDO
    ========================================================= */
 
-.auth-container::before {
+.register-auth-container::before {
     content: "";
 
     position: fixed;
@@ -43,7 +43,7 @@
    Blanco al 20%
    ========================================================= */
 
-.auth-container::after {
+.register-auth-container::after {
     content: "";
 
     position: fixed;
@@ -59,7 +59,7 @@
    TÍTULO
    ========================================================= */
 
-.auth-container h2 {
+.register-auth-container h2 {
     margin: 0 0 20px;
 
     text-align: center;
@@ -75,11 +75,11 @@
    CAMPOS
    ========================================================= */
 
-.auth-container .form-group {
+.register-auth-container .form-group {
     margin-bottom: 14px;
 }
 
-.auth-container .form-group label {
+.register-auth-container .form-group label {
     display: block;
 
     margin-bottom: 7px;
@@ -90,7 +90,7 @@
     font-weight: 500;
 }
 
-.auth-container .form-group input {
+.register-auth-container .form-group input {
     width: 100%;
     height: 35px;
 
@@ -115,7 +115,7 @@
    BOTÓN REGISTER
    ========================================================= */
 
-.auth-container button[type="submit"] {
+.register-auth-container button[type="submit"] {
     width: 100%;
     height: 42px;
 
@@ -136,7 +136,7 @@
     cursor: pointer;
 }
 
-.auth-container button[type="submit"]:hover {
+.register-auth-container button[type="submit"]:hover {
     background-color: rgba(56, 96, 72, 0.95);
 }
 
@@ -145,7 +145,7 @@
    LINK LOGIN
    ========================================================= */
 
-.auth-container .register-link {
+.register-auth-container .register-link {
     margin: 25px 0 0;
 
     text-align: center;
@@ -155,7 +155,7 @@
     font-size: 15px;
 }
 
-.auth-container .register-link a {
+.register-auth-container .register-link a {
     color: #111111;
 
     font-weight: 600;
@@ -163,7 +163,7 @@
     text-decoration: none;
 }
 
-.auth-container .register-link a:hover {
+.register-auth-container .register-link a:hover {
     text-decoration: underline;
 }
 
@@ -172,7 +172,7 @@
    MENSAJES
    ========================================================= */
 
-.auth-container .error-message {
+.register-auth-container .error-message {
     margin-bottom: 15px;
     padding: 8px 10px;
 
@@ -186,7 +186,7 @@
 }
 
 
-.auth-container .success-message {
+.register-auth-container .success-message {
     margin-bottom: 15px;
     padding: 8px 10px;
 
@@ -206,7 +206,7 @@
 
 @media (max-width: 768px) {
 
-    .auth-container {
+    .register-auth-container {
         width: 370px;
         max-width: 90%;
 
@@ -215,15 +215,15 @@
         margin: 40px auto;
     }
 
-    .auth-container h2 {
+    .register-auth-container h2 {
         font-size: 20px;
     }
 
-    .auth-container .form-group label {
+    .register-auth-container .form-group label {
         font-size: 14px;
     }
 
-    .auth-container .register-link {
+    .register-auth-container .register-link {
         font-size: 14px;
     }
 }
@@ -231,7 +231,7 @@
 
 @media (max-width: 400px) {
 
-    .auth-container {
+    .register-auth-container {
         width: 92%;
         max-width: 92%;
 
@@ -240,35 +240,35 @@
         margin: 30px auto;
     }
 
-    .auth-container h2 {
+    .register-auth-container h2 {
         font-size: 19px;
 
         margin-bottom: 20px;
     }
 
-    .auth-container .form-group {
+    .register-auth-container .form-group {
         margin-bottom: 15px;
     }
 
-    .auth-container .form-group label {
+    .register-auth-container .form-group label {
         font-size: 13px;
 
         margin-bottom: 6px;
     }
 
-    .auth-container .form-group input {
+    .register-auth-container .form-group input {
         height: 32px;
 
         font-size: 12px;
     }
 
-    .auth-container button[type="submit"] {
+    .register-auth-container button[type="submit"] {
         height: 40px;
 
         font-size: 15px;
     }
 
-    .auth-container .register-link {
+    .register-auth-container .register-link {
         margin-top: 20px;
 
         font-size: 13px;

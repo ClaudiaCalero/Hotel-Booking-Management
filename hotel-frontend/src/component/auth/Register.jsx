@@ -49,7 +49,7 @@ const RegisterPage = () => {
 
 
     return(
-        <div className="auth-container">
+        <div className="register-auth-container">
             {message.text && (<p className={`${message.type}-message`}>{message.text}</p>)}
 
             <h2>Register</h2>

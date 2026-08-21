@@ -1,139 +1,116 @@
-/* =========================================================
-   LOGIN
-   ========================================================= */
+.login-page-container {
+    width: 100%;
+    display: block;
+    isolation: isolate;
+}
 
 .login-background-wrapper {
     position: relative;
     width: 100%;
-    min-height: calc(100vh - 105px);
+    min-height: calc(100vh - 75px);
+    background-color: #fff4f8;
+    padding: 0 20px;
+    box-sizing: border-box;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 50px 20px;
-    box-sizing: border-box;
-    overflow: hidden;
-    background-image: url("../../public/images/hotel/Hotelweb/logreg.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center center;
 }
-
-
-/* =========================================================
-   OVERLAY DEL FONDO
-   Blanco al 20%
-   ========================================================= */
-
 .login-background-wrapper::before {
     content: "";
     position: absolute;
-    inset: 0;
-
-    background: rgba(255, 255, 255, 0.20);
+    top: 0;
+    bottom: 0;
+    left: 20px;
+    right: 20px;
+    background-image: url("../../public/images/hotel/Hotelweb/logreg.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center 60%;
 
     z-index: 0;
 }
+.login-background-wrapper::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 20px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.25);
+    z-index: 0;
+}
 
-
-/* =========================================================
-   PANEL LOGIN
-   ========================================================= */
-
-.login-background-wrapper .auth-container {
+.login-background-wrapper > * {
     position: relative;
     z-index: 1;
-
-    width: 370px;
-    max-width: 90%;
-
-    padding: 35px 40px;
-
-    margin: 0 auto;
-
-    box-sizing: border-box;
-
-    background: rgba(255, 255, 255, 0.20);
 }
 
+.login-background-wrapper .login-auth-container {
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
 
-/* =========================================================
-   TÍTULO
-   ========================================================= */
+    display: flex !important;
+    flex-direction: column !important;
 
-.login-background-wrapper .auth-container h2 {
-    margin: 0 0 25px;
+    width: 330px !important;
+    min-height: auto !important;
+    box-sizing: border-box !important;
 
-    text-align: center;
+    padding: 30px 35px !important;
 
-    color: #ffffff;
-
-    font-size: 22px;
-    font-weight: 700;
+    background: #fcfcfb !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    z-index: 2 !important;
 }
-
-
-/* =========================================================
-   CAMPOS
-   ========================================================= */
+.login-background-wrapper .login-auth-container h2 {
+    margin: 0 0 24px !important;
+    text-align: center !important;
+    color: #4a2820 !important;
+    font-size: 20px !important;
+    font-weight: 700 !important;
+}
 
 .login-background-wrapper .form-group {
     margin-bottom: 18px;
 }
 
 .login-background-wrapper .form-group label {
-    display: block;
-
-    margin-bottom: 7px;
-
-    color: #111111;
-
-    font-size: 15px;
-    font-weight: 500;
+    display: block !important;
+    margin-bottom: 7px !important;
+    color: #111111 !important; 
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    text-align: left !important;
 }
 
 .login-background-wrapper .form-group input {
     width: 100%;
-    height: 35px;
-
-    padding: 0 10px;
-
-    box-sizing: border-box;
-
-    border: none;
-    border-radius: 2px;
-
-    background-color: rgba(255, 255, 255, 0.92);
-
-    color: #222222;
-
+    height: 34px;
     font-size: 13px;
-
+    padding: 0 10px;
+    box-sizing: border-box;
+    border: 1px solid #cccccc; 
+    border-radius: 4px;
+    background-color: #ffffff; 
+    color: #222222;
     outline: none;
 }
 
 
-/* =========================================================
-   BOTÓN LOGIN
-   ========================================================= */
-
 .login-background-wrapper .login-submit-btn {
     width: 100%;
-    height: 42px;
-
+    height: 35px;
     margin-top: 5px;
-
     padding: 0 12px;
-
     border: none;
-    border-radius: 2px;
-
-    background-color: rgba(70, 119, 91, 0.95);
-
-    color: #ffffff;
-
-    font-size: 17px;
+    border-radius: 3px;
+    background-color: #5f9075;
+    color: #fff;
+    font-size: 16px;
     font-weight: 600;
-
     cursor: pointer;
 }
 
@@ -141,26 +118,16 @@
     background-color: rgba(56, 96, 72, 0.95);
 }
 
-
-/* =========================================================
-   LINK REGISTER
-   ========================================================= */
-
 .login-background-wrapper .register-link {
-    margin: 25px 0 0;
-
-    text-align: center;
-
-    color: #111111;
-
-    font-size: 15px;
+    margin: 25px 0 0 !important;
+    text-align: center !important;
+    color: #111 !important;
+    font-size: 14px;
 }
 
 .login-background-wrapper .register-link a {
-    color: #111111;
-
+    color: #f19086 !important; 
     font-weight: 600;
-
     text-decoration: none;
 }
 
@@ -168,108 +135,51 @@
     text-decoration: underline;
 }
 
-
-/* =========================================================
-   ERROR
-   ========================================================= */
-
 .login-background-wrapper .error-alert-box {
     margin-bottom: 15px;
     padding: 8px 10px;
-
     text-align: center;
-
-    background: rgba(255, 220, 220, 0.85);
-
+    background: rgba(255, 220, 220, 0.9);
     color: #8b2222;
-
     font-size: 13px;
+    border-radius: 4px;
 }
 
 .login-background-wrapper .forgot-password-link {
     display: block;
-
     margin-top: 5px;
-
     color: #8b2222;
-
     font-size: 12px;
+    text-decoration: none;
 }
 
-
-/* =========================================================
-   RESPONSIVE
-   ========================================================= */
+.login-background-wrapper .forgot-password-link:hover {
+    text-decoration: underline;
+}
 
 @media (max-width: 768px) {
-
     .login-background-wrapper {
         min-height: calc(100vh - 90px);
-
         padding: 40px 15px;
     }
 
-    .login-background-wrapper .auth-container {
-        width: 370px;
-        max-width: 90%;
-
-        padding: 30px 35px;
-    }
-
-    .login-background-wrapper .auth-container h2 {
-        font-size: 20px;
-    }
-
-    .login-background-wrapper .form-group label {
-        font-size: 14px;
-    }
-
-    .login-background-wrapper .register-link {
-        font-size: 14px;
+    .login-background-wrapper .login-auth-container {
+        width: 330px !important;
+        max-width: 90% !important;
+        padding: 30px 35px !important;
     }
 }
 
-
 @media (max-width: 400px) {
-
     .login-background-wrapper {
         min-height: calc(100vh - 85px);
-
         padding: 30px 10px;
     }
 
-    .login-background-wrapper .auth-container {
-        width: 92%;
-        max-width: 92%;
-
-        padding: 25px;
-    }
-
-    .login-background-wrapper .auth-container h2 {
-        font-size: 19px;
-    }
-
-    .login-background-wrapper .form-group {
-        margin-bottom: 15px;
-    }
-
-    .login-background-wrapper .form-group label {
-        font-size: 13px;
-    }
-
-    .login-background-wrapper .form-group input {
-        height: 32px;
-    }
-
-    .login-background-wrapper .login-submit-btn {
-        height: 40px;
-
-        font-size: 15px;
-    }
-
-    .login-background-wrapper .register-link {
-        margin-top: 20px;
-
-        font-size: 13px;
+    .login-background-wrapper .login-auth-container {
+        width: 92% !important;
+        max-width: 92% !important;
+        padding: 25px !important;
     }
 }
+
