@@ -34,7 +34,7 @@
     color: var(--bg-white);
     font-size: 21px;
     font-weight: 700;
- text-shadow: 1px 1px 4px var(--text-muted);
+    text-shadow: 1px 1px 4px var(--text-muted);
 }
 
 
@@ -144,10 +144,6 @@
     border-radius: 3px;
 }
 
-
-/* =========================
-   TABLET / MÓVIL
-   ========================= */
 @media (max-width: 768px) {
 
     .find-booking-page {
@@ -160,7 +156,6 @@
         overflow: hidden;
     }
 
-    /* El fondo debe ocupar TODA la página */
     .find-booking-page::before,
     .find-booking-page::after {
         left: 0 !important;
@@ -173,10 +168,6 @@
         font-size: 20px;
         text-align: center;
     }
-
-    /* =========================
-       BUSCADOR
-       ========================= */
 
     .find-booking-page .search-container {
         width: 100% !important;
@@ -207,10 +198,6 @@
         box-sizing: border-box;
     }
 
-    /* =========================
-       DETALLES
-       ========================= */
-
     .find-booking-page .booking-details {
         width: 100% !important;
         max-width: 500px !important;
@@ -232,10 +219,6 @@
     }
 }
 
-
-/* =========================
-   MÓVILES PEQUEÑOS
-   ========================= */
 @media (max-width: 400px) {
 
     .find-booking-page {

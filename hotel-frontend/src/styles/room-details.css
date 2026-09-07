@@ -117,9 +117,7 @@
   font-weight: 800;
   font-size: 20px;
 }
-/* ==========================================================================
-   VISTA: FIND BOOKING (Buscar Reserva)
-   ========================================================================== */
+
 .find-booking-page {
   padding: 40px 75px;
   max-width: 600px;
@@ -141,7 +139,6 @@
   align-items: center;
 }
 
-/* Caja de texto para ingresar el código de confirmación */
 .find-booking-input {
   flex: 1;
   padding: 12px 15px;
@@ -175,7 +172,6 @@
   background-color: var(--hover-blue);
 }
 
-/* Responsivo para celulares */
 @media (max-width: 768px) {
   .find-booking-page {
     padding: 20px;
