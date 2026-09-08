@@ -8,7 +8,7 @@ const AddRoomPage = () => {
   const [roomDetails, setRoomDetails] = useState({
     imageUrl: null,
     type: "",
-    roomNumber:"",
+    roomNumber: "",
     pricePerNight: "",
     capacity: "",
     description: "",
@@ -19,8 +19,7 @@ const AddRoomPage = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [roomTypes, setRoomTypes] = useState([]);
-
-  const [newRoomType, setNewRoomType] = useState("");  // State to handle new room type input
+  const [newRoomType, setNewRoomType] = useState(""); // State to handle new room type input
 
   useEffect(() => {
     const fetchRoomTypes = async () => {
@@ -48,12 +47,6 @@ const AddRoomPage = () => {
         type: e.target.value,
       }));
   };
-
-  const handleNewRoomTypeChange = (e) => {
-    setNewRoomType(e.target.value);
-  };
-
-  
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
@@ -83,25 +76,41 @@ const AddRoomPage = () => {
     }
 
     try {
+      // 🛠️ CORRECCIÓN CRÍTICA: Ajustamos los nombres de las llaves exactas que requiere tu ApiService.js
       const formData = new FormData();
-      formData.append("type", roomDetails.type);
-      formData.append("pricePerNight", roomDetails.pricePerNight);
-      formData.append("capacity", roomDetails.capacity);
       formData.append("roomNumber", roomDetails.roomNumber);
-      formData.append("description", roomDetails.description);
+      formData.append("roomType", roomDetails.type); // ApiService mapea a roomType
+      formData.append("roomPrice", roomDetails.pricePerNight); // ApiService mapea a roomPrice
+      formData.append("roomDescription", roomDetails.description); // ApiService mapea a roomDescription
+      // Nota: Si en tu base de datos manejas la capacidad en el mismo formulario, déjala aquí:
+      formData.append("capacity", roomDetails.capacity); 
 
       if (file) {
-        formData.append("imageFile", file);
+        formData.append("photo", file); // 🛠️ Tu ApiService.js requiere específicamente la llave "photo"
       }
 
       const result = await ApiService.addRoom(formData);
-      if (result.status === 200) {
+      
+      // Validamos la respuesta directa de tu petición de Axios
+      if (result) {
         setSuccess("Room Added successfully.");
+        
+        // Reseteamos el formulario de forma limpia
+        setRoomDetails({
+          imageUrl: null,
+          type: "",
+          roomNumber: "",
+          pricePerNight: "",
+          capacity: "",
+          description: "",
+        });
+        setFile(null);
+        setPreview(null);
 
         setTimeout(() => {
           setSuccess("");
-          navigate("/admin/manage-rooms");
-        }, 5000);
+          navigate("/admin"); // Regresa al panel principal
+        }, 3000);
       }
     } catch (error) {
       setError(error.response?.data?.message || error.message);
@@ -110,71 +119,105 @@ const AddRoomPage = () => {
   };
 
   return (
-    <div className="edit-room-container">
-      <h2>Add New Room</h2>
-      {error && <p className="error-message">{error}</p>}
-      {success && <p className="success-message">{success}</p>}
-      <div className="edit-room-form">
-        <div className="form-group">
-          {preview && (
-            <img
-              src={preview}
-              alt="Room Preview"
-              className="room-photo-preview"
-            />
-          )}
-          <input type="file" name="roomPhoto" onChange={handleFileChange} />
+    <div className="add-room-container">
+      <div className="add-room-background-wrapper">
+        
+        {/* ⬜ CARD ÚNICA: Efecto cristal esmerilado a juego con tu perfil */}
+        <div className="add-room-card">
+          <h1 className="add-room-title">Add New Room</h1>
+          
+          {error && <p className="error-message">{error}</p>}
+          {success && <p className="success-message">{success}</p>}
+          
+          <div className="add-room-form">
+            
+            <div className="form-group image-upload-group">
+              {preview ? (
+                <img
+                  src={preview}
+                  alt="Room Preview"
+                  className="room-photo-preview"
+                />
+              ) : (
+                <div className="image-placeholder">No image selected</div>
+              )}
+              <input type="file" name="roomPhoto" onChange={handleFileChange} className="file-input" />
+            </div>
+
+            <div className="form-group">
+              <label>Room Type *</label>
+              <select value={roomDetails.type} onChange={handleRoomTypeChange} className="form-control">
+                <option value="">Select a room type</option>
+                {roomTypes && roomTypes.map((type) => (
+                  <option key={type} value={type}>
+                    {type}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div className="form-row">
+              <div className="form-group half-width">
+                <label>Room Number *</label>
+                <input
+                  type="number"
+                  name="roomNumber"
+                  value={roomDetails.roomNumber}
+                  onChange={handleChange}
+                  placeholder="e.g., 104"
+                  className="form-control"
+                />
+              </div>
+
+              <div className="form-group half-width">
+                <label>Price per Night ($) *</label>
+                <input
+                  type="number"
+                  name="pricePerNight"
+                  value={roomDetails.pricePerNight}
+                  onChange={handleChange}
+                  placeholder="e.g., 200"
+                  className="form-control"
+                />
+              </div>
+            </div>
+
+            <div className="form-group">
+              <label>Capacity (Guests) *</label>
+              <input
+                type="number"
+                name="capacity"
+                value={roomDetails.capacity}
+                onChange={handleChange}
+                placeholder="e.g., 2"
+                className="form-control"
+              />
+            </div>
+
+            <div className="form-group">
+              <label>Room Description</label>
+              <textarea
+                name="description"
+                value={roomDetails.description}
+                onChange={handleChange}
+                placeholder="Describe room comforts..."
+                rows="3"
+                className="form-control textarea-control"
+              ></textarea>
+            </div>
+
+            <div className="add-room-actions">
+              <button className="add-room-submit-btn" onClick={addRoom}>
+                Add Room
+              </button>
+              <button className="add-room-back-btn" onClick={() => navigate("/admin")}>
+                Cancel
+              </button>
+            </div>
+
+          </div>
         </div>
 
-        <div className="form-group">
-          <label>Room Type</label>
-          <select value={roomDetails.type} onChange={handleRoomTypeChange}>
-            <option value="">Select a room type</option>
-            {roomTypes.map((type) => (
-              <option key={type} value={type}>
-                {type}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="form-group">
-          <label>Room Price</label>
-          <input
-            type="number"
-            name="pricePerNight"
-            value={roomDetails.pricePerNight}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="form-group">
-          <label>Room Number</label>
-          <input
-            type="number"
-            name="roomNumber"
-            value={roomDetails.roomNumber}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="form-group">
-          <label>Capacity</label>
-          <input
-            type="number"
-            name="capacity"
-            value={roomDetails.capacity}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="form-group">
-          <label>Room Description</label>
-          <textarea
-            name="description"
-            value={roomDetails.description}
-            onChange={handleChange}
-          ></textarea>
-        </div>
-        <button className="update-button" onClick={addRoom}>
-          Add Room
-        </button>
       </div>
     </div>
   );
