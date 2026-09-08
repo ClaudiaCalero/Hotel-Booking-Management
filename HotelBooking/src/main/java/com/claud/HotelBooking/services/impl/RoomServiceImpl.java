@@ -22,6 +22,7 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -168,8 +169,10 @@ public class RoomServiceImpl implements RoomService {
     @Override
     public List<RoomType> getAllRoomTypes() {
 
-        return Arrays.asList(RoomType.values());
+        return Arrays.stream(RoomType.values())
+                .collect(Collectors.toList());
     }
+
 
     @Override
     public Response searchRoom(String input) {

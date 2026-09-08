@@ -17,7 +17,7 @@ public class Initializer {
         return args -> {
             if (userRepository.findByEmail("admin@hotel.com").isEmpty()) {
                 User admin = new User();
-                admin.setFirstName("M.Gustave");
+                admin.setFirstName("Monsieur Gustave");
                 admin.setLastName("H");
                 admin.setEmail("admin@hotel.com");
 

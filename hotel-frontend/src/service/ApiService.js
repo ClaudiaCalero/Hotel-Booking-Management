@@ -6,7 +6,7 @@ export default class ApiService {
     static BASE_URL = "http://localhost:8080/api";
     static ENCRYPTION_KEY = "claud-secrete-key";
 
-//enctyp token using cruyptojs
+    //enctyp token using cruyptojs
 
     static encrypt(token) {
         return CryptoJS.AES.encrypt(token, this.ENCRYPTION_KEY.toString());
@@ -108,9 +108,12 @@ export default class ApiService {
 
     //to get room types
     static async getRoomTypes() {
-        const resp = await axios.get(`${this.BASE_URL}/rooms/types`);
-        return resp.data;
-    }
+    // Apuntamos directamente a la ruta mapeada en tu controlador Java
+    const response = await axios.get(`${this.BASE_URL}/rooms/types`);
+    return response.data; // Retorna directamente el array de strings ["SINGLE", "DOUBLE", "SUIT", "TRIPLE"]
+}
+
+
 
     //to get all rooms
     static async getAllRooms() {
@@ -199,21 +202,21 @@ export default class ApiService {
 
 
     //AUTHENTICATION CHECKER
-    static logout(){
+    static logout() {
         this.clearAuth();
     }
 
-    static isAthenticated(){
+    static isAthenticated() {
         const token = this.getToken();
         return !!token;
     }
 
-    static isAdmin(){
+    static isAdmin() {
         const role = this.getRole();
         return role === "ADMIN";
     }
 
-    static isCustomer(){
+    static isCustomer() {
         const role = this.getRole();
         return role === "CUSTOMER";
     }
