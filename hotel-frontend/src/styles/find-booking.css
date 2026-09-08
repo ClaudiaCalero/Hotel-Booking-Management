@@ -3,12 +3,12 @@
     position: absolute;
     top: 0;
     bottom: 0;
-    left: 15%;
-    right: 15%;
-    background-image: url("../../public/images/hotel/Hotelweb/champagne.jpg");
+    left: 40px;
+    right: 40px;
+    background-image: url("../../public/images/hotel/Hotelweb/chupitos.jpg");
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: center 32%;
+    background-position: center 45%;
     z-index: 0;
 }
 
@@ -17,8 +17,8 @@
     position: absolute;
     top: 0;
     bottom: 0;
-    left: 15%;
-    right: 15%;
+    left:  10%;
+    right:  10%;
     background: rgba(255, 255, 255, 0.25);
     z-index: 0;
 }

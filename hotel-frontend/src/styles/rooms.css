@@ -14,8 +14,8 @@
     position: absolute;
     top: 0;
     bottom: 0;
-    left: 20px;
-    right: 20px;
+    left: 40px;
+    right: 40px;
     background-image: url("../../public/images/hotel/Hotelweb/find.jpg");
     background-repeat: no-repeat;
     background-size: cover;
@@ -28,8 +28,8 @@
     position: absolute;
     top: 0;
     bottom: 0;
-    left: 20px;
-    right: 20px;
+    left: 40px;
+    right: 40px;
     background: rgba(255, 255, 255, 0.25);
     z-index: 0;
 }
