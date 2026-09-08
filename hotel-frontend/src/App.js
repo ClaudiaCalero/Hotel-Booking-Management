@@ -14,6 +14,7 @@ import './styles/payment.css';
 import './styles/footer.css';
 import './styles/profile.css';
 import './styles/edit-profile.css';
+import './styles/add-room.css';
 
 
 import Navbar from "./component/common/Navbar";
