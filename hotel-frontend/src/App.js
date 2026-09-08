@@ -1,7 +1,6 @@
+import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
-import './styles/index.css';
-import React from 'react';
 import './styles/index.css';
 import './styles/navbar.css';
 import './styles/login.css';
@@ -14,7 +13,7 @@ import './styles/payment.css';
 import './styles/footer.css';
 import './styles/profile.css';
 import './styles/edit-profile.css';
-import './styles/add-room.css';
+import './styles/manage-room.css';
 
 
 import Navbar from "./component/common/Navbar";
@@ -33,7 +32,6 @@ import PaymentSuccess from "./component/payments/PaymentSuccess";
 import PaymentFailure from "./component/payments/PaymentFailure";
 import AdminPage from "./component/admin/AdminPage";
 import ManageRoomPage from "./component/admin/ManageRoomPage";
-import AddRoomPage from "./component/admin/AddRoomPage";
 import EditRoomPage from "./component/admin/EditRoomPage";
 import ManageBookingsPage from "./component/admin/ManageBookingsPage";
 import EditBookingPage from "./component/admin/EditBookingPage";
@@ -73,7 +71,6 @@ function App() {
                 {/* ADMIN ROUTES */}
                 <Route path="/admin" element={<AdminRoute element={<AdminPage/>}/>}/>
                 <Route path="/admin/manage-rooms" element={<AdminRoute element={<ManageRoomPage/>}/>}/>
-                <Route path="/admin/add-room" element={<AdminRoute element={<AddRoomPage/>}/>}/>
                 <Route path="/admin/edit-room/:roomId" element={<AdminRoute element={<EditRoomPage/>}/>}/>
                 <Route path="/admin/manage-bookings" element={<AdminRoute element={<ManageBookingsPage/>}/>}/>
                 <Route path="/admin/edit-booking/:bookingCode" element={<AdminRoute element={<EditBookingPage/>}/>}/>

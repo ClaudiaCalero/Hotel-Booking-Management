@@ -124,8 +124,7 @@ const EditBookingPage = () => {
               id="bookingStatus"
               name="bookingStatus"
               value={formState.bookingStatus}
-              onChange={handleChange}
-            >
+              onChange={handleChange}>
               <option value="">Select</option>
               <option value="BOOKED">BOOKED</option>
               <option value="CANCELLED">CANCELLED</option>
@@ -140,8 +139,7 @@ const EditBookingPage = () => {
               id="paymentStatus"
               name="paymentStatus"
               value={formState.paymentStatus}
-              onChange={handleChange}
-            >
+              onChange={handleChange} >
               <option value="">Select</option>
               <option value="PENDING">PENDING</option>
               <option value="COMPLETED">COMPLETED</option>
@@ -151,9 +149,7 @@ const EditBookingPage = () => {
             </select>
           </div>
 
-          <button className="update-button" onClick={handleUpdate}>
-            Update Booking
-          </button>
+          <button className="update-button" onClick={handleUpdate}>Update Booking</button>
         </div>
       ) : (
         <p>Loading booking details...</p>
