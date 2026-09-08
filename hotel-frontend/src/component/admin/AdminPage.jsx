@@ -25,7 +25,6 @@ const AdminPage = () => {
   }, []);
 
   return (
-    <div className="admin-page-container">
       <div className="admin-background-wrapper">
         <div className="admin-page-container">
           <h1 className="welcome-message">Welcome, {adminName}</h1>
@@ -47,7 +46,6 @@ const AdminPage = () => {
           </div>
         </div>
       </div>
-    </div>
   );
 };
 export default AdminPage;

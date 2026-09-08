@@ -11,8 +11,13 @@ const EditProfilePage = () => {
         const fetchUserProfile = async () => {
             try {
                 const response = await ApiService.myProfile();
-                setUser(response.user);
-                console.log(response.user)
+               console.log("Answer in editing:", response);
+                
+                if (response && response.user) {
+                    setUser(response.user);
+                } else {
+                    setUser(response); 
+                }
             } catch (error) {
                 setError(error.message);
             }
@@ -20,6 +25,7 @@ const EditProfilePage = () => {
 
         fetchUserProfile();
     }, []);
+
 
     const handleDeleteProfile = async () => {
         if (!window.confirm('Are you sure you want to delete your account?. If you delete your account you will loose access to your profile and booking history')) {
@@ -33,19 +39,32 @@ const EditProfilePage = () => {
         }
     };
 
-    return (
-        <div className="edit-profile-page">
-            <h2>Edit Profile</h2>
-            {error && <p className="error-message">{error}</p>}
-            {user && (
-                <div className="profile-details">
-                    <p><strong>First Name:</strong> {user.firstName}</p>
-                    <p><strong>Last Name:</strong> {user.lastName}</p>
-                    <p><strong>Email:</strong> {user.email}</p>
-                    <p><strong>Phone Number:</strong> {user.phoneNumber}</p>
-                    <button className="delete-profile-button" onClick={handleDeleteProfile}>Delete My Account</button>
+     return (
+        <div className="edit-profile-container">
+            <div className="edit-profile-background-wrapper">
+                
+                <div className="edit-profile-card">
+                    <h1 className="edit-profile-title">Edit Profile</h1>
+                    
+                    {error && <p className="error-message">{error}</p>}
+                    
+                    {user && (
+                        <div className="edit-profile-details">
+                            <p><strong>First Name:</strong> {user.firstName}</p>
+                            <p><strong>Last Name:</strong> {user.lastName}</p>
+                            <p><strong>Email:</strong> {user.email}</p>
+                            <p><strong>Phone Number:</strong> {user.phoneNumber}</p>
+                            
+                            <div className="edit-profile-actions">
+                                <button className="delete-profile-button" onClick={handleDeleteProfile}>
+                                    Delete My Account
+                                </button>
+                            </div>
+                        </div>
+                    )}
                 </div>
-            )}
+
+            </div>
         </div>
     );
 };
