@@ -25,23 +25,32 @@ public class RoomController {
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Response> addRoom(
             @RequestParam Integer roomNumber,
-            @RequestParam RoomType type,
+            @RequestParam String type,
             @RequestParam BigDecimal pricePerNight,
             @RequestParam Integer capacity,
-            @RequestParam String  description,
-            @RequestParam MultipartFile imageFile
+            @RequestParam String description,
+            @RequestParam(value = "imageFiles", required = false) List<MultipartFile> imageFiles
     ){
-        RoomDTO roomDTO =RoomDTO.builder()
+        RoomType resolvedType;
+        try {
+            resolvedType = RoomType.valueOf(type.trim().toUpperCase());
+        } catch (IllegalArgumentException e) {
+
+            resolvedType = RoomType.SINGLE;
+        }
+
+        RoomDTO roomDTO = RoomDTO.builder()
                 .roomNumber(roomNumber)
-                .type(type)
+                .type(resolvedType)
                 .pricePerNight(pricePerNight)
                 .capacity(capacity)
                 .description(description)
                 .build();
 
-        return  ResponseEntity.ok(roomService.addRoom(roomDTO, imageFile));
-
+        return ResponseEntity.ok(roomService.addRoom(roomDTO, imageFiles));
     }
+
+
 
     @PutMapping("/update")
     @PreAuthorize("hasAuthority('ADMIN')")
@@ -51,7 +60,7 @@ public class RoomController {
             @RequestParam (value = "pricePerNight", required = false) BigDecimal pricePerNight,
             @RequestParam (value = "capacity", required = false) Integer capacity,
             @RequestParam (value = "description", required = false) String  description,
-            @RequestParam (value = "imageFile", required = false) MultipartFile imageFile,
+            @RequestParam(value = "imageFiles", required = false) List<MultipartFile> imageFiles,
             @RequestParam (value = "id", required = true) Long id
     ){
         RoomDTO roomDTO =RoomDTO.builder()
@@ -63,7 +72,7 @@ public class RoomController {
                 .description(description)
                 .build();
 
-        return  ResponseEntity.ok(roomService.updateRoom(roomDTO, imageFile));
+        return  ResponseEntity.ok(roomService.updateRoom(roomDTO, imageFiles));
 
     }
 
