@@ -1,0 +1,63 @@
+.room-results {
+  display: block;
+  flex-wrap: wrap;
+  margin: 10px 30px;
+}
+
+.room-list-item {
+  width: calc(95% - 20px);
+  margin: 5px auto;
+  border: 1px solid var(--border-light);
+  overflow: hidden;
+  display: flex;
+  background: rgba(255, 255, 255, 0.40) !important;
+  border-radius: 6px;
+  padding: 25px; 
+  margin-bottom: 25px;
+  text-align: left;
+ max-width: max-content;
+
+}
+
+.room-list-item-image {
+  width: 40vh;
+  height: 40vh;
+  border-radius: 6px;
+
+}
+
+.room-details {
+  flex: 1;
+  margin-left: 10px;
+  margin-right: 10px;
+  background: rgba(255, 255, 255, 0.40) !important;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 6px;
+  padding: 25px;
+  max-width: fit-content;
+  text-align: left;
+}
+
+.room-details h3 {
+  color: var(--hotel-green);
+}
+
+.book-now-div {
+  align-self: center;
+}
+
+.book-now-button {
+  background-color: var(--hotel-green);
+  color: var(--bg-white);
+  border: none;
+  margin-right: 10px;
+  border-radius: 5px;
+  padding: 15px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.book-now-button:hover {
+  opacity: 0.9;
+}
+
