@@ -9,8 +9,8 @@ import java.time.LocalDate;
 import java.util.List;
 public interface RoomService {
 
-    Response addRoom(RoomDTO roomDTO, MultipartFile imageFile);
-    Response updateRoom(RoomDTO roomDTO, MultipartFile imageFile);
+    Response addRoom(RoomDTO roomDTO, List<MultipartFile> imageFiles);
+    Response updateRoom(RoomDTO roomDTO, List<MultipartFile> imageFiles);
     Response getAllRooms();
     Response getRoomById(Long id);
     Response deleteRoom(Long id);

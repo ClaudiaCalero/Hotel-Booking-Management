@@ -21,46 +21,45 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class AuthFilter extends OncePerRequestFilter {
 
-
     private final JwtUtils jwtUtils;
-
     private final CustomUserDetailsService customUserDetailsService;
-
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
 
-
+        // 1. Extraemos el token usando de forma limpia tu método auxiliar
         String token = getTokenFromRequest(request);
 
+        // 2. Si hay un token presente, realizamos la autenticación en el contexto de seguridad
         if (token != null) {
-            String email = jwtUtils.getUsernameFromToken(token);
-            UserDetails userDetails = customUserDetailsService.loadUserByUsername(email);
+            try {
+                String email = jwtUtils.getUsernameFromToken(token);
 
-            if (StringUtils.hasText(email) && jwtUtils.isTokenValid(token, userDetails)) {
-                UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-                        userDetails, null, userDetails.getAuthorities()
-                );
-                authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+                if (StringUtils.hasText(email) && SecurityContextHolder.getContext().getAuthentication() == null) {
+                    UserDetails userDetails = customUserDetailsService.loadUserByUsername(email);
+
+                    if (jwtUtils.isTokenValid(token, userDetails)) {
+                        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+                                userDetails, null, userDetails.getAuthorities()
+                        );
+                        authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                        SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+                    }
+                }
+            } catch (Exception e) {
+                log.error("Error al validar el token JWT: {}", e.getMessage());
             }
         }
 
-        try {
-            filterChain.doFilter(request, response);
-        } catch (Exception e) {
-            log.error(e.getMessage());
-        }
-
-
+        // 3. UNA ÚNICA LLAMADA CONTROLADA al filtro siguiente para continuar la petición de forma segura
+        filterChain.doFilter(request, response);
     }
-
 
     private String getTokenFromRequest(HttpServletRequest request) {
         String tokenWithBearer = request.getHeader("Authorization");
-        if (tokenWithBearer != null && tokenWithBearer.startsWith("Bearer ")) {
+        if (StringUtils.hasText(tokenWithBearer) && tokenWithBearer.startsWith("Bearer ")) {
             return tokenWithBearer.substring(7);
         }
         return null;
