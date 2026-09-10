@@ -65,7 +65,7 @@ useEffect(() => {
 // ATENCIÓN: Deja el array de dependencias exclusivamente con [isAdmin, navigate]
 // Si añades funciones o estados aquí (como 'error'), provocarás el bucle infinito
 }, [isAdmin, navigate]); 
-
+ 
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
