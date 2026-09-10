@@ -76,26 +76,22 @@ const AddRoomPage = () => {
     }
 
     try {
-      // 🛠️ CORRECCIÓN CRÍTICA: Ajustamos los nombres de las llaves exactas que requiere tu ApiService.js
       const formData = new FormData();
       formData.append("roomNumber", roomDetails.roomNumber);
-      formData.append("roomType", roomDetails.type); // ApiService mapea a roomType
-      formData.append("roomPrice", roomDetails.pricePerNight); // ApiService mapea a roomPrice
-      formData.append("roomDescription", roomDetails.description); // ApiService mapea a roomDescription
-      // Nota: Si en tu base de datos manejas la capacidad en el mismo formulario, déjala aquí:
+      formData.append("type", roomDetails.type);
+      formData.append("pricePerNight", roomDetails.pricePerNight);
+      formData.append("description", roomDetails.description);
       formData.append("capacity", roomDetails.capacity); 
 
       if (file) {
-        formData.append("photo", file); // 🛠️ Tu ApiService.js requiere específicamente la llave "photo"
+        formData.append("photo", file); 
       }
 
       const result = await ApiService.addRoom(formData);
       
-      // Validamos la respuesta directa de tu petición de Axios
       if (result) {
         setSuccess("Room Added successfully.");
         
-        // Reseteamos el formulario de forma limpia
         setRoomDetails({
           imageUrl: null,
           type: "",

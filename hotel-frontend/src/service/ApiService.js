@@ -106,29 +106,19 @@ export default class ApiService {
         return resp.data;
     }
 
-    // Dentro de tu clase ApiService
-
     static async getAllRooms() {
-        const token = localStorage.getItem("token");
         const response = await axios.get(`${this.BASE_URL}/rooms/all`, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
+            headers: this.getHeader() // 👈 CORREGIDO: Usa las cabeceras con el token descifrado
         });
         return response.data;
     }
 
     static async getRoomTypes() {
-        const token = localStorage.getItem("token");
-
         const response = await axios.get(`${this.BASE_URL}/rooms/types`, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
+            headers: this.getHeader() // 👈 CORREGIDO: Usa las cabeceras con el token descifrado
         });
         return response.data;
     }
-
 
 
     //To get room details
