@@ -14,6 +14,7 @@ import './styles/footer.css';
 import './styles/profile.css';
 import './styles/edit-profile.css';
 import './styles/manage-room.css';
+import './styles/all-rooms.css';
 
 import Navbar from "./component/common/Navbar";
 import Footer from "./component/common/Footer";

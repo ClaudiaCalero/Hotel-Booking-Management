@@ -4,8 +4,6 @@ import React, { useState, useEffect } from "react";
  import RoomResult from "../common/RoomResult";
  import RoomSearch from "../common/RoomSearch";
 
-
-
  
  const AllRoomsPage =() => {
     const [rooms, setRooms] = useState([]);

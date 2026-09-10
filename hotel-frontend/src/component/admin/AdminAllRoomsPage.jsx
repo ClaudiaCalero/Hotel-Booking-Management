@@ -64,8 +64,7 @@ const AdminAllRoomsPage = () => {
             <button 
               type="button" 
               className="btn-global-back" 
-              onClick={() => navigate("/admin/manage-rooms")}
-            >
+              onClick={() => navigate("/admin/manage-rooms")}>
               Back to Console
             </button>
           </div>
@@ -78,8 +77,7 @@ const AdminAllRoomsPage = () => {
               <select
                 value={selectedRoomType}
                 onChange={handleRoomTypeChange}
-                className="form-control filter-select"
-              >
+                className="form-control filter-select">
                 <option value="">All Rooms</option>
                 {roomTypes.map((type, index) => (
                   <option key={index} value={type}>
@@ -89,8 +87,6 @@ const AdminAllRoomsPage = () => {
               </select>
             </div>
           </div>
-
-          {/* Grilla de habitaciones para el Admin */}
           <div className="admin-rooms-grid">
             {currentRooms.length > 0 ? (
               currentRooms.map((room) => (
@@ -98,8 +94,7 @@ const AdminAllRoomsPage = () => {
                   <img 
                     src={room.roomPhotoUrl || "./images/room-placeholder.png"} 
                     alt={room.type} 
-                    className="admin-room-card-image"
-                  />
+                    className="admin-room-card-image"/>
                   <div className="admin-room-card-body">
                     <h3>{room.type}</h3>
                     <p className="admin-room-info">
@@ -114,8 +109,7 @@ const AdminAllRoomsPage = () => {
                     
                     <button
                       onClick={() => navigate(`/admin/edit-room/${room.id}`)}
-                      className="action-btn-save admin-edit-btn-full"
-                    >
+                      className="action-btn-save admin-edit-btn-full">
                       Edit Room Details
                     </button>
                   </div>
