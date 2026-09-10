@@ -1,43 +1,37 @@
-.register-page-container {
-    width: 100%;
-    display: block;
-    isolation: isolate;
-}
-
 .register-background-wrapper {
     position: relative;
     width: 100%;
     min-height: calc(100vh - 75px);
-    background-color: var(--bg-cream);
-    padding: 0 20px;
+    background-color: #fcf9f5;
+    padding: 80px 20px; 
     box-sizing: border-box;
     display: flex;
     justify-content: center;
     align-items: center;
-}
+} 
 
-.register-background-wrapper::before {
+.register-background-wrapper::before,
+.register-background-wrapper::after {
     content: "";
     position: absolute;
     top: 0;
     bottom: 0;
-    left: 20px;
-    right: 20px;
-    background-image: url("../../public/images/hotel/Hotelweb/logreg.jpg");
-    background-repeat: no-repeat;
+    left: 40px;
+    right: 40px;
+    width: calc(100% - 80px);
+    height: 100%;
+}
+
+.register-background-wrapper::before {
+    background-image: url(../../public/images/hotel/Hotelweb/logreg.jpg); 
+      background-repeat: no-repeat;
     background-size: cover;
     background-position: center 60%;
     z-index: 0;
 }
 
 .register-background-wrapper::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 20px;
-    right: 20px;
-    background: rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.15);
     z-index: 0;
 }
 
@@ -48,149 +42,102 @@
 
 .register-auth-container {
     position: relative;
-    z-index: 1;
-    width: 330px;
+    display: flex;
+    flex-direction: column;
+    width: 360px;
     max-width: calc(100% - 40px);
-    margin: 0;
-    padding: 25px 35px;
+    padding: 40px;
     box-sizing: border-box;
-    background: var(--bg-white);
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 16px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
 }
 
 .register-auth-container h2 {
-    margin: 0 0 10px;
+    margin: 0 0 24px;
     text-align: center;
-    color:  var(--hotel-burgundy);
-    font-size: 20px;
+    color: #2c3e50;
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
     font-weight: 700;
 }
 
 .register-auth-container .form-group {
-    margin-bottom: 16px;
+    margin-bottom: 18px;
 }
 
 .register-auth-container .form-group label {
     display: block !important;
-    margin-bottom: 7px !important;
-    color: var(--text-dark) !important; 
-    font-size: 15px !important;
-    font-weight: 600 !important;
+    margin-bottom: 8px !important;
+    color: #6d5b52 !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
     text-align: left !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
 }
 
 .register-auth-container .form-group input {
     width: 100%;
-    height: 34px;
-    font-size: 13px;
-    padding: 0 10px;
+    height: 40px;
+    font-size: 14px;
+    padding: 0 15px;
     box-sizing: border-box;
-    border: 1px solid #cccccc;
-    border-radius: 4px;
-    background-color: var(--bg-white);
-    color: var(--text-dark);
+    border: 1px solid #e0d9d5;
+    border-radius: 25px;
+    background-color: white;
+    color: #4a3e3d;
     outline: none;
+    transition: border-color 0.3s;
 }
 
+.register-auth-container .form-group input:focus {
+    border-color: #f1b3a3;
+    box-shadow: 0 0 5px rgba(241, 179, 163, 0.5);
+}
 
 .register-auth-container button[type="submit"] {
     width: 100%;
-    height: 38px;
-    margin-top: 4px;
-    padding: 0 12px;
+    height: 40px;
+    margin-top: 10px;
     border: none;
-    border-radius: 2px;
-    background-color: var(--hotel-green);
-    color: var(--bg-white);
-    font-size: 17px;
-    font-weight: 600;
+    border-radius: 25px;
+    background-color: #f1b3a3;
+    color: white;
+    font-size: 15px;
+    font-weight: 700;
     cursor: pointer;
-    transition: background-color 0.2s ease;
+    transition: background-color 0.3s, transform 0.2s;
+    box-shadow: 0 4px 12px rgba(241, 179, 163, 0.3);
 }
 
 .register-auth-container button[type="submit"]:hover {
-    background-color: #527c64;
+    background-color: #e29f8e;
+    transform: translateY(-1px);
 }
 
 .register-auth-container .register-link {
-    margin: 20px 0 0;
+    margin: 25px 0 0;
     text-align: center;
-    color: #111111;
+    color: #555;
     font-size: 14px;
 }
 
 .register-auth-container .register-link a {
-    color: var(--hotel-coral);
-    font-weight: 600;
+    color: #e29f8e;
+    font-weight: 700;
     text-decoration: none;
-}
-
-.register-auth-container .register-link a:hover {
-    text-decoration: underline;
-}
-
-
-.register-auth-container .error-message {
-    margin-bottom: 15px;
-    padding: 8px 10px;
-    text-align: center;
-    background: rgba(255, 220, 220, 0.9);
-    color: #8b2222;
-    font-size: 13px;
-    border-radius: 4px;
-}
-
-.register-auth-container .success-message {
-    margin-bottom: 15px;
-    padding: 8px 10px;
-    text-align: center;
-    background: rgba(220, 245, 225, 0.9);
-    color: #28613b;
-    font-size: 13px;
-    border-radius: 4px;
+    border-bottom: 1px dashed #e29f8e;
 }
 
 @media (max-width: 768px) {
+    .register-background-wrapper {
+        padding: 40px 15px;
+    }
     .register-auth-container {
-        width: 330px;
-        max-width: 90%;
-        padding: 30px 35px;
-        box-sizing: border-box;
-    }
-}
-
-@media (max-width: 400px) {
-    .register-auth-container {
-        width: 92%;
-        max-width: 92%;
-        padding: 25px;
-        box-sizing: border-box;
-    }
-
-    .register-auth-container h2 {
-        font-size: 19px;
-    }
-
-    .register-auth-container .form-group {
-        margin-bottom: 15px;
-    }
-
-    .register-auth-container .form-group label {
-        font-size: 13px;
-    }
-
-    .register-auth-container .form-group input {
         width: 100%;
-        height: 30px;
-        box-sizing: border-box;
-    }
-
-    .register-auth-container button[type="submit"] {
-        width: 100%;
-        height: 40px;
-        font-size: 15px;
-    }
-
-    .register-auth-container .register-link {
-        font-size: 13px;
+        padding: 30px 25px;
     }
 }

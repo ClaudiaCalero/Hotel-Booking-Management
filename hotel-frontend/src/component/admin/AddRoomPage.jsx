@@ -117,23 +117,19 @@ const AddRoomPage = () => {
   return (
     <div className="add-room-container">
       <div className="add-room-background-wrapper">
-        
-        {/* ⬜ CARD ÚNICA: Efecto cristal esmerilado a juego con tu perfil */}
-        <div className="add-room-card">
+                <div className="add-room-card">
           <h1 className="add-room-title">Add New Room</h1>
-          
+        
           {error && <p className="error-message">{error}</p>}
           {success && <p className="success-message">{success}</p>}
           
           <div className="add-room-form">
-            
             <div className="form-group image-upload-group">
               {preview ? (
                 <img
                   src={preview}
                   alt="Room Preview"
-                  className="room-photo-preview"
-                />
+                  className="room-photo-preview"/>
               ) : (
                 <div className="image-placeholder">No image selected</div>
               )}
@@ -161,8 +157,7 @@ const AddRoomPage = () => {
                   value={roomDetails.roomNumber}
                   onChange={handleChange}
                   placeholder="e.g., 104"
-                  className="form-control"
-                />
+                  className="form-control"/>
               </div>
 
               <div className="form-group half-width">
@@ -173,8 +168,7 @@ const AddRoomPage = () => {
                   value={roomDetails.pricePerNight}
                   onChange={handleChange}
                   placeholder="e.g., 200"
-                  className="form-control"
-                />
+                  className="form-control"/>
               </div>
             </div>
 
@@ -186,8 +180,7 @@ const AddRoomPage = () => {
                 value={roomDetails.capacity}
                 onChange={handleChange}
                 placeholder="e.g., 2"
-                className="form-control"
-              />
+                className="form-control"/>
             </div>
 
             <div className="form-group">
@@ -198,22 +191,14 @@ const AddRoomPage = () => {
                 onChange={handleChange}
                 placeholder="Describe room comforts..."
                 rows="3"
-                className="form-control textarea-control"
-              ></textarea>
+                className="form-control textarea-control"></textarea>
             </div>
-
             <div className="add-room-actions">
-              <button className="add-room-submit-btn" onClick={addRoom}>
-                Add Room
-              </button>
-              <button className="add-room-back-btn" onClick={() => navigate("/admin")}>
-                Cancel
-              </button>
+              <button className="add-room-submit-btn" onClick={addRoom}>Add Room</button>
+              <button className="add-room-back-btn" onClick={() => navigate("/admin")}>Cancel</button>
             </div>
-
           </div>
         </div>
-
       </div>
     </div>
   );

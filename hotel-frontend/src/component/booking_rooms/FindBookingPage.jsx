@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import ApiService from '../../service/ApiService'; // Assuming your service is in a file called ApiService.js
-import '../../styles/find-booking.css'
+import ApiService from '../../service/ApiService'; 
+import '../../styles/find-booking.css';
+
 const FindBookingPage = () => {
-    const [confirmationCode, setConfirmationCode] = useState(''); // State variable for confirmation code
-    const [bookingDetails, setBookingDetails] = useState(null); // State variable for booking details
-    const [error, setError] = useState(null); // Track any errors
+    const [confirmationCode, setConfirmationCode] = useState(''); 
+    const [bookingDetails, setBookingDetails] = useState(null); 
+    const [error, setError] = useState(null); 
 
     const handleSearch = async () => {
         if (!confirmationCode.trim()) {
@@ -13,10 +14,9 @@ const FindBookingPage = () => {
             return;
         }
         try {
-            // Call API to get booking details
             const response = await ApiService.getBookingByReference(confirmationCode);
             setBookingDetails(response.booking);
-            setError(null); // Clear error if successful
+            setError(null); 
         } catch (error) {
             setError(error.response?.data?.message || error.message);
             setTimeout(() => setError(''), 5000);
@@ -24,52 +24,67 @@ const FindBookingPage = () => {
     };
 
     return (
-        <div className="find-booking-page">
-            <h2>Find Booking</h2>
-            <div className="search-container">
-                <input
-                    required
-                    type="text"
-                    placeholder="Enter your booking confirmation code"
-                    value={confirmationCode}
-                    onChange={(e) => setConfirmationCode(e.target.value)}
-                />
-                <button onClick={handleSearch}>Find</button>
-            </div>
-            {error && <p style={{ color: 'red' }}>{error}</p>}
-            {bookingDetails && (
-                <div className="booking-details">
-                    <h3>Booking Details</h3>
-                    <p>Booking Code: {bookingDetails.bookingReference}</p>
-                    <p>Check-in Date: {bookingDetails.checkInDate}</p>
-                    <p>Check-out Date: {bookingDetails.checkOutDate}</p>
-                    <p>Payment Status: {bookingDetails.paymentStatus}</p>
-                    <p>Amount: {bookingDetails.totalPrice}</p>
-                    <p>Booking Status: {bookingDetails.bookingStatus}</p>
-
-                    <br />
-                    <hr />
-                    <br />
-                    <h3>Booker Detials</h3>
-                    <div>
-                        <p> First Name: {bookingDetails.user.firstName}</p>
-                        <p> Last Name: {bookingDetails.user.lastName}</p>
-                        <p> Email: {bookingDetails.user.email}</p>
-                        <p> Phone Number: {bookingDetails.user.phoneNumber}</p>
-                    </div>
-
-                    <br />
-                    <hr />
-                    <br />
-                    <h3>Room Details</h3>
-                    <div>
-                        <p> Room Number: {bookingDetails.room.roomNumber}</p>
-                        <p> Room Type: {bookingDetails.room.type}</p>
-                        <p> Room Capacity: {bookingDetails.room.capacity}</p>
-                        <img src={bookingDetails.room.imageUrl} alt="" sizes="" srcSet="" />
-                    </div>
+        <div className="find-booking-container">
+            
+            <div className="find-booking-card">
+                <h2>Find Booking</h2>
+                
+                <div className="booking-search-box">
+                    <input
+                        required
+                        type="text"
+                        placeholder="Enter your booking confirmation code"
+                        value={confirmationCode}
+                        onChange={(e) => setConfirmationCode(e.target.value)}
+                    />
+                    <button onClick={handleSearch}>Find</button>
                 </div>
-            )}
+                
+                {error && <p className="error-message">{error}</p>}
+
+                {bookingDetails && (
+                    <div className="booking-details-result">
+                        <h3>Booking Details</h3>
+                        <p><strong>Booking Code:</strong> {bookingDetails.bookingReference}</p>
+                        <p><strong>Check-in Date:</strong> {bookingDetails.checkInDate}</p>
+                        <p><strong>Check-out Date:</strong> {bookingDetails.checkOutDate}</p>
+                        <p><strong>Payment Status:</strong> {bookingDetails.paymentStatus}</p>
+                        <p><strong>Amount:</strong> {bookingDetails.totalPrice}</p>
+                        <p>
+                            <strong>Booking Status:</strong>{' '}
+                            <span className={`status-badge status-${bookingDetails.bookingStatus?.toLowerCase()}`}>
+                                {bookingDetails.bookingStatus}
+                            </span>
+                        </p>
+
+                        <hr className="divider" />
+                        
+                        <h3>Booker Details</h3>
+                        <div className="details-group">
+                            <p><strong>First Name:</strong> {bookingDetails.user.firstName}</p>
+                            <p><strong>Last Name:</strong> {bookingDetails.user.lastName}</p>
+                            <p><strong>Email:</strong> {bookingDetails.user.email}</p>
+                            <p><strong>Phone Number:</strong> {bookingDetails.user.phoneNumber}</p>
+                        </div>
+
+                        <hr className="divider" />
+                        
+                        <h3>Room Details</h3>
+                        <div className="details-group">
+                            <p><strong>Room Number:</strong> {bookingDetails.room.roomNumber}</p>
+                            <p><strong>Room Type:</strong> {bookingDetails.room.type}</p>
+                            <p><strong>Room Capacity:</strong> {bookingDetails.room.capacity}</p>
+                            {bookingDetails.room.imageUrl && (
+                                <img 
+                                    className="room-preview-image" 
+                                    src={bookingDetails.room.imageUrl} 
+                                    alt="Room Preview" 
+                                />
+                            )}
+                        </div>
+                    </div>
+                )}
+            </div>
         </div>
     );
 };

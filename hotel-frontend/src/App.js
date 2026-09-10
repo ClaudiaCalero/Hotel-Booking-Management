@@ -15,6 +15,10 @@ import './styles/profile.css';
 import './styles/edit-profile.css';
 import './styles/manage-room.css';
 import './styles/all-rooms.css';
+import './styles/filter-search.css';
+import './styles/room-cards.css';
+import './styles/modals.css';
+
 
 import Navbar from "./component/common/Navbar";
 import Footer from "./component/common/Footer";
@@ -78,7 +82,8 @@ function App() {
             <Route path="/admin/add-room" element={<AdminRoute element={<AddRoomPage />} />} />
             <Route path="/admin/edit-room/:roomId" element={<AdminRoute element={<EditRoomPage />} />} />
             <Route path="/admin-register" element={<AdminRoute element={<AdminRegisterPage />} />} />
-            <Route path="/admin/all-rooms" element={<AdminRoute element={<AdminAllRoomsPage/>}/>}/>
+            <Route path="/admin/all-rooms" element={<AdminRoute element={<AdminAllRoomsPage />} />} />
+            <Route path="/admin/manage-bookings" element={<AdminRoute element={<ManageBookingsPage />} />} />
 
             {/* FALLBACK URL */}
             <Route path="*" element={<Navigate to={"/home"} />} />

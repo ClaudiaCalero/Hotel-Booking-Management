@@ -7,8 +7,8 @@
     position: relative;
     width: 100%;
     min-height: calc(100vh - 75px);
-    background-color: var(--bg-cream);
-    padding: 40px 20px;
+    background-color: #fcf9f5; 
+    padding: 80px 20px; 
     box-sizing: border-box;
     display: flex;
     justify-content: center;
@@ -27,59 +27,13 @@
     background-size: cover;
     background-position: center 62%;
     z-index: 0;
+    width: calc(100% - 80px);
+    height: 100%;
 }
 
 .profile-background-wrapper > * {
     position: relative;
     z-index: 1;
-}
-
-.welcome-message {
-    font-size: 2.2em;
-    font-weight: bold;
-    color: var(--hotel-gold);
-    text-shadow: 0 0 0.5px#907254;
-    margin-bottom: 20px;
-    display: flex;
-    justify-content: center;
-}
-
-.profile-actions {
-    display: flex !important;
-    justify-content: center !important;
-    gap: 20px !important;
-    margin-top: 20px !important;
-    margin-bottom: 30px !important;
-    width: 100% !important;
-}
-
-.profile-button {
-    flex: 0 1 auto !important;
-    min-width: 130px !important;
-    padding: 12px 28px !important;
-    font-size: 1em !important;
-    color: white !important;
-    border: none !important;
-    border-radius: 5px !important;
-    cursor: pointer !important;
-    transition: background-color 0.3s ease !important;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
-    text-align: center !important;
-    white-space: nowrap !important;
-}
-
-.edit-profile-button {
-    background-color: var(--hotel-green) !important;
-}
-.edit-profile-button:hover {
-    background-color: #4d735c !important;
-}
-
-.logout-button {
-    background-color: var(--hotel-coral) !important;
-}
-.logout-button:hover {
-    background-color: #e09d90 !important;
 }
 
 .profile-card-content {
@@ -91,61 +45,108 @@
     overflow-y: auto; 
     box-sizing: border-box;
     padding: 45px 35px;
-    background: rgba(255, 255, 255, 0.55) !important;  
-    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.75) !important; 
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    border-radius: 16px;
     z-index: 2;
-    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+.welcome-message {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2em;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: center;
+}
+
+.profile-actions {
+    display: flex !important;
+    justify-content: center !important;
+    gap: 20px !important;
+    margin: 20px 0 30px 0 !important;
+    width: 100% !important;
+}
+
+.profile-button {
+    flex: 0 1 auto !important;
+    min-width: 135px !important;
+    padding: 12px 28px !important;
+    font-size: 15px !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 25px !important; 
+    font-weight: 700 !important;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    text-align: center !important;
+    white-space: nowrap !important;
+}
+
+.edit-profile-button {
+    background-color: #f1b3a3 !important; 
+    box-shadow: 0 4px 12px rgba(241, 179, 163, 0.3);
+}
+.edit-profile-button:hover {
+    background-color: #e29f8e !important;
+    transform: translateY(-1px);
+}
+
+.logout-button {
+    background-color: #bd4b4b !important;
+    box-shadow: 0 4px 12px rgba(189, 75, 75, 0.3);
+}
+.logout-button:hover {
+    background-color: #a33c3c !important;
+    transform: translateY(-1px);
 }
 
 .profile-details {
     margin-top: 20px;
     text-align: left;
-    color: #333;
+    color: #4a3e3d;
     margin-bottom: 25px;
 }
 
 .profile-details h3 {
-    color: var(--hotel-gold);
-    text-shadow: 0 0 0.5px#907254;
+    font-family: 'Playfair Display', serif;
+    color: #2c3e50;
+    font-size: 20px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     padding-bottom: 8px;
-    margin-bottom: 12px;
+    margin-bottom: 15px;
 }
 
 .bookings-inner-card {
     background: rgba(255, 255, 255, 0.40) !important; 
     border: 1px solid rgba(255, 255, 255, 0.5) !important; 
-    border-radius: 6px !important;
+    border-radius: 8px !important;
     padding: 25px !important; 
     text-align: left;
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.02); 
 }
 
 .bookings-inner-card h3 {
-    color: var(--hotel-gold);
-    text-shadow: 0 0 0.5px#907254;
+    font-family: 'Playfair Display', serif;
+    color: #2c3e50;
     margin-top: 0;
     margin-bottom: 15px;
     font-size: 1.25em;
 }
 
-.booking-list {
-    background: transparent !important;
-    box-shadow: none !important;
-    border: none !important;
-    padding: 0 !important;
-}
-
 .booking-item {
-    background: rgba(255, 255, 255, 0.3) !important;
-    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.4) !important;
+    border-radius: 8px;
     padding: 15px;
     margin-top: 15px;
     border: 1px dashed rgba(0, 0, 0, 0.1);
 }
 
 .no-bookings-text {
-    color: #555;
+    color: #777;
     font-style: italic;
     margin: 5px 0 0 0;
 }
@@ -153,38 +154,36 @@
 .room-photo {
     width: 100%;
     max-width: 220px;
-    border-radius: 4px;
+    border-radius: 6px;
     margin-top: 12px;
     display: block;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
 }
 
-.profile-card-content::-webkit-scrollbar {
-    width: 6px;
-}
+.profile-card-content::-webkit-scrollbar { width: 6px; }
 .profile-card-content::-webkit-scrollbar-thumb {
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.15);
     border-radius: 10px;
 }
 
 @media (max-width: 768px) {
     .profile-background-wrapper {
-        padding: 20px 10px;
+        padding: 40px 10px;
     }
     .profile-background-wrapper::before {
-        left: 0;
-        right: 0;
+        left: 15px;
+        right: 15px;
+        width: calc(100% - 30px);
     }
     .profile-card-content {
-        width: 95%;
+        width: 100%;
         padding: 30px 20px;
     }
     .welcome-message {
         font-size: 1.8em;
     }
-    .bookings-inner-card {
-        padding: 20px 15px !important;
-    }
 }
+
 @media (max-width: 480px) {
     .profile-actions {
         flex-direction: column !important;
@@ -198,7 +197,6 @@
 .profile-card-content .profile-page,
 .profile-card-content div[class*="profile"] {
     background: transparent !important;
-    background-color: transparent !important;
     box-shadow: none !important;
     border: none !important;
 }

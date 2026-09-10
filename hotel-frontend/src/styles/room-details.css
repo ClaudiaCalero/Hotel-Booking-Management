@@ -59,7 +59,6 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Bloque Datos del Huésped */
 .guest-container {
   display: flex;
   flex-direction: column;
@@ -96,7 +95,6 @@
   background-color: var(--hover-blue);
 }
 
-/* Alertas de Confirmación */
 .booking-success-message {
   text-align: center;
   color: #45a049;
@@ -155,7 +153,6 @@
   background-color: #fff;
 }
 
-/* Botón de buscar "Find" */
 .find-booking-button {
   padding: 12px 25px;
   background-color: var(--primary-color);
@@ -187,7 +184,6 @@
 }
 
 
-/* Responsivo Detalles */
 @media (max-width: 768px) {
   .room-details-booking,
   .room-details-info,
