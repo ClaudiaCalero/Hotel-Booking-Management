@@ -1,14 +1,19 @@
-.login-page-container {
-    width: 100%;
-    display: block;
-    isolation: isolate;
+.login-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; 
+  padding: 60px 20px;
+  min-height: 100vh; 
+  box-sizing: border-box;
 }
 
 .login-background-wrapper {
     position: relative;
     width: 100%;
     min-height: calc(100vh - 75px);
-    background-color: var(--bg-cream);
+    background-color: #fcf9f5; 
     padding: 0 20px;
     box-sizing: border-box;
     display: flex;
@@ -23,11 +28,13 @@
     bottom: 0;
     left: 40px;
     right: 40px;
-    background-image: url("../../public/images/hotel/Hotelweb/logreg.jpg");
+    background-image: url(../../public/images/hotel/Hotelweb/logreg.jpg); 
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center 60%;
     z-index: 0;
+    width: calc(100% - 80px);
+    height: 100%;
 }
 
 .login-background-wrapper::after {
@@ -37,8 +44,10 @@
     bottom: 0;
     left: 40px;
     right: 40px;
-    background: rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.15);
     z-index: 0;
+    width: calc(100% - 80px);
+    height: 100%;
 }
 
 .login-background-wrapper > * {
@@ -53,83 +62,104 @@
     transform: translate(-50%, -50%) !important;
     display: flex !important;
     flex-direction: column !important;
-    width: 330px !important;
+    width: 360px !important; 
     min-height: auto !important;
     box-sizing: border-box !important;
-    padding: 30px 35px !important;
-    background: var(--bg-white) !important;
+    padding: 40px !important;
+    
+    background: rgba(255, 255, 255, 0.75) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    
+    border-radius: 16px !important;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15) !important;
     opacity: 1 !important;
     visibility: visible !important;
     z-index: 2 !important;
 }
+
 .login-background-wrapper .login-auth-container h2 {
     margin: 0 0 24px !important;
     text-align: center !important;
-    color:  var(--hotel-burgundy) !important;
-    font-size: 20px !important;
+    color: #2c3e50 !important;
+    font-family: 'Playfair Display', serif !important;
+    font-size: 26px !important;
     font-weight: 700 !important;
 }
 
 .login-background-wrapper .form-group {
-    margin-bottom: 18px;
+    margin-bottom: 20px;
 }
 
 .login-background-wrapper .form-group label {
     display: block !important;
-    margin-bottom: 7px !important;
-    color: var(--text-dark) !important; 
-    font-size: 15px !important;
-    font-weight: 600 !important;
+    margin-bottom: 8px !important;
+    color: #6d5b52 !important; 
+    font-size: 13px !important;
+    font-weight: 700 !important;
     text-align: left !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
 }
 
 .login-background-wrapper .form-group input {
     width: 100%;
-    height: 34px;
-    font-size: 13px;
-    padding: 0 10px;
+    height: 40px;
+    font-size: 14px;
+    padding: 0 15px;
     box-sizing: border-box;
-    border: 1px solid #cccccc; 
-    border-radius: 4px;
-    background-color: var(--bg-white); 
-    color: var(--text-dark);
+    border: 1px solid #e0d9d5; 
+    border-radius: 25px; 
+    background-color: white; 
+    color: #4a3e3d;
     outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
 }
 
+.login-background-wrapper .form-group input:focus {
+    border-color: #f1b3a3; 
+    box-shadow: 0 0 5px rgba(241, 179, 163, 0.5);
+}
 
 .login-background-wrapper .login-submit-btn {
     width: 100%;
-    height: 35px;
-    margin-top: 5px;
+    height: 40px;
+    margin-top: 10px;
     padding: 0 12px;
     border: none;
-    border-radius: 3px;
-    background-color: #5f9075;
+    border-radius: 25px; 
+    background-color: #f1b3a3; 
     color: #fff;
-    font-size: 16px;
-    font-weight: 600;
+    font-size: 15px;
+    font-weight: 700;
     cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 12px rgba(241, 179, 163, 0.3);
 }
 
 .login-background-wrapper .login-submit-btn:hover {
-    background-color: var(--hotel-green);
+    background-color: #e29f8e;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 15px rgba(241, 179, 163, 0.4);
 }
 
 .login-background-wrapper .register-link {
     margin: 25px 0 0 !important;
     text-align: center !important;
-    color: #111 !important;
+    color: #555 !important;
     font-size: 14px;
 }
 
 .login-background-wrapper .register-link a {
-    color: var(--hotel-coral) !important; 
-    font-weight: 600;
+    color: #e29f8e !important; 
+    font-weight: 700;
     text-decoration: none;
+    border-bottom: 1px dashed #e29f8e;
 }
 
 .login-background-wrapper .register-link a:hover {
-    text-decoration: underline;
+    color: #c98373 !important;
+    border-bottom-style: solid;
 }
 
 .login-background-wrapper .error-alert-box {
@@ -144,10 +174,11 @@
 
 .login-background-wrapper .forgot-password-link {
     display: block;
-    margin-top: 5px;
+    margin-top: 8px;
     color: #8b2222;
     font-size: 12px;
     text-decoration: none;
+    text-align: right;
 }
 
 .login-background-wrapper .forgot-password-link:hover {
@@ -159,7 +190,6 @@
         min-height: calc(100vh - 90px);
         padding: 40px 15px;
     }
-
     .login-background-wrapper .login-auth-container {
         width: 330px !important;
         max-width: 90% !important;
@@ -172,11 +202,9 @@
         min-height: calc(100vh - 85px);
         padding: 30px 10px;
     }
-
     .login-background-wrapper .login-auth-container {
         width: 92% !important;
         max-width: 92% !important;
         padding: 25px !important;
     }
 }
-

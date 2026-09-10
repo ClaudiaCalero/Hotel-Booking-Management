@@ -3,30 +3,20 @@
     display: block;
     isolation: isolate;
 }
+
 .admin-background-wrapper {
     position: relative;
     width: 100%;
     min-height: calc(100vh - 75px);
-    background-color: var(--bg-cream);
-    padding: 0 20px;
+    background-color: #fcf9f5; 
+    padding: 80px 20px; 
     box-sizing: border-box;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.admin-background-wrapper::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 15%;
-    right: 15%;
-    background-image: url("../../public/images/hotel/Hotelweb/admin.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center 60%;
-    z-index: 0;
-}
+
+.admin-background-wrapper::before,
 .admin-background-wrapper::after {
     content: "";
     position: absolute;
@@ -34,44 +24,25 @@
     bottom: 0;
     left: 15%;
     right: 15%;
-    background: rgba(255, 255, 255, 0.10);
+    height: 100%;
+}
+
+.admin-background-wrapper::before {
+    background-image: url("../../public/images/hotel/Hotelweb/admin.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center 60%;
     z-index: 0;
 }
+
+.admin-background-wrapper::after {
+    background: rgba(255, 255, 255, 0.15);
+    z-index: 0;
+}
+
 .admin-background-wrapper > * {
     position: relative;
     z-index: 1;
-}
-
-.welcome-message {
-  font-size: 2em;
-  font-weight: bold;
-  color: var(--hotel-burgundy);
-  margin-bottom: 20px;
-  display: flex;
-  justify-content: center;
-}
-
-.admin-actions {
-  display: flex;
-  justify-content: center;
-  gap: 60px;
-  margin-top: 35px;
-}
-
-.admin-button {
-  padding: 15px 30px;
-  font-size: 1em;
-  color:white;
-  background-color: var(--hotel-green);
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.admin-button:hover {
-  background-color: #4d735c;
 }
 
 .admin-background-wrapper .admin-page-container {
@@ -84,17 +55,58 @@
     width: 630px !important;
     min-height: 270px !important;
     box-sizing: border-box !important;
-    padding: 45px 35px !important;
-    background: rgba(255, 255, 255, 0.45);
+    padding: 45px 40px !important;
+    
+    background: rgba(255, 255, 255, 0.75) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    
+    border-radius: 16px !important;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15) !important;
     opacity: 1 !important;
     visibility: visible !important;
     z-index: 2 !important;
-    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.23);
 }
 
+.welcome-message {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.2em;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 25px;
+  display: flex;
+  justify-content: center;
+}
+
+.admin-actions {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-top: 20px;
+}
+
+.admin-button {
+  padding: 12px 35px;
+  font-size: 15px;
+  color: white;
+  background-color: #f1b3a3; 
+  border: none;
+  border-radius: 25px; 
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 12px rgba(241, 179, 163, 0.3);
+}
+
+.admin-button:hover {
+  background-color: #e29f8e;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 15px rgba(241, 179, 163, 0.4);
+}
 
 @media (max-width: 992px) {
-    .admin-background-wrapper::before {
+    .admin-background-wrapper::before,
+    .admin-background-wrapper::after {
         left: 5%;  
         right: 5%;
     }
@@ -106,7 +118,8 @@
         padding: 40px 15px;
     }
 
-    .admin-background-wrapper::before {
+    .admin-background-wrapper::before,
+    .admin-background-wrapper::after {
         left: 0;
         right: 0;
     }
@@ -119,12 +132,12 @@
     }
 
     .welcome-message {
-        font-size: 1.7em;
+        font-size: 1.8em;
     }
 
     .admin-actions {
         gap: 20px; 
-        margin-top: 25px;
+        margin-top: 20px;
     }
 }
 
@@ -141,12 +154,12 @@
     }
 
     .welcome-message {
-        font-size: 1.4em;
+        font-size: 1.5em;
     }
 
     .admin-actions {
         flex-direction: column;
-        gap: 15px;
+        gap: 12px;
         width: 100%;
     }
 

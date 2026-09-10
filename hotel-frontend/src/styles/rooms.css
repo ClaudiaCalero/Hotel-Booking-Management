@@ -81,101 +81,6 @@
     box-sizing: border-box;
 }
 
-.all-rooms .search-container {
-    display: flex !important;
-    flex-direction: row !important;
-    align-items: flex-end;
-    justify-content: center;
-    gap: 14px !important;
-    width: 900px;
-    max-width: 100%;
-    margin: 0 auto 40px !important;
-    padding: 0 !important;
-    background: transparent !important;
-    box-shadow: none !important;
-    box-sizing: border-box;
-}
-
-.all-rooms .search-field {
-    position: relative;
-    flex: 1 1 0 !important;
-    min-width: 0;
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 5px !important;
-    margin: 0 !important;
-    padding: 7px !important;
-    background: var(--hotel-coral) !important;
-    border-radius: 3px !important;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.18);
-    box-sizing: border-box;
-}
-
-.all-rooms .search-field label {
-    margin: 0;
-    color: #3f2924 !important;
-    font-size: 10px;
-    font-weight: 700;
-    line-height: 1.1;
-    text-transform: none !important;
-}
-
-.all-rooms .search-field input,
-.all-rooms .search-field select {
-    width: 100% !important;
-    height: 27px;
-    padding: 0 8px;
-    border: none !important;
-    border-radius: 2px !important;
-    background: var(--bg-white) !important;
-    color: var(--text-dark);
-    font-size: 10px;
-    outline: none;
-    box-sizing: border-box !important;
-}
-
-.all-rooms .search-field input::placeholder {
-    color: #777777;
-}
-
-.all-rooms .search-field input:focus,
-.all-rooms .search-field select:focus {
-    border: none !important;
-    box-shadow: 0 0 0 2px rgba(88, 133, 105, 0.25);
-}
-
-.all-rooms .home-search-button {
-    flex: 0 0 120px !important;
-    height: 45px;
-    margin: 0 !important;
-    padding: 0 10px !important;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: none !important;
-    border-radius: 3px;
-    background-color: var(--hotel-green) !important;
-    color: var(--bg-white) !important;
-    font-size: 10px !important;
-    font-weight: 700 !important;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-}
-
-.all-rooms .home-search-button:hover {
-    background-color: #386048 !important;
-}
-
-.all-rooms .datepicker-container {
-    position: absolute;
-    top: calc(100% + 5px);
-    left: 0;
-    z-index: 1000;
-    background: var(--bg-white);
-    border-radius: 4px;
-    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.25);
-}
-
 .all-rooms .error-message {
     width: 100%;
     margin: -25px 0 20px;
@@ -189,7 +94,6 @@
     box-sizing: border-box;
 }
 
-
 .all-rooms .room-results {
     display: block;
     width: 100%;
@@ -197,7 +101,6 @@
 }
 
 @media (max-width: 768px) {
-
     .all-rooms {
         min-height: calc(100vh - 90px);
         padding: 35px 15px 30px;
@@ -209,50 +112,27 @@
         right: 15px;
     }
 
-
     .all-rooms h2 {
         margin-bottom: 28px;
         font-size: 20px;
     }
-
 
     .all-room-filter-div {
         flex-direction: row;
         align-items: center;
         gap: 10px;
         margin-bottom: 25px;
+        margin-left: 0; 
     }
 
     .all-room-filter-div label {
         font-size: 15px;
     }
 
-
-    .all-rooms .search-container {
-        flex-direction: column !important;
-        align-items: stretch !important;
-        gap: 8px !important;
-        width: 100%;
-        margin-bottom: 30px !important;
-    }
-
-    .all-rooms .search-field {
-        width: 100% !important;
-        flex: none !important;
-    }
-
-    .all-rooms .home-search-button {
-        width: 100% !important;
-        flex: none !important;
-        height: 36px;
-    }
-
-
     .all-rooms .error-message {
         margin-top: -15px;
     }
 }
-
 
 @media (max-width: 400px) {
     .all-rooms {
@@ -266,12 +146,10 @@
         right: 10px;
     }
 
-
     .all-rooms h2 {
         margin-bottom: 25px;
         font-size: 19px;
     }
-
 
     .all-room-filter-div {
         flex-wrap: wrap;
@@ -281,12 +159,6 @@
     .all-room-filter-div label {
         font-size: 14px;
     }
-
-    .all-rooms .search-container {
-        gap: 7px !important;
-        margin-bottom: 25px !important;
-    }
-
 
     .all-rooms .room-results {
         margin-bottom: 20px !important;

@@ -91,7 +91,6 @@ import React, { useState, useEffect } from "react";
                 </select>
             </div>
 
-            <RoomSearch handSearchResult={handleSearchResult}/>
             <RoomResult roomSearchResults={currentRooms}/>
 
             <Pagination
