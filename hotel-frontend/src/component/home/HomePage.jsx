@@ -18,7 +18,7 @@ const HomePage = () => {
           <div className="overlay"></div>
                     <div className="animated-texts overlay-content">
             <h1>
-              Welcome to <span className="onyx-color">Onyx Crown Hotel</span>
+              Welcome 
             </h1>
             <br />
             <h3>Step into a haven of comfort and care</h3>
@@ -35,7 +35,7 @@ const HomePage = () => {
         </a>
       </h4>
       <h2 className="home-services">
-        Services at <span className="onyx-color">Onyx Crown Hotel</span>
+        Services at <span className="onyx-color">The Grand Hotel Budapest</span>
       </h2>
       <section className="service-section">
         <div className="service-card">

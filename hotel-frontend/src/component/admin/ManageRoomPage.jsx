@@ -26,43 +26,46 @@ const ManageRoomPage = () => {
   const [success, setSuccess] = useState("");
   const [showConfirmModal, setShowConfirmModal] = useState(false);
 
-  const loadInventoryData = async () => {
+  // 1. Modifica tus funciones de carga para que NO dependan ni disparen estados de forma cíclica
+const loadInventoryData = async () => {
     try {
-      const resp = await ApiService.getAllRooms();
-
-      const roomsData = resp?.rooms || resp?.roomList || resp || [];
-
-      setRooms(roomsData);
-      setFilteredRooms(roomsData);
+        const resp = await ApiService.getAllRooms();
+        const roomsData = resp?.rooms || resp?.roomList || resp || [];
+        setRooms(roomsData);
+        setFilteredRooms(roomsData);
     } catch (error) {
-      console.error(error);
-      setError("Error loading rooms.");
-      setTimeout(() => setError(""), 5000);
+        console.error("Error al traer inventario:", error);
+        setError("Error loading rooms.");
+        // Eliminamos el setTimeout interno que limpia el error para evitar re-renders infinitos desincronizados
     }
-  };
+};
 
-  useEffect(() => {
+// 2. Controla de forma estricta las dependencias del useEffect
+useEffect(() => {
+    // Si no es admin, redirigir inmediatamente
     if (!isAdmin) {
-      navigate("/home");
-      return;
+        navigate("/home");
+        return;
     }
 
     const fetchRoomTypes = async () => {
-      try {
-        const resp = await ApiService.getRoomTypes();
-        setRoomTypes(resp || []);
-      } catch (error) {
-        console.error("Failed to obtain types from the server:", error);
-        setError("Error loading room types.");
-        setTimeout(() => {
-          setError("");
-        }, 5000);
-      }
+        try {
+            const resp = await ApiService.getRoomTypes();
+            setRoomTypes(resp || []);
+        } catch (error) {
+            console.error("Failed to obtain types from the server:", error);
+            setError("Error loading room types.");
+        }
     };
 
+    // Forzamos la ejecución limpia una única vez al montar el componente
     loadInventoryData();
     fetchRoomTypes();
-  }, [isAdmin, navigate]);
+
+// ATENCIÓN: Deja el array de dependencias exclusivamente con [isAdmin, navigate]
+// Si añades funciones o estados aquí (como 'error'), provocarás el bucle infinito
+}, [isAdmin, navigate]); 
+
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;

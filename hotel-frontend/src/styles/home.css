@@ -14,10 +14,10 @@
     bottom: 0;
     left: 40px;
     right: 40px;
-    background-image: url("../../public/images/hotel/Hotelweb/bg.jpg");
+    background-image: url("../../public/images/hotel/Hotelweb/wallpaperflare.com_wallpaper\ \(2\).jpg");
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: center center;
+    background-position: center 1%;
     z-index: 0;
 }
 .home-background::after {
@@ -67,11 +67,15 @@
     font-size: 25px;
     font-weight: 700;
     line-height: 1.2;
+    margin: 40px auto 0 auto; 
+    text-shadow: 1px 2px 3.5px var(--text-muted);
 }
 
 .overlay-content h3 {
     font-size: 14px;
     font-weight: 700;
+    margin: 40px auto 0 auto; 
+    text-shadow: 1px 2px 3.5px var(--text-muted);
 }
 
 .search-placement {
@@ -223,6 +227,11 @@
     font-size: 23px;
     font-weight: 700;
     line-height: 1.2;
+    background: rgba(0, 0, 0, 0.02);
+    max-width: 500px; 
+    border-radius: 12px;
+    text-shadow: 1px 2px 3.5px var(--text-muted);
+
 }
 
 .service-section {

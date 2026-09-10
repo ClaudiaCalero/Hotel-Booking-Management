@@ -2,7 +2,7 @@ const Footer = () =>{
 
     return(
         <footer className="my-footer">
-            <span> Onyx Crown Hotel | All Rights Reserved &copy; 2026</span>
+            <span> The Grand Hotel Budapest | All Rights Reserved &copy; 2026</span>
         </footer>
     )
 
