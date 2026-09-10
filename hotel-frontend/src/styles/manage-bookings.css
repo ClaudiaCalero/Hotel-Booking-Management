@@ -1,0 +1,164 @@
+.manage-bookings-container,
+.edit-booking-container {
+  position: relative;
+  min-height: 100vh;
+  padding: 60px 20px;
+  box-sizing: border-box;
+  background-color: #fcf9f5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.manage-bookings-container::before,
+.edit-booking-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 40px;   /* Franja izquierda */
+  right: 40px;  /* Franja derecha */
+  background-image: url('../../public/images/hotel/Hotelweb/dates.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center 45%;
+  z-index: 0;
+  width: calc(100% - 80px);
+  height: 100%;
+}
+
+.manage-bookings-container::after,
+.edit-booking-container::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 40px;
+  right: 40px;
+  background: rgba(255, 255, 255, 0.15);
+  z-index: 0;
+  width: calc(100% - 80px);
+  height: 100%;
+}
+
+.manage-bookings-wrapper,
+.edit-booking-wrapper {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 950px; 
+  margin: 0 auto;
+}
+
+.manage-bookings-card-content,
+.edit-booking-card-content {
+  background-color: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 15px;
+  padding: 35px;
+  height: auto;
+  overflow: visible;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+}
+
+.manage-bookings-title,
+.edit-booking-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 32px;
+  color: #2c3e50;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.inner-booking-section {
+  background-color: white;
+  border-radius: 10px;
+  padding: 25px;
+  margin-bottom: 25px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+}
+
+.inner-booking-section h3 {
+  margin-top: 0;
+  color: #34495e;
+  font-size: 18px;
+  border-left: 4px solid #f1b3a3; /* El rosa distintivo */
+  padding-left: 10px;
+  margin-bottom: 20px;
+}
+
+.booking-search-input-box {
+  display: flex;
+  background-color: white;
+  padding: 6px 12px;
+  border-radius: 30px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  gap: 10px;
+  align-items: center;
+  border: 1px solid #e0d9d5;
+  max-width: 450px;
+  margin-bottom: 25px;
+}
+
+.booking-search-input-box input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: 8px 12px;
+  font-size: 14px;
+  color: #4a3e3d;
+  outline: none;
+}
+
+.booking-info-row {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px dashed rgba(0, 0, 0, 0.1);
+  padding: 12px 0;
+  font-size: 14px;
+  color: #555;
+}
+
+.booking-info-row strong {
+  color: #2c3e50;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 15px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.status-confirmed { background-color: #d4edda; color: #155724; }
+.status-pending { background-color: #fff3cd; color: #856404; }
+.status-cancelled { background-color: #f8d7da; color: #721c24; }
+
+.action-btn-edit-booking,
+.action-btn-save-booking {
+  background-color: #f1b3a3;
+  color: white;
+  padding: 10px 25px;
+  border: none;
+  border-radius: 25px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  box-shadow: 0 4px 12px rgba(241, 179, 163, 0.3);
+}
+
+.action-btn-edit-booking:hover,
+.action-btn-save-booking:hover {
+  background-color: #e29f8e;
+  transform: translateY(-1px);
+}
+
+@media (max-width: 768px) {
+  .manage-bookings-container, .edit-booking-container { padding: 30px 10px; }
+  .manage-bookings-container::before, .manage-bookings-container::after,
+  .edit-booking-container::before, .edit-booking-container::after { left: 15px; right: 15px; width: calc(100% - 30px); }
+  .booking-info-row { flex-direction: column; gap: 4px; }
+}
