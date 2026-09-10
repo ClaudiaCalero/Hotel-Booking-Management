@@ -109,7 +109,7 @@ const LoginPage = () => {
           </div>
         </div>
       </div>
-    </div> /* ← Cierra el contenedor aquí */
+    </div> 
   );
 };
 

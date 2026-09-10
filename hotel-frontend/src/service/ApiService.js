@@ -106,20 +106,30 @@ export default class ApiService {
         return resp.data;
     }
 
-    //to get room types
-    static async getRoomTypes() {
-    // Apuntamos directamente a la ruta mapeada en tu controlador Java
-    const response = await axios.get(`${this.BASE_URL}/rooms/types`);
-    return response.data; // Retorna directamente el array de strings ["SINGLE", "DOUBLE", "SUIT", "TRIPLE"]
-}
+    // Dentro de tu clase ApiService
 
-
-
-    //to get all rooms
     static async getAllRooms() {
-        const resp = await axios.get(`${this.BASE_URL}/rooms/all`);
-        return resp.data;
+        const token = localStorage.getItem("token");
+        const response = await axios.get(`${this.BASE_URL}/rooms/all`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return response.data;
     }
+
+    static async getRoomTypes() {
+        const token = localStorage.getItem("token");
+
+        const response = await axios.get(`${this.BASE_URL}/rooms/types`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return response.data;
+    }
+
+
 
     //To get room details
     static async getRoomById(roomId) {

@@ -24,7 +24,7 @@ function Navbar() {
     return (
         <nav className="navbar">
             <div className="navbar-brand">
-                <NavLink to="/home"> Onyx Crown Hotel </NavLink>
+                <NavLink to="/home"> The Grand Hotel Budapest </NavLink>
             </div>
 
             <ul className="navbar-ul">
