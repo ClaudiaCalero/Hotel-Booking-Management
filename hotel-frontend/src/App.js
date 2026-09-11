@@ -78,6 +78,8 @@ function App() {
             <Route path="/admin-register" element={<AdminRoute element={<AdminRegisterPage />} />} />
             <Route path="/admin/all-rooms" element={<AdminRoute element={<AdminAllRoomsPage />} />} />
             <Route path="/admin/manage-bookings" element={<AdminRoute element={<ManageBookingsPage />} />} />
+            <Route path="/admin/edit-booking/:bookingReference" element={<AdminRoute element={<EditBookingPage />} />} />
+
 
             {/* FALLBACK URL */}
             <Route path="*" element={<Navigate to={"/home"} />} />

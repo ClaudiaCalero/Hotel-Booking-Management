@@ -21,12 +21,11 @@ const PaymentSuccess = () => {
         <p className="payment-status-instructions">
           A confirmation mail with your check-in vouchers has been dispatched. We look forward to welcoming you at The Grand Hotel Budapest.
         </p>
-
+        
         <button 
           type="button" 
           className="payment-button" 
-          onClick={() => navigate("/profile")}
-        >
+          onClick={() => navigate("/profile")}>
           View My Vouchers
         </button>
       </div>

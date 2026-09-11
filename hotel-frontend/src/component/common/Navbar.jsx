@@ -2,7 +2,6 @@ import React from "react";
 import { useNavigate, NavLink } from "react-router-dom";
 import ApiService from "../../service/ApiService";
 
-
 function Navbar() {
     const isAuthenticated = ApiService.isAthenticated();
     const isCustomer = ApiService.isCustomer();
@@ -18,7 +17,6 @@ function Navbar() {
         }
     };
 
-    // Función reutilizable para gestionar la clase activa
     const navLinkClass = ({ isActive }) => isActive ? "active" : "";
 
     return (
@@ -30,7 +28,10 @@ function Navbar() {
             <ul className="navbar-ul">
                 <li><NavLink to="/home" className={navLinkClass}>Home</NavLink></li>
                 <li><NavLink to="/rooms" className={navLinkClass}>Rooms</NavLink></li>
-                <li><NavLink to="/find-booking" className={navLinkClass}>Find My Bookings</NavLink></li>
+                
+                {!isAdmin && (
+                    <li><NavLink to="/find-booking" className={navLinkClass}>Find My Bookings</NavLink></li>
+                )}
 
                 {isCustomer && <li><NavLink to="/profile" className={navLinkClass}>Profile</NavLink></li>}
                 {isAdmin && <li><NavLink to="/admin" className={navLinkClass}>Admin</NavLink></li>}
@@ -38,7 +39,7 @@ function Navbar() {
                 {!isAuthenticated && <li><NavLink to="/login" className={navLinkClass}>Login</NavLink></li>}
                 {!isAuthenticated && <li><NavLink to="/register" className={navLinkClass}>Register</NavLink></li>}
 
-                {isAuthenticated && <li onClick={handleLogout} style={{ cursor: "pointer" }}>Logout</li>}
+                {isAuthenticated && <li onClick={handleLogout} className="navbar-logout-item">Logout</li>}
             </ul>
         </nav>
     );

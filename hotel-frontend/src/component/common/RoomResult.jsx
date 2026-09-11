@@ -2,17 +2,21 @@ import React, { useState } from "react";
 import ApiService from "../../service/ApiService";
 import { useNavigate } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
-import '../../styles/room-result.css';
-
+import "../../styles/room-result.css";
 
 const RoomDescription = ({ text }) => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const characterLimit = 180; 
+  const characterLimit = 180;
 
-  if (!text) return <p className="room-desc-empty">No description available.</p>;
-  
+  if (!text)
+    return <p className="room-desc-empty">No description available.</p>;
+
   if (text.length <= characterLimit) {
-    return <div className="room-desc-content"><ReactMarkdown>{text}</ReactMarkdown></div>;
+    return (
+      <div className="room-desc-content">
+        <ReactMarkdown>{text}</ReactMarkdown>
+      </div>
+    );
   }
 
   return (
@@ -20,9 +24,9 @@ const RoomDescription = ({ text }) => {
       <ReactMarkdown>
         {isExpanded ? text : `${text.substring(0, characterLimit)}...`}
       </ReactMarkdown>
-      <button 
+      <button
         type="button"
-        onClick={() => setIsExpanded(!isExpanded)} 
+        onClick={() => setIsExpanded(!isExpanded)}
         className="room-read-more-btn"
       >
         {isExpanded ? "Show Less ↑" : "Read More ↓"}
@@ -34,14 +38,24 @@ const RoomDescription = ({ text }) => {
 const RoomImageCarousel = ({ imageUrls }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const placeholder = "https://unsplash.com"; 
+  const placeholder = "https://unsplash.com";
 
   if (!imageUrls || imageUrls.length === 0) {
-    return <img src={placeholder} alt="Room placeholder" className="carousel-img-fluid" />;
+    return (
+      <img
+        src={placeholder}
+        alt="Room placeholder"
+        className="carousel-img-fluid"
+      />
+    );
   }
 
   let currentImageUrl = imageUrls[currentIndex];
-  if (currentImageUrl && !currentImageUrl.startsWith("http") && !currentImageUrl.startsWith("/")) {
+  if (
+    currentImageUrl &&
+    !currentImageUrl.startsWith("http") &&
+    !currentImageUrl.startsWith("/")
+  ) {
     currentImageUrl = "/" + currentImageUrl;
   }
 
@@ -52,24 +66,38 @@ const RoomImageCarousel = ({ imageUrls }) => {
 
   const prevSlide = (e) => {
     e.stopPropagation();
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + imageUrls.length) % imageUrls.length);
+    setCurrentIndex(
+      (prevIndex) => (prevIndex - 1 + imageUrls.length) % imageUrls.length,
+    );
   };
 
   return (
     <div className="room-carousel-main-box">
-      <img 
-        src={currentImageUrl} 
-        alt={`Room slide ${currentIndex + 1}`} 
+      <img
+        src={currentImageUrl}
+        alt={`Room slide ${currentIndex + 1}`}
         className="carousel-img-fluid"
         onError={(e) => {
-          e.target.onerror = null; 
-          e.target.src = placeholder; 
+          e.target.onerror = null;
+          e.target.src = placeholder;
         }}
       />
       {imageUrls.length > 1 && (
         <>
-          <button type="button" onClick={prevSlide} className="carousel-nav-btn prev-btn">‹</button>
-          <button type="button" onClick={nextSlide} className="carousel-nav-btn next-btn">›</button>
+          <button
+            type="button"
+            onClick={prevSlide}
+            className="carousel-nav-btn prev-btn"
+          >
+            ‹
+          </button>
+          <button
+            type="button"
+            onClick={nextSlide}
+            className="carousel-nav-btn next-btn"
+          >
+            ›
+          </button>
           <span className="carousel-counter-tag">
             {currentIndex + 1} / {imageUrls.length}
           </span>
@@ -80,60 +108,66 @@ const RoomImageCarousel = ({ imageUrls }) => {
 };
 
 const RoomResult = ({ roomSearchResults }) => {
-    const navigate = useNavigate();
-    const isAdmin = ApiService.isAdmin();
+  const navigate = useNavigate();
+  const isAdmin = ApiService.isAdmin();
 
-    console.log("Room data received in React:", roomSearchResults);
+  console.log("Room data received in React:", roomSearchResults);
 
-    return (
-        <section className="room-results-section">
-            { roomSearchResults && roomSearchResults.length > 0 && (
-            <div className="inventory-flex-list">
-                {roomSearchResults.map(room => (
-                    <div className="modern-room-card" key={room.id}>
-                        
-                        <div className="modern-room-card-left">
-                            <RoomImageCarousel imageUrls={room.imageUrls} />
-                        </div>
+  return (
+    <section className="room-results-section">
+      {roomSearchResults && roomSearchResults.length > 0 && (
+        <div className="inventory-flex-list">
+          {roomSearchResults.map((room) => (
+            <div className="modern-room-card" key={room.id}>
+              <div className="modern-room-card-left">
+                <RoomImageCarousel imageUrls={room.imageUrls} />
+              </div>
 
-                        {/* Derecha: Datos */}
-                        <div className="modern-room-card-right">
-                            <div className="modern-room-info-block">
-                                <div className="modern-room-title-line">
-                                    <h3 className="modern-room-type">{room.type}</h3>
-                                    <span className="modern-room-number">Room N° {room.roomNumber}</span>
-                                </div>
-                                
-                                <p className="modern-room-pricing">
-                                    Price: ${room.pricePerNight}/Night 
-                                    <span className="modern-room-bar">|</span> 
-                                    <span className="modern-room-capacity">Capacity: {room.capacity} Guests</span>
-                                </p>
+              <div className="modern-room-card-right">
+                <div className="modern-room-info-block">
+                  <div className="modern-room-title-line">
+                    <h3 className="modern-room-type">{room.type}</h3>
+                    <span className="modern-room-number">
+                      Room N° {room.roomNumber}
+                    </span>
+                  </div>
 
-                                <RoomDescription text={room.description} />
-                            </div>
+                  <p className="modern-room-pricing">
+                    Price: ${room.pricePerNight}/Night
+                    <span className="modern-room-bar">|</span>
+                    <span className="modern-room-capacity">
+                      Capacity: {room.capacity} Guests
+                    </span>
+                  </p>
 
-                            <div className="modern-room-actions">
-                                {isAdmin ? (
-                                    <button className="edit-room-button" 
-                                            onClick={() => navigate(`/admin/edit-room/${room.id}`)}>
-                                        Edit Room
-                                    </button>
-                                ) : (
-                                    <button className="book-now-button" 
-                                            onClick={() => navigate(`/room-details/${room.id}`)}>
-                                        View/Book Now
-                                    </button>
-                                )}
-                            </div>
-                        </div>
+                  <RoomDescription text={room.description} />
+                </div>
 
-                    </div>
-                ))}
+                <div className="modern-room-actions">
+                  {isAdmin ? (
+                    <button
+                      type="button"
+                      className="edit-room-btn"
+                      onClick={() =>
+                        navigate(`/admin/edit-room/${room.id || room.roomId}`)
+                      }>
+                      Edit Room
+                    </button>
+                  ) : (
+                    <button
+                      className="book-now-button"
+                      onClick={() => navigate(`/room-details/${room.id}`)}>
+                      View/Book Now
+                    </button>
+                  )}
+                </div>
+              </div>
             </div>
-            )}
-        </section>
-    );
+          ))}
+        </div>
+      )}
+    </section>
+  );
 };
 
 export default RoomResult;

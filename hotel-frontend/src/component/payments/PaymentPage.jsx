@@ -17,36 +17,36 @@ const PaymentPage = () => {
     const fetchClientSecrete = async () => {
       try {
         const paymentData = { bookingReference, amount };
-        console.log("BOOKING NO IS: " + bookingReference);
-        console.log("Amount IS: " + amount);
-
         const responseData = await ApiService.proceedForPayment(paymentData);
 
         console.log("RESPUESTA COMPLETA DEL BACKEND:", responseData);
 
-        const secretText =
+        let secretText =
           responseData?.clientSecret ||
           responseData?.intentSecret ||
           responseData;
 
-        console.log("TEXTO DEL SECRETO DESEMPAQUETADO:", secretText);
+        if (typeof secretText === 'string') {
+            secretText = secretText.replace(/['"]+/g, '').trim();
+        }
+
+        console.log("TEXTO DEL SECRETO DESEMPAQUETADO Y LIMPIO:", secretText);
         setClientSecret(secretText);
       } catch (error) {
         console.log(error);
         setError(error.response?.data?.message || error.message);
       }
     };
-    fetchClientSecrete();
+
+    fetchClientSecrete(); 
   }, [bookingReference, amount]);
 
   if (error) {
     return <div className="error-message">{error}</div>;
   }
 
-  //initilize strip with public key
-
   const stripePromise = loadStripe(
-    "pk_test_51QUUt8HB3OLSUETB41PkCNVZvXQdjyIJx4n7u9EHrMUH0j3R5VAJE76l1fnwQbC3OJlkPwQDIi0KwXGjdU1phB3s00ZJEZOlbv",
+    "pk_test_51QUUt8HB3OLSUETB41PkCNVZvXQdjyIJx4n7u9EHrMUH0j3R5VAJE76l1fnwQbC3OJlkPwQDIi0KwXGjdU1phB3s00ZJEZOlbv"
   );
 
   const handlePaymentStatus = async (
@@ -64,7 +64,7 @@ const PaymentPage = () => {
       };
 
       await ApiService.updateBookingPaymeent(paymentData);
-      console.log("Payment sataus weas updated");
+      console.log("Payment status was updated");
     } catch (error) {
       console.log(error.message);
     }
@@ -72,11 +72,10 @@ const PaymentPage = () => {
 
   return (
     <div className="payment-page">
-      {/* 🌟 CORREGIDO: Inicializamos Elements de forma limpia sin forzar las opciones automáticas */}
       {clientSecret && (
         <Elements stripe={stripePromise}>
           <PaymentForm
-            clientSecret={clientSecret} // Sigue viajando limpio hacia el hijo
+            clientSecret={clientSecret}
             amount={amount}
             onPaymentSuccess={(transactionId) => {
               setPaymentStatus("succeeded");
