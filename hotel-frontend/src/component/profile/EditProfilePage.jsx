@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ApiService from '../../service/ApiService';
+import '../../styles/edit-profile.css';
 
 const EditProfilePage = () => {
     const [user, setUser] = useState(null);

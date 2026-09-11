@@ -1,182 +1,173 @@
 import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import ApiService from "../../service/ApiService";
-import { useNavigate, useParams } from "react-router-dom";
-import { DayPicker } from "react-day-picker";
+import ReactMarkdown from "react-markdown"; 
+import "../../styles/room-details.css";
+
+const RoomDetailsCarousel = ({ imageUrls }) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  
+  const placeholder = "https://unsplash.com"; 
+
+  if (!imageUrls || imageUrls.length === 0) {
+    return <img src={placeholder} alt="Room overview" className="room-details-large-image" />;
+  }
+
+  const nextSlide = (e) => {
+    e.stopPropagation();
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % imageUrls.length);
+  };
+
+  const prevSlide = (e) => {
+    e.stopPropagation();
+    setCurrentIndex((prevIndex) => (prevIndex - 1 + imageUrls.length) % imageUrls.length);
+  };
+
+  return (
+    <div className="details-carousel-container" style={{ position: "relative", width: "100%", height: "400px", overflow: "hidden", borderRadius: "12px", marginBottom: "25px", backgroundColor: "#f5f5f5" }}>
+      <img 
+        src={imageUrls[currentIndex]} 
+        alt={`Room view ${currentIndex + 1}`} 
+        style={{ width: "100%", height: "100%", objectFit: "cover" }}
+        onError={(e) => {
+          e.target.onerror = null;
+          e.target.src = placeholder;
+        }}
+      />
+      {imageUrls.length > 1 && (
+        <>
+          <button type="button" onClick={prevSlide} className="details-carousel-btn prev">‹</button>
+          <button type="button" onClick={nextSlide} className="details-carousel-btn next">›</button>
+          <span className="details-carousel-counter">
+            {currentIndex + 1} / {imageUrls.length}
+          </span>
+        </>
+      )}
+    </div>
+  );
+};
 
 const RoomDetailsPage = () => {
-  const navigate = useNavigate();
   const { roomId } = useParams();
+  const navigate = useNavigate();
 
-  // Gestión de estados originales
   const [room, setRoom] = useState(null);
-  const [checkInDate, setCheckInDate] = useState(null);
-  const [checkOutDate, setCheckOutDate] = useState(null);
-  const [totalPrice, setTotalPrice] = useState(0);
-  const [totalDaysToStay, setTotalDaysToStay] = useState(0);
-  const [showDatePicker, setShowDatePicker] = useState(false);
-  const [showBookingPreview, setShowBookingPreview] = useState(false);
-  const [showMessage, setShowMessage] = useState(null);
-  const [errorMessage, setErrorMessage] = useState(null);
+  const [checkInDate, setCheckInDate] = useState("");
+  const [checkOutDate, setCheckOutDate] = useState("");
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
 
   useEffect(() => {
-    const fetchRoomDetails = async () => {
+    const fetchRoomData = async () => {
       try {
-        const resp = await ApiService.getRoomById(roomId);
-        const roomData = resp?.room || resp;
-
-        if (!roomData || Object.keys(roomData).length === 0) {
-          setErrorMessage("This room contains no valid data or was corrupted.");
-          return;
-        }
-
-        setRoom(roomData);
+        const response = await ApiService.getRoomById(roomId);
+        setRoom(response.room);
       } catch (error) {
-        console.error("Error en petición de habitación:", error);
-        setErrorMessage(error.response?.data?.message || "Error al conectar con el servidor.");
+        setError(error.response?.data?.message || error.message || "Error loading room details.");
       }
     };
-    fetchRoomDetails();
+    fetchRoomData();
   }, [roomId]);
 
-  const calculateTotalPrice = () => {
-    if (!checkInDate || !checkOutDate) return 0;
-    const oneDay = 24 * 60 * 60 * 1000;
-    const totalDays = Math.round(
-      Math.abs((new Date(checkOutDate) - new Date(checkInDate)) / oneDay)
-    );
-    setTotalDaysToStay(totalDays);
-    return (room?.pricePerNight || room?.roomPrice || 0) * totalDays;
-  };
-
-  const handleConfirmation = () => {
+  const handleBooking = async () => {
     if (!checkInDate || !checkOutDate) {
-      setErrorMessage("Please select both check-in and check-out dates");
-      setTimeout(() => setErrorMessage(null), 5000);
+      setError("Please select both check-in and check-out dates.");
+      setTimeout(() => setError(""), 5000);
       return;
     }
-    setTotalPrice(calculateTotalPrice());
-    setShowBookingPreview(true);
-  };
 
-  const acceptBooking = async () => {
     try {
-      const formattedCheckInDate = checkInDate.toLocaleDateString("en-CA");
-      const formatterdCheckOutDate = checkOutDate.toLocaleDateString("en-CA");
-
-      const booking = {
-        checkInDate: formattedCheckInDate,
-        checkOutDate: formatterdCheckOutDate,
-        roomId: room.id,
+      setError(""); 
+      
+      const bookingData = {
+        checkInDate,
+        checkOutDate,
       };
 
-      const resp = await ApiService.bookRoom(booking);
+      const fullBookingPayload = {
+        ...bookingData,
+        roomId: roomId
+      };
 
-      if (resp) {
-        setShowMessage(
-          "Your Booking is Successful. Please proceeed for payment."
-        );
+      const result = await ApiService.bookRoom(fullBookingPayload);
+      
+      if (result) {
+        setSuccess("Reservation initiative placed successfully!");
         setTimeout(() => {
-          setShowMessage(null);
-          navigate(`/payment/${resp.bookingConfirmationCode || "CONFIRMED"}/${totalPrice}`);
-        }, 3000);
+          navigate("/profile");
+        }, 2500);
       }
     } catch (error) {
-      setErrorMessage(error.response?.data?.message || error.message);
+      console.error("Error devuelto por el servidor:", error.response);
+      const backendMsg = error.response?.data?.message || error.response?.data || error.message;
+      setError(`Error (500): ${backendMsg}`);
     }
   };
 
   if (!room) {
-    return (
-      <div className="room-loading-container">
-        <h2>Loading room details...</h2>
-        {errorMessage && <p className="error-message">{errorMessage}</p>}
-      </div>
-    );
+    return <div className="room-details-page-container"><p style={{ textAlign: "center", color: "#fff" }}>Loading Grand Budapest Suite Details...</p></div>;
   }
-
-  const roomNumber = room.roomNumber || "N/A";
-  const type = room.type || room.roomType || "Standard Suite";
-  const pricePerNight = room.pricePerNight || room.roomPrice || 0;
-  const capacity = room.capacity || 2;
-  const description = room.description || room.roomDescription || "No description provided for this room selection.";
-  const imageUrl = room.imageUrl || room.roomPhotoUrl || "";
 
   return (
     <div className="room-details-page-container">
-      {showMessage && <p className="success-message">{showMessage}</p>}
-      {errorMessage && <p className="error-message">{errorMessage}</p>}
-
-      <h2 className="room-details-main-title">Grand Hotel Budapest Suites</h2>
+      <h1 className="room-details-main-title">Grand Hotel Budapest Suites</h1>
+      
+      {success && <p className="success-message" style={{ zIndex: 10, position: "relative" }}>{success}</p>}
 
       <div className="room-details-content-grid">
         
         <div className="room-details-media-gallery">
-          <img src={imageUrl || "/images/room-placeholder.png"} alt={type} className="room-details-large-image" />
+          <RoomDetailsCollection imageUrls={room.imageUrls} />
+
           <div className="room-details-text-info">
-            <h2>{type}</h2>
-            <p className="room-details-price"><strong>Price:</strong> ${pricePerNight} / night</p>
-            <p className="room-details-info-para"><strong>Room Number:</strong> #{roomNumber} | <strong>Capacity:</strong> {capacity} Guests</p>
-            <p className="room-details-description-para">{description}</p>
+            <h2>{room.type} Suite</h2>
+            <p className="room-details-price">Price: ${room.pricePerNight} / night</p>
+            
+            <p style={{ margin: "0 0 20px 0", color: "#666", fontWeight: "600", fontSize: "0.95rem" }}>
+              Room Number: #{room.roomNumber} <span style={{ color: "#ccc", margin: "0 8px" }}>|</span> Capacity: {room.capacity} Guests
+            </p>
+            
+            <div className="room-details-description-para">
+              <ReactMarkdown>{room.description}</ReactMarkdown>
+            </div>
           </div>
         </div>
 
         <div className="room-details-booking-card">
           <h3>Reservation Panel</h3>
           
-          <div className="booking-info">
-            <button
-              className="btn-submit-room-booking"
-              onClick={() => setShowDatePicker(!showDatePicker)}
-            >
-              {showDatePicker ? "Hide Calendar" : "Select Stay Dates"}
-            </button>
+          {error && <p className="error-message" style={{ color: "#9c3030", background: "#f8d7da", padding: "10px", borderRadius: "6px", fontSize: "13px" }}>{error}</p>}
 
-            {showDatePicker && (
-              <div className="date-picker-dropdown-box">
-                <div className="booking-input-group">
-                  <label>Check-in Date</label>
-                  <DayPicker
-                    selected={checkInDate}
-                    onDayClick={setCheckInDate}
-                    disabled={(date) => checkOutDate && date > checkOutDate}
-                  />
-                </div>
-
-                <div className="booking-input-group">
-                  <label>Check-out Date</label>
-                  <DayPicker
-                    selected={checkOutDate}
-                    onDayClick={setCheckOutDate}
-                    disabled={(date) => checkInDate && date < checkInDate}
-                  />
-                </div>
-
-                <button className="btn-submit-room-booking btn-verify-booking" onClick={handleConfirmation}>
-                  Verify Booking
-                </button>
-              </div>
-            )}
-
-            {showBookingPreview && (
-              <div className="booking-preview">
-                <h4>Stay Summary</h4>
-                <p><strong>Check-in:</strong> {checkInDate?.toLocaleDateString("en-CA")}</p>
-                <p><strong>Check-out:</strong> {checkOutDate?.toLocaleDateString("en-CA")}</p>
-                <p><strong>Total Days:</strong> {totalDaysToStay}</p>
-                <p className="booking-preview-total"><strong>Total Amount:</strong> ${totalPrice}</p>
-                
-                <div className="booking-preview-actions">
-                  <button className="btn-submit-room-booking" onClick={acceptBooking}>Book Now</button>
-                  <button className="btn-submit-room-booking btn-cancel-preview" onClick={() => setShowBookingPreview(false)}>Cancel</button>
-                </div>
-              </div>
-            )}
+          <div className="booking-input-group">
+            <label>Check-In Date</label>
+            <input 
+              type="date" 
+              value={checkInDate} 
+              onChange={(e) => setCheckInDate(e.target.value)} 
+              min={new Date().toISOString().split("T")[0]}
+            />
           </div>
+
+          <div className="booking-input-group">
+            <label>Check-Out Date</label>
+            <input 
+              type="date" 
+              value={checkOutDate} 
+              onChange={(e) => setCheckOutDate(e.target.value)} 
+              min={checkInDate || new Date().toISOString().split("T")[0]}
+            />
+          </div>
+
+          <button type="button" className="btn-submit-room-booking" onClick={handleBooking}>
+            Select Stay Dates
+          </button>
         </div>
 
       </div>
     </div>
   );
 };
+
+const RoomDetailsCollection = RoomDetailsCarousel;
 
 export default RoomDetailsPage;

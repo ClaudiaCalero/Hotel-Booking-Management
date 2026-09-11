@@ -14,8 +14,8 @@
   position: absolute;
   top: 0;
   bottom: 0;
-  left: 40px;   /* Franja izquierda */
-  right: 40px;  /* Franja derecha */
+  left: 40px;   
+  right: 40px;  
   background-image: url('../../public/images/hotel/Hotelweb/perro.jpg'); 
   background-repeat: no-repeat;
   background-size: cover;

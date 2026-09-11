@@ -1,161 +1,197 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import ApiService from "../../service/ApiService"; // Import API service
+import ApiService from "../../service/ApiService";
+import "../../styles/edit-room-popup.css"; 
+import "../../styles/add-room.css";
 
-const EditBookingPage = () => {
-
-  const { bookingCode } = useParams(); // Retrieve booking reference from URL
+const EditRoomPage = () => {
+  const { roomId } = useParams();
   const navigate = useNavigate();
+  const isAdmin = ApiService.isAdmin();
 
-  const [bookingDetails, setBookingDetails] = useState(null); // Store booking details
+  const [roomDetails, setRoomDetails] = useState({
+    roomNumber: "",
+    type: "",
+    pricePerNight: "",
+    capacity: "",
+    description: "",
+  });
 
-  const [formState, setFormState] = useState({
-    id:"",
-    bookingStatus: "",
-    paymentStatus: "",
-  }); // Form for updating status
+  const [roomTypes, setRoomTypes] = useState([]); 
+  const [existingImages, setExistingImages] = useState([]); 
+  const [newFiles, setNewFiles] = useState([]); 
+  const [previews, setPreviews] = useState([]); 
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
 
-  const [message, setMessage] = useState({ type: "", text: "" }); // For error/success messages
-
-  // Fetch booking details on component mount
   useEffect(() => {
-    const fetchBookingDetails = async () => {
-      try {
-        const response = await ApiService.getBookingByReference(bookingCode);
-        setBookingDetails(response.booking);
-        setFormState({
-            id:response.booking.id,
-          bookingStatus: response.booking.bookingStatus || "",
-          paymentStatus: response.booking.paymentStatus || "",
-        });
-      } catch (error) {
-        setMessage({
-          type: "error",
-          text: error.response?.data?.message || error.message,
-        });
-      }
-    };
-
-    fetchBookingDetails();
-  }, [bookingCode]);
-
-  // Handle input changes for bookingStatus and paymentStatus
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormState((prev) => ({ ...prev, [name]: value }));
-  };
-
-  // Handle update submission
-  const handleUpdate = async () => {
-    if (!formState.bookingStatus && !formState.paymentStatus) {
-      setMessage({ type: "error", text: "Please update at least one field." });
+    if (!isAdmin) {
+      navigate("/home");
       return;
     }
 
-    try {
-      await ApiService.updateBooking(formState);
-      setMessage({ type: "success", text: "Booking updated successfully." });
+    const fetchData = async () => {
+      try {
+        const roomResponse = await ApiService.getRoomById(roomId);
+        const roomData = roomResponse.room;
+        
+        setRoomDetails({
+          roomNumber: roomData.roomNumber || "",
+          type: roomData.type || "",
+          pricePerNight: roomData.pricePerNight || "",
+          capacity: roomData.capacity || "",
+          description: roomData.description || "",
+        });
+        setExistingImages(roomData.imageUrls || []);
 
-      setTimeout(() => {
-        setMessage({ type: "", text: "" });
-        navigate("/admin/manage-bookings");
-      }, 3000);
-    } catch (error) {
+        const typesResponse = await ApiService.getRoomTypes();
+        setRoomTypes(typesResponse || []);
+      } catch (error) {
+        setError(error.response?.data?.message || error.message || "Error fetching data.");
+      }
+    };
+    fetchData();
+  }, [roomId, isAdmin, navigate]);
 
-        console.log(error);
+  useEffect(() => {
+    return () => previews.forEach((url) => URL.revokeObjectURL(url));
+  }, [previews]);
 
-      setMessage({
-        type: "error",
-        text: error.response?.data?.message || error.message,
-      });
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setRoomDetails((prevState) => ({ ...prevState, [name]: value }));
+  };
+
+  const handleFileChange = (e) => {
+    const selectedFiles = Array.from(e.target.files);
+    if (selectedFiles.length > 0) {
+      const updatedFiles = [...newFiles, ...selectedFiles];
+      setNewFiles(updatedFiles);
+      setPreviews(updatedFiles.map((file) => URL.createObjectURL(file)));
     }
   };
 
-  // Render the component
+  const handleUpdate = async (e) => {
+    e.preventDefault();
+    try {
+      const formData = new FormData();
+      formData.append("id", roomId);
+      formData.append("roomNumber", roomDetails.roomNumber);
+      formData.append("type", roomDetails.type);
+      formData.append("pricePerNight", roomDetails.pricePerNight);
+      formData.append("capacity", roomDetails.capacity);
+      formData.append("description", roomDetails.description);
+
+      if (newFiles.length > 0) {
+        newFiles.forEach((file) => formData.append("imageFiles", file));
+      }
+
+      const result = await ApiService.updateRoom(formData);
+      if (result) {
+        setSuccess("Room updated successfully.");
+        setTimeout(() => navigate("/admin/manage-rooms"), 2000);
+      }
+    } catch (error) {
+      setError(error.response?.data?.message || error.message || "Error updating room.");
+    }
+  };
+
+  const handleDelete = async () => {
+    if (window.confirm("Do you want to permanently delete this room?")) {
+      try {
+        const result = await ApiService.deleteRoom(roomId);
+        if (result) {
+          setSuccess("Room deleted successfully.");
+          setTimeout(() => navigate("/admin/manage-rooms"), 2000);
+        }
+      } catch (error) {
+        setError(error.response?.data?.message || error.message || "Error deleting room.");
+      }
+    }
+  };
+
+  if (!isAdmin) return null;
+
   return (
-    <div className="edit-booking-page">
-      <h2>Update Booking</h2>
-
-      {/* Display success or error messages */}
-      {message.text && (
-        <p className={`${message.type}-message`}>{message.text}</p>
-      )}
-
-      {/* Render booking details and update form */}
-      {bookingDetails ? (
-        <div className="booking-details">
-          <h3>Booking Details</h3>
-          <p>Confirmation Code: {bookingDetails.bookingReference}</p>
-          <p>Check-in Date: {bookingDetails.checkInDate}</p>
-          <p>Check-out Date: {bookingDetails.checkOutDate}</p>
-          <p>Total Price: {bookingDetails.totalPrice}</p>
-          <p>Payment Status: {bookingDetails.paymentStatus}</p>
-          <p>Booking Status: {bookingDetails.bookingStatus}</p>
-
-          <br />
-          <hr />
-          <br />
-          <h3>User Who Made The Booking</h3>
-          <div>
-            <p> First Name: {bookingDetails.user.firstName}</p>
-            <p> First Name: {bookingDetails.user.lastName}</p>
-            <p> Email: {bookingDetails.user.email}</p>
-            <p> Phone Number: {bookingDetails.user.phoneNumber}</p>
-          </div>
-
-          <br />
-          <hr />
-          <br />
-          <h3>Room Details</h3>
-          <div>
-            <p> Type: {bookingDetails.room.type}</p>
-            <p> Price per Night: ${bookingDetails.room.pricePerNight}</p>
-            <p> Capacity : ${bookingDetails.room.capacity}</p>
-            <p> Description: {bookingDetails.room.description}</p>
-            <img src={bookingDetails.room.imageUrl} alt="" height="200" />
-          </div>
-          <hr />
-
-          <h3>Update Status</h3>
-
-          <div className="form-group">
-            <label htmlFor="bookingStatus">Booking Status</label>
-            <select
-              id="bookingStatus"
-              name="bookingStatus"
-              value={formState.bookingStatus}
-              onChange={handleChange}>
-              <option value="">Select</option>
-              <option value="BOOKED">BOOKED</option>
-              <option value="CANCELLED">CANCELLED</option>
-              <option value="CHECKED_IN">CHECKED IN</option>
-              <option value="CHECKED_OUT">CHECKED OUT</option>
-            </select>
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="paymentStatus">Payment Status</label>
-            <select
-              id="paymentStatus"
-              name="paymentStatus"
-              value={formState.paymentStatus}
-              onChange={handleChange} >
-              <option value="">Select</option>
-              <option value="PENDING">PENDING</option>
-              <option value="COMPLETED">COMPLETED</option>
-              <option value="FAILED">FAILED</option>
-              <option value="REFUNDED">REFUNDED</option>
-              <option value="REVERSED">REVERSED</option>
-            </select>
-          </div>
-
-          <button className="update-button" onClick={handleUpdate}>Update Booking</button>
+    <div className="edit-room-modal-overlay">
+      <div className="edit-room-modal-card">
+        
+        <div className="edit-room-modal-header">
+          <h2>Edit Room Properties</h2>
+          <button type="button" className="edit-room-modal-close-x" onClick={() => navigate("/admin/manage-rooms")}>×</button>
         </div>
-      ) : (
-        <p>Loading booking details...</p>
-      )}
+
+        <div className="edit-room-modal-body">
+          {error && <p className="error-message">{error}</p>}
+          {success && <p className="success-message">{success}</p>}
+
+          <form onSubmit={handleUpdate}>
+            
+            <div className="modal-form-grid-row">
+              <div className="modal-form-group">
+                <label>Room Type *</label>
+                <select name="type" value={roomDetails.type} onChange={handleChange} className="modal-form-control">
+                  <option value="">Select a type</option>
+                  {roomTypes.map((type) => (
+                    <option key={type} value={type}>{type}</option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="modal-form-group">
+                <label>Room Number *</label>
+                <input type="number" name="roomNumber" value={roomDetails.roomNumber} onChange={handleChange} className="modal-form-control" />
+              </div>
+            </div>
+
+            <div className="modal-form-grid-row">
+              <div className="modal-form-group">
+                <label>Price per Night ($) *</label>
+                <input type="number" name="pricePerNight" value={roomDetails.pricePerNight} onChange={handleChange} className="modal-form-control" />
+              </div>
+
+              <div className="modal-form-group">
+                <label>Capacity (Guests) *</label>
+                <input type="number" name="capacity" value={roomDetails.capacity} onChange={handleChange} className="modal-form-control" />
+              </div>
+            </div>
+
+            <div className="modal-form-group" style={{ marginBottom: "20px" }}>
+              <label>Room Description</label>
+              <textarea name="description" value={roomDetails.description} onChange={handleChange} className="modal-form-control modal-textarea-large" placeholder="Write room description here..."></textarea>
+            </div>
+
+            <div className="modal-gallery-wrapper">
+              <label className="gallery-section-label">Current Gallery Images</label>
+              {existingImages.length > 0 ? (
+                <div className="modal-previews-grid">
+                  {existingImages.map((src, index) => (
+                    <div className="modal-thumb-box" key={index}>
+                      <img src={src} alt="Source thumb" className="modal-thumb-img" />
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p className="no-photos-alert">No images linked yet.</p>
+              )}
+
+              <div style={{ marginTop: "15px" }}>
+                <input type="file" name="imageFiles" accept="image/*" multiple onChange={handleFileChange} />
+              </div>
+            </div>
+
+            <div className="edit-room-modal-footer">
+              <button type="submit" className="modal-btn modal-btn-update">Update Details</button>
+              <button type="button" className="modal-btn modal-btn-delete" onClick={handleDelete}>Delete Room</button>
+              <button type="button" className="modal-btn modal-btn-cancel" onClick={() => navigate("/admin/manage-rooms")}>Cancel</button>
+            </div>
+
+          </form>
+        </div>
+
+      </div>
     </div>
   );
 };
 
-export default EditBookingPage;
+export default EditRoomPage;

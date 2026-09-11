@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import ApiService from "../../service/ApiService";
 import "../../styles/register.css";
 
+
 const RegisterPage = () => {
   const [formData, setFormData] = useState({
     firstName: "",

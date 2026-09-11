@@ -123,11 +123,12 @@ export default class ApiService {
 
     //To get room details
     static async getRoomById(roomId) {
-        const response = await axios.get(`${this.BASE_URL}/rooms/id/${roomId}`, {
+        const response = await axios.get(`${this.BASE_URL}/rooms/${roomId}`, {
             headers: this.getHeader()
         });
         return response.data;
     }
+
 
 
 
@@ -162,10 +163,13 @@ export default class ApiService {
 
 
     //BOOKINGS
-    static async getBookingByReference(bookingCode) {
-        const resp = await axios.get(`${this.BASE_URL}/bookings/${bookingCode}`);
-        return resp.data;
+    static async getBookingByReference(bookingReference) {
+        const response = await axios.get(`${this.BASE_URL}/bookings/${bookingReference}`, {
+            headers: this.getHeader() 
+        });
+        return response.data;
     }
+
 
     static async bookRoom(booking) {
         const resp = await axios.post(`${this.BASE_URL}/bookings`, booking, {

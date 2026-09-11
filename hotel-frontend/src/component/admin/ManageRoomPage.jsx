@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import ApiService from "../../service/ApiService";
-import Pagination from "../common/Pagination"; // 👈 Restaurado tu componente original
+import Pagination from "../common/Pagination"; 
 import RoomResult from "../common/RoomResult";
+import '../../styles/manage-room.css';
 
 const ManageRoomPage = () => {
   const navigate = useNavigate();
