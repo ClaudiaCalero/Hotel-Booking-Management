@@ -1,0 +1,197 @@
+.add-room-container {
+  position: relative;
+  min-height: 100vh;
+  padding: 80px 20px; 
+  box-sizing: border-box;
+  background-color: #fcf9f5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.add-room-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 40px;   /* Franja izquierda */
+  right: 40px;  /* Franja derecha */
+  background-image: url('../../public/images/hotel/Hotelweb/perro.jpg'); 
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center 65%;
+  z-index: 0;
+  width: calc(100% - 80px);
+  height: 100%;
+}
+
+.add-room-container::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 40px;
+  right: 40px;
+  background: rgba(255, 255, 255, 0.15);
+  z-index: 0;
+  width: calc(100% - 80px);
+  height: 100%;
+}
+
+.add-room-background-wrapper {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 600px; 
+  margin: 0 auto;
+}
+
+.add-room-card {
+  background-color: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 16px;
+  padding: 40px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+.add-room-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  color: #2c3e50;
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 30px;
+}
+
+.add-room-form .form-group {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.add-room-form label {
+  font-size: 13px;
+  font-weight: 700;
+  color: #6d5b52;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+  text-align: left;
+}
+
+.add-room-form .form-control {
+  width: 100%;
+  height: 40px;
+  padding: 0 15px;
+  box-sizing: border-box;
+  border: 1px solid #e0d9d5;
+  border-radius: 25px; 
+  background-color: white;
+  color: #4a3e3d;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.add-room-form .textarea-control {
+  height: auto !important;
+  padding: 12px 15px;
+  border-radius: 15px; 
+}
+
+.add-room-form .form-control:focus {
+  border-color: #f1b3a3;
+  box-shadow: 0 0 5px rgba(241, 179, 163, 0.5);
+}
+
+.form-row {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+}
+
+.half-width {
+  flex: 1;
+}
+
+.image-upload-group {
+  align-items: center !important;
+  margin-bottom: 25px;
+}
+
+.room-photo-preview,
+.image-placeholder {
+  width: 100%;
+  max-width: 220px;
+  height: 140px;
+  border-radius: 12px;
+  object-fit: cover;
+  margin-bottom: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.image-placeholder {
+  background-color: rgba(255, 255, 255, 0.5);
+  border: 2px dashed #e0d9d5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #777;
+  font-size: 14px;
+}
+
+.file-input {
+  font-size: 13px;
+  color: #555;
+  cursor: pointer;
+}
+
+.add-room-actions {
+  display: flex;
+  gap: 15px;
+  margin-top: 25px;
+}
+
+.add-room-submit-btn {
+  flex: 2;
+  height: 42px;
+  border: none;
+  border-radius: 25px;
+  background-color: #f1b3a3; 
+  color: white;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  box-shadow: 0 4px 12px rgba(241, 179, 163, 0.3);
+}
+
+.add-room-submit-btn:hover {
+  background-color: #e29f8e;
+  transform: translateY(-1px);
+}
+
+.add-room-back-btn {
+  flex: 1;
+  height: 42px;
+  border: 1px solid #e0d9d5;
+  border-radius: 25px;
+  background-color: rgba(255, 255, 255, 0.5);
+  color: #6d5b52;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.add-room-back-btn:hover {
+  background-color: #e0d9d5;
+}
+
+@media (max-width: 768px) {
+  .add-room-container { padding: 40px 10px; }
+  .add-room-container::before, .add-room-container::after { left: 15px; right: 15px; width: calc(100% - 30px); }
+  .form-row { flex-direction: column; gap: 0; }
+  .add-room-card { padding: 25px 20px; }
+}

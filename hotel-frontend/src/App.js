@@ -19,7 +19,8 @@ import './styles/all-rooms.css';
 import './styles/filter-search.css';
 import './styles/room-cards.css';
 import './styles/modals.css';
-
+import './styles/room-details.css'
+import './styles/add-room.css'
 
 import Navbar from "./component/common/Navbar";
 import Footer from "./component/common/Footer";

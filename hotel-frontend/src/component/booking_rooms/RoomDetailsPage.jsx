@@ -3,13 +3,11 @@ import ApiService from "../../service/ApiService";
 import { useNavigate, useParams } from "react-router-dom";
 import { DayPicker } from "react-day-picker";
 
-
-
 const RoomDetailsPage = () => {
   const navigate = useNavigate();
   const { roomId } = useParams();
 
-  //state management
+  // Gestión de estados originales
   const [room, setRoom] = useState(null);
   const [checkInDate, setCheckInDate] = useState(null);
   const [checkOutDate, setCheckOutDate] = useState(null);
@@ -20,51 +18,47 @@ const RoomDetailsPage = () => {
   const [showMessage, setShowMessage] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
 
-  //fetch room details
-
   useEffect(() => {
     const fetchRoomDetails = async () => {
       try {
         const resp = await ApiService.getRoomById(roomId);
-        setRoom(resp.room);
+        const roomData = resp?.room || resp;
 
-        console.log(resp);
+        if (!roomData || Object.keys(roomData).length === 0) {
+          setErrorMessage("This room contains no valid data or was corrupted.");
+          return;
+        }
+
+        setRoom(roomData);
       } catch (error) {
-        console.log(error);
+        console.error("Error en petición de habitación:", error);
+        setErrorMessage(error.response?.data?.message || "Error al conectar con el servidor.");
       }
     };
     fetchRoomDetails();
-  }, []);
+  }, [roomId]);
 
-  //Calculate total price
   const calculateTotalPrice = () => {
     if (!checkInDate || !checkOutDate) return 0;
-
-    const oneDay = 24 * 60 * 60 * 1000; ///this is number in milisec
-
+    const oneDay = 24 * 60 * 60 * 1000;
     const totalDays = Math.round(
       Math.abs((new Date(checkOutDate) - new Date(checkInDate)) / oneDay)
-    ); //give the difference in millsec
-
+    );
     setTotalDaysToStay(totalDays);
-
-    return room?.pricePerNight * totalDays || 0;
+    return (room?.pricePerNight || room?.roomPrice || 0) * totalDays;
   };
 
-  //handle booking confirmation
   const handleConfirmation = () => {
     if (!checkInDate || !checkOutDate) {
       setErrorMessage("Please select both check-in and check-out dates");
       setTimeout(() => setErrorMessage(null), 5000);
       return;
     }
-
     setTotalPrice(calculateTotalPrice());
     setShowBookingPreview(true);
   };
 
   const acceptBooking = async () => {
-    console.log("Inside acceptBooking()");
     try {
       const formattedCheckInDate = checkInDate.toLocaleDateString("en-CA");
       const formatterdCheckOutDate = checkOutDate.toLocaleDateString("en-CA");
@@ -77,106 +71,109 @@ const RoomDetailsPage = () => {
 
       const resp = await ApiService.bookRoom(booking);
 
-      if (resp.status === 200) {
+      if (resp) {
         setShowMessage(
-          "Your Booking is Successful. Your booking details have been sent to your email . Please proceeed for payment"
+          "Your Booking is Successful. Please proceeed for payment."
         );
         setTimeout(() => {
           setShowMessage(null);
-          navigate("/rooms");
-        }, 8000);
+          navigate(`/payment/${resp.bookingConfirmationCode || "CONFIRMED"}/${totalPrice}`);
+        }, 3000);
       }
     } catch (error) {
       setErrorMessage(error.response?.data?.message || error.message);
     }
   };
 
-  // If room is null, show loading
   if (!room) {
-    return <div>Loading...</div>;
+    return (
+      <div className="room-loading-container">
+        <h2>Loading room details...</h2>
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
+      </div>
+    );
   }
 
-  const { roomNumber, type, pricePerNight, capacity, description, imageUrl } = room;
+  const roomNumber = room.roomNumber || "N/A";
+  const type = room.type || room.roomType || "Standard Suite";
+  const pricePerNight = room.pricePerNight || room.roomPrice || 0;
+  const capacity = room.capacity || 2;
+  const description = room.description || room.roomDescription || "No description provided for this room selection.";
+  const imageUrl = room.imageUrl || room.roomPhotoUrl || "";
 
-  
   return (
-    <div className="room-details-booking">
-      {/* Success and Error Messages */}
-      {showMessage && <p className="booking-success-message">{showMessage}</p>}
+    <div className="room-details-page-container">
+      {showMessage && <p className="success-message">{showMessage}</p>}
       {errorMessage && <p className="error-message">{errorMessage}</p>}
 
-      {/* Room Details */}
-      <h2>Room Details</h2>
-      <img src={imageUrl} alt={type} className="room-details-image" />
-      <div className="room-details-info">
-        <h3>{type}</h3>
-        <p>Room Number: {roomNumber}</p>
-        <p>Capacity: {capacity}</p>
-        <p>Price: ${pricePerNight} / night</p>
-        <p>{description}</p>
-      </div>
+      <h2 className="room-details-main-title">Grand Hotel Budapest Suites</h2>
 
-      {/* Booking Controls */}
-      <div className="booking-info">
-        <button
-          className="book-now-button"
-          onClick={() => setShowDatePicker(true)}
-        >
-          Select Dates
-        </button>
-        {showDatePicker && (
-          <div className="date-picker-container">
-            <div className="date-picker">
-              <label>Check-in Date</label>
-              <DayPicker
-                selected={checkInDate}
-                onDayClick={setCheckInDate}
-                disabled={(date) => checkOutDate && date > checkOutDate}
-              />
-            </div>
-
-            <div className="date-picker">
-              <label>Check-out Date</label>
-              <DayPicker
-                selected={checkOutDate}
-                onDayClick={setCheckOutDate}
-                disabled={(date) => checkInDate && date < checkInDate}
-              />
-            </div>
-
-            <button className="confirm-booking" onClick={handleConfirmation}>
-              Proceed
-            </button>
+      <div className="room-details-content-grid">
+        
+        <div className="room-details-media-gallery">
+          <img src={imageUrl || "/images/room-placeholder.png"} alt={type} className="room-details-large-image" />
+          <div className="room-details-text-info">
+            <h2>{type}</h2>
+            <p className="room-details-price"><strong>Price:</strong> ${pricePerNight} / night</p>
+            <p className="room-details-info-para"><strong>Room Number:</strong> #{roomNumber} | <strong>Capacity:</strong> {capacity} Guests</p>
+            <p className="room-details-description-para">{description}</p>
           </div>
-        )}
+        </div>
 
-        {/* Booking Preview and submit */}
-        {showBookingPreview && (
-          <div className="booking-preview">
-            <h3>Booking Preview</h3>
-            <p>
-              <strong>Check-in Date:</strong>{" "}
-              {checkInDate?.toLocaleDateString("en-CA")}
-            </p>
-            <p>
-              <strong>Check-out Date:</strong>{" "}
-              {checkOutDate?.toLocaleDateString("en-CA")}
-            </p>
-            <p>
-              <strong>Total Days To Stay:</strong> {totalDaysToStay}
-            </p>
-            <p>
-              <strong>Total Price:</strong> ${totalPrice}
-            </p>
-            <button onClick={acceptBooking}>Confirm and Book</button>
+        <div className="room-details-booking-card">
+          <h3>Reservation Panel</h3>
+          
+          <div className="booking-info">
             <button
-              className="cancel-booking"
-              onClick={() => setShowBookingPreview(false)}
+              className="btn-submit-room-booking"
+              onClick={() => setShowDatePicker(!showDatePicker)}
             >
-              Cancel
+              {showDatePicker ? "Hide Calendar" : "Select Stay Dates"}
             </button>
+
+            {showDatePicker && (
+              <div className="date-picker-dropdown-box">
+                <div className="booking-input-group">
+                  <label>Check-in Date</label>
+                  <DayPicker
+                    selected={checkInDate}
+                    onDayClick={setCheckInDate}
+                    disabled={(date) => checkOutDate && date > checkOutDate}
+                  />
+                </div>
+
+                <div className="booking-input-group">
+                  <label>Check-out Date</label>
+                  <DayPicker
+                    selected={checkOutDate}
+                    onDayClick={setCheckOutDate}
+                    disabled={(date) => checkInDate && date < checkInDate}
+                  />
+                </div>
+
+                <button className="btn-submit-room-booking btn-verify-booking" onClick={handleConfirmation}>
+                  Verify Booking
+                </button>
+              </div>
+            )}
+
+            {showBookingPreview && (
+              <div className="booking-preview">
+                <h4>Stay Summary</h4>
+                <p><strong>Check-in:</strong> {checkInDate?.toLocaleDateString("en-CA")}</p>
+                <p><strong>Check-out:</strong> {checkOutDate?.toLocaleDateString("en-CA")}</p>
+                <p><strong>Total Days:</strong> {totalDaysToStay}</p>
+                <p className="booking-preview-total"><strong>Total Amount:</strong> ${totalPrice}</p>
+                
+                <div className="booking-preview-actions">
+                  <button className="btn-submit-room-booking" onClick={acceptBooking}>Book Now</button>
+                  <button className="btn-submit-room-booking btn-cancel-preview" onClick={() => setShowBookingPreview(false)}>Cancel</button>
+                </div>
+              </div>
+            )}
           </div>
-        )}
+        </div>
+
       </div>
     </div>
   );

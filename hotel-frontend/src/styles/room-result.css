@@ -1,0 +1,175 @@
+/* ==========================================================================
+   DISEÑO DE TARJETAS HORIZONTALES (ROOM INVENTORY & RESULTS)
+   ========================================================================== */
+
+.custom-layout-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.room-card-container {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+  border: 1px solid #eeeeee;
+  align-items: flex-start;
+  text-align: left;
+}
+
+/* Columna Izquierda (Carrusel) */
+.room-card-left-column {
+  flex: 0 0 300px;
+  width: 300px;
+}
+
+/* Columna Derecha (Contenidos) */
+.room-card-right-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 200px;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.room-card-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 5px;
+}
+
+.room-card-type-title {
+  margin: 0;
+  fontSize: 1.4rem;
+  color: #222222;
+}
+
+.room-card-number-tag {
+  font-weight: bold;
+  color: #888888;
+  font-size: 0.95rem;
+}
+
+.room-card-price-line {
+  margin: 0 0 15px 0;
+  color: #b38e5d;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.room-card-divider-bar {
+  color: #cccccc;
+  margin: 0 10px;
+}
+
+.room-card-capacity-text {
+  font-size: 0.9rem;
+  color: #555555;
+  font-weight: normal;
+}
+
+.room-card-actions-row {
+  display: flex;
+  margin-top: 15px;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+/* ==========================================================================
+   ESTILOS DEL BOTÓN "READ MORE" Y TEXTO DE DESCRIPCIÓN
+   ========================================================================== */
+
+.room-desc-empty {
+  color: #777777;
+  margin: 5px 0;
+}
+
+.room-desc-markdown {
+  font-size: 0.95rem;
+  color: #555555;
+  line-height: 1.5;
+}
+
+.room-read-more-btn {
+  background: none;
+  border: none;
+  color: #b38e5d;
+  cursor: pointer;
+  font-weight: bold;
+  padding: 5px 0;
+  font-size: 0.9rem;
+  display: block;
+  transition: color 0.2s ease;
+}
+
+.room-read-more-btn:hover {
+  color: #8c6e43;
+}
+
+/* ==========================================================================
+   ESTILOS COMPONENTES DEL CARRUSEL DE IMÁGENES
+   ========================================================================== */
+
+.room-carousel-main-box {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  border-radius: 8px;
+  background-color: #f0f0f0;
+}
+
+.carousel-img-fluid {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.carousel-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  color: #ffffff;
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  font-size: 1.3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  transition: background 0.2s ease;
+}
+
+.carousel-nav-btn:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.carousel-nav-btn.prev-btn {
+  left: 10px;
+}
+
+.carousel-nav-btn.next-btn {
+  right: 10px;
+}
+
+.carousel-counter-tag {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0.6);
+  color: #ffffff;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 0.75rem;
+  z-index: 2;
+}
