@@ -90,7 +90,6 @@ const RoomSearch = ({ handSearchResult }) => {
     }
   };
 
-
 return (
     <section>
       <div className="search-container">
@@ -170,6 +169,5 @@ return (
     </section>
   );
 };
-
 
 export default RoomSearch;

@@ -165,6 +165,29 @@
     background-color: rgba(0, 0, 0, 0.15);
     border-radius: 10px;
 }
+.booking-action-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 15px;
+  padding-top: 10px;
+  border-top: 1px dashed #dfd5c6;
+}
+
+.cancel-booking-button {
+  background-color: #df4747;
+  color: white;
+  border: none;
+  font-size: 13px;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s ease;
+}
+
+.cancel-booking-button:hover {
+  background-color: #b83232;
+}
 
 @media (max-width: 768px) {
     .profile-background-wrapper {

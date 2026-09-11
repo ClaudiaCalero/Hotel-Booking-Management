@@ -95,14 +95,11 @@ export default class ApiService {
     }
 
     // ROOMS
-
     static async addRoom(formData) {
         const baseHeaders = this.getHeader();
-        
         delete baseHeaders["Content-Type"];
-
         const resp = await axios.post(`${this.BASE_URL}/rooms/add`, formData, {
-            headers: baseHeaders 
+            headers: baseHeaders
         });
         return resp.data;
     }
@@ -123,14 +120,16 @@ export default class ApiService {
 
     //To get room details
     static async getRoomById(roomId) {
+        if (!roomId || roomId === "undefined") {
+            console.error("⚠️ ApiService: An attempt was made to find a room, but the ID is null or undefined..");
+            return null;
+        }
+
         const response = await axios.get(`${this.BASE_URL}/rooms/${roomId}`, {
             headers: this.getHeader()
         });
         return response.data;
     }
-
-
-
 
     static async deleteRoom(roomId) {
         const resp = await axios.delete(`${this.BASE_URL}/rooms/delete/${roomId}`, {
@@ -139,12 +138,10 @@ export default class ApiService {
         return resp.data;
     }
 
-  
+
     static async updateRoom(formData) {
         const baseHeaders = this.getHeader();
-        
         delete baseHeaders["Content-Type"];
-
         const resp = await axios.put(`${this.BASE_URL}/rooms/update`, formData, {
             headers: baseHeaders
         });
@@ -152,24 +149,27 @@ export default class ApiService {
     }
 
     static async getAvailableRooms(checkInDate, checkOutDate, roomType) {
+        console.log("Enviando al backend -> CheckIn:", checkInDate, "CheckOut:", checkOutDate);
 
-        console.log("checkInDate from api: " + checkInDate)
-        console.log("checkOutDate from api: " + checkOutDate)
-
-        const resp = await axios.get(`${this.BASE_URL}/rooms/available?checkInDate=${checkInDate}&checkOutDate=${checkOutDate}&roomType=${roomType}`);
+        const resp = await axios.get(
+            `${this.BASE_URL}/rooms/available?checkInDate=${checkInDate}&checkOutDate=${checkOutDate}&roomType=${roomType}`
+        );
         return resp.data;
-
     }
 
 
     //BOOKINGS
     static async getBookingByReference(bookingReference) {
+        if (!bookingReference || bookingReference === "undefined") {
+            console.error("⚠️ ApiService: An attempt was made to retrieve a reservation, but the 'bookingReference' is null or undefined.");
+            throw new Error("Booking reference is required.");
+        }
+
         const response = await axios.get(`${this.BASE_URL}/bookings/${bookingReference}`, {
-            headers: this.getHeader() 
+            headers: this.getHeader()
         });
         return response.data;
     }
-
 
     static async bookRoom(booking) {
         const resp = await axios.post(`${this.BASE_URL}/bookings`, booking, {

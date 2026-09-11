@@ -1,11 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'; // 👈 Importamos el hook de navegación
 import ApiService from '../../service/ApiService'; 
 import '../../styles/find-booking.css';
 
 const FindBookingPage = () => {
+    const navigate = useNavigate(); // 👈 Inicializamos el navegador de React Router
     const [confirmationCode, setConfirmationCode] = useState(''); 
     const [bookingDetails, setBookingDetails] = useState(null); 
     const [error, setError] = useState(null); 
+
+    // 🎯 CONTROL DE ACCESO ADMINISTRATIVO:
+    useEffect(() => {
+        // Si el usuario está logueado y es administrador, se le desvía a su panel
+        if (ApiService.isAdmin && ApiService.isAdmin()) {
+            navigate('/admin/manage-bookings'); // 👈 Ajusta esta ruta si tu router usa otra diferente
+        }
+    }, [navigate]);
 
     const handleSearch = async () => {
         if (!confirmationCode.trim()) {
@@ -25,7 +35,6 @@ const FindBookingPage = () => {
 
     return (
         <div className="find-booking-container">
-            
             <div className="find-booking-card">
                 <h2>Find Booking</h2>
                 
@@ -61,20 +70,20 @@ const FindBookingPage = () => {
                         
                         <h3>Booker Details</h3>
                         <div className="details-group">
-                            <p><strong>First Name:</strong> {bookingDetails.user.firstName}</p>
-                            <p><strong>Last Name:</strong> {bookingDetails.user.lastName}</p>
-                            <p><strong>Email:</strong> {bookingDetails.user.email}</p>
-                            <p><strong>Phone Number:</strong> {bookingDetails.user.phoneNumber}</p>
+                            <p><strong>First Name:</strong> {bookingDetails.user?.firstName}</p>
+                            <p><strong>Last Name:</strong> {bookingDetails.user?.lastName}</p>
+                            <p><strong>Email:</strong> {bookingDetails.user?.email}</p>
+                            <p><strong>Phone Number:</strong> {bookingDetails.user?.phoneNumber}</p>
                         </div>
 
                         <hr className="divider" />
                         
                         <h3>Room Details</h3>
                         <div className="details-group">
-                            <p><strong>Room Number:</strong> {bookingDetails.room.roomNumber}</p>
-                            <p><strong>Room Type:</strong> {bookingDetails.room.type}</p>
-                            <p><strong>Room Capacity:</strong> {bookingDetails.room.capacity}</p>
-                            {bookingDetails.room.imageUrl && (
+                            <p><strong>Room Number:</strong> {bookingDetails.room?.roomNumber}</p>
+                            <p><strong>Room Type:</strong> {bookingDetails.room?.type || bookingDetails.room?.roomType}</p>
+                            <p><strong>Room Capacity:</strong> {bookingDetails.room?.capacity}</p>
+                            {bookingDetails.room?.imageUrl && (
                                 <img 
                                     className="room-preview-image" 
                                     src={bookingDetails.room.imageUrl} 
