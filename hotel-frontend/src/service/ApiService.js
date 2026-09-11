@@ -9,14 +9,14 @@ export default class ApiService {
     //enctyp token using cruyptojs
 
     static encrypt(token) {
-        return CryptoJS.AES.encrypt(token, this.ENCRYPTION_KEY.toString());
+        return CryptoJS.AES.encrypt(token, this.ENCRYPTION_KEY).toString();
     }
 
-    //deceype token using cruyptojs
     static decrypt(token) {
         const bytes = CryptoJS.AES.decrypt(token, this.ENCRYPTION_KEY);
         return bytes.toString(CryptoJS.enc.Utf8);
     }
+
 
     //save token
     static saveToken(token) {
@@ -97,15 +97,15 @@ export default class ApiService {
     // ROOMS
 
     static async addRoom(formData) {
+        const baseHeaders = this.getHeader();
+        
+        delete baseHeaders["Content-Type"];
+
         const resp = await axios.post(`${this.BASE_URL}/rooms/add`, formData, {
-            headers: {
-                ...this.getHeader(),
-                'Content-Type': 'multipart/form-data'
-            }
+            headers: baseHeaders 
         });
         return resp.data;
     }
-
     static async getAllRooms() {
         const response = await axios.get(`${this.BASE_URL}/rooms/all`, {
             headers: this.getHeader() // 👈 CORREGIDO: Usa las cabeceras con el token descifrado
@@ -123,9 +123,13 @@ export default class ApiService {
 
     //To get room details
     static async getRoomById(roomId) {
-        const resp = await axios.get(`${this.BASE_URL}/rooms/${roomId}`);
-        return resp.data;
+        const response = await axios.get(`${this.BASE_URL}/rooms/id/${roomId}`, {
+            headers: this.getHeader()
+        });
+        return response.data;
     }
+
+
 
     static async deleteRoom(roomId) {
         const resp = await axios.delete(`${this.BASE_URL}/rooms/delete/${roomId}`, {
@@ -134,12 +138,14 @@ export default class ApiService {
         return resp.data;
     }
 
+  
     static async updateRoom(formData) {
+        const baseHeaders = this.getHeader();
+        
+        delete baseHeaders["Content-Type"];
+
         const resp = await axios.put(`${this.BASE_URL}/rooms/update`, formData, {
-            headers: {
-                ...this.getHeader(),
-                'Content-Type': 'multipart/form-data'
-            }
+            headers: baseHeaders
         });
         return resp.data;
     }

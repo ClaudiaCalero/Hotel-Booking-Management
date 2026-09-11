@@ -7,8 +7,8 @@
     position: relative;
     width: 100%;
     min-height: calc(100vh - 75px);
-    background-color: var(--bg-cream);
-    padding: 40px 20px;
+    background-color: #fcf9f5;
+    padding: 80px 20px; 
     box-sizing: border-box;
     display: flex;
     justify-content: center;
@@ -27,6 +27,8 @@
     background-size: cover;
     background-position: center 62%;
     z-index: 0;
+    width: 70%; 
+    height: 100%;
 }
 
 .edit-profile-background-wrapper > * {
@@ -41,17 +43,22 @@
     max-width: 100%;
     box-sizing: border-box;
     padding: 45px 40px;
-    background: rgba(255, 255, 255, 0.65) !important;
-    border-radius: 8px;
+    
+    background: rgba(255, 255, 255, 0.75) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    
+    border-radius: 16px;
     z-index: 2;
-    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
     text-align: left;
 }
 
 .edit-profile-title {
+    font-family: 'Playfair Display', serif;
     font-size: 2.2em;
-    font-weight: bold;
-    color: var(--hotel-gold);
+    font-weight: 700;
+    color: #2c3e50;
     margin-bottom: 25px;
     margin-top: 0;
     text-align: center;
@@ -59,9 +66,9 @@
 
 .edit-profile-details p {
     font-size: 1.05em;
-    color: #333;
+    color: #4a3e3d; 
     margin: 14px 0;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    border-bottom: 1px dashed rgba(0, 0, 0, 0.1); 
     padding-bottom: 8px;
 }
 
@@ -72,21 +79,22 @@
 }
 
 .delete-profile-button {
-    padding: 12px 28px;
-    font-size: 1em;
+    padding: 12px 35px;
+    font-size: 15px;
     color: white;
-    background-color: var(--hotel-pink); 
+    background-color: #f1b3a3; 
     border: none;
-    border-radius: 5px;
+    border-radius: 25px;
+    font-weight: 700;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    font-weight: 500;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 12px rgba(241, 179, 163, 0.3);
 }
 
 .delete-profile-button:hover {
-    background-color: #ce738b;
+    background-color: #e29f8e;
     transform: translateY(-1px);
+    box-shadow: 0 6px 15px rgba(241, 179, 163, 0.4);
 }
 
 .delete-profile-button:active {
@@ -94,26 +102,26 @@
 }
 
 .error-message {
-    color: #b70909;
-    background-color: rgba(183, 9, 9, 0.1);
+    color: #8b2222;
+    background-color: rgba(255, 220, 220, 0.9);
     padding: 10px;
     border-radius: 4px;
-    font-size: 0.9em;
+    font-size: 13px;
     margin-bottom: 15px;
     text-align: center;
 }
 
-
 @media (max-width: 768px) {
     .edit-profile-background-wrapper {
-        padding: 20px 10px;
+        padding: 40px 15px;
     }
     .edit-profile-background-wrapper::before {
         left: 0;
         right: 0;
+        width: 100%;
     }
     .edit-profile-card {
-        width: 95%;
+        width: 100%;
         padding: 30px 20px;
     }
     .edit-profile-title {
