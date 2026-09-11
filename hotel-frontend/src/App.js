@@ -1,52 +1,42 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
+// global import
 import './styles/index.css';
 import './styles/navbar.css';
-import './styles/login.css';
-import './styles/register.css';
-import './styles/home.css';
-import './styles/rooms.css';
-import './styles/room-details.css';
-import './styles/admin.css';
-import './styles/payment.css';
 import './styles/footer.css';
-import './styles/profile.css';
-import './styles/edit-profile.css';
-import './styles/manage-room.css';     
-import './styles/manage-bookings.css';
-import './styles/all-rooms.css';
-import './styles/filter-search.css';
-import './styles/room-cards.css';
-import './styles/modals.css';
-import './styles/room-details.css'
-import './styles/add-room.css'
-import "./styles/room-result.css"
 
+// Global components
 import Navbar from "./component/common/Navbar";
 import Footer from "./component/common/Footer";
+
+// Auth components
 import RegisterPage from "./component/auth/Register";
 import LoginPage from "./component/auth/LoginPage";
+import ForgotPassword from "./component/auth/ForgotPassword";
+import ResetPassword from "./component/auth/ResetPassword";
+
+// User Components
 import HomePage from "./component/home/HomePage";
 import AllRoomsPage from "./component/booking_rooms/AllRoomsPage";
 import RoomDetailsPage from "./component/booking_rooms/RoomDetailsPage";
-import { AdminRoute, CustomerRoute } from "./service/Guard";
 import FindBookingPage from "./component/booking_rooms/FindBookingPage";
 import ProfilePage from "./component/profile/ProfilePage";
 import EditProfilePage from "./component/profile/EditProfilePage";
 import PaymentPage from "./component/payments/PaymentPage";
 import PaymentSuccess from "./component/payments/PaymentSuccess";
 import PaymentFailure from "./component/payments/PaymentFailure";
+
+// Admin components + routes 
+import { AdminRoute, CustomerRoute } from "./service/Guard";
 import AdminPage from "./component/admin/AdminPage";
 import AddRoomPage from "./component/admin/AddRoomPage";
 import ManageRoomPage from "./component/admin/ManageRoomPage";
 import EditRoomPage from "./component/admin/EditRoomPage";
 import AdminAllRoomsPage from "./component/admin/AdminAllRoomsPage";
 import ManageBookingsPage from "./component/admin/ManageBookingsPage";
-import EditBookingPage from "./component/admin/EditBookingPage";
 import AdminRegisterPage from "./component/admin/AdminRegisterPage";
-import ForgotPassword from "./component/auth/ForgotPassword";
-import ResetPassword from "./component/auth/ResetPassword";
+import EditBookingPage from "./component/admin/EditBookingPage";
 
 
 
@@ -80,6 +70,7 @@ function App() {
             {/* ADMIN ROUTES */}
 
             {/* ADMIN ROUTES */}
+                        {/* ADMIN ROUTES */}
             <Route path="/admin" element={<AdminRoute element={<AdminPage />} />} />
             <Route path="/admin/manage-rooms" element={<AdminRoute element={<ManageRoomPage />} />} />
             <Route path="/admin/add-room" element={<AdminRoute element={<AddRoomPage />} />} />

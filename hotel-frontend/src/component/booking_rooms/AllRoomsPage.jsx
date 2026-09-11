@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from "react";
- import ApiService from "../../service/ApiService";
- import Pagination from "../common/Pagination";
- import RoomResult from "../common/RoomResult";
- import RoomSearch from "../common/RoomSearch";
+import ApiService from "../../service/ApiService";
+import RoomResult from "../common/RoomResult";
+import RoomSearch from "../common/RoomSearch";
+import Pagination from "../common/Pagination"; 
+
+import "../../styles/all-rooms.css";
+import "../../styles/rooms.css";
+
 
  
  const AllRoomsPage =() => {

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import ApiService from "../../service/ApiService";
+import '../../styles/profile.css';
 
 const ProfilePage = () => {
   const [user, setUser] = useState(null);
@@ -47,7 +48,17 @@ const ProfilePage = () => {
     navigate("/edit-profile");
   };
 
-    return (
+  // Función interna para determinar el color de las pastillas de estado
+  const getBadgeClass = (status) => {
+    if (!status) return "status-badge";
+    const normalized = status.toUpperCase();
+    if (normalized === "BOOKED" || normalized === "CONFIRMED" || normalized === "CHECKED_IN") return "status-badge status-confirmed";
+    if (normalized === "PENDING") return "status-badge status-pending";
+    if (normalized === "CANCELLED" || normalized === "REJECTED") return "status-badge status-cancelled";
+    return "status-badge";
+  };
+
+  return (
     <div className="profile-page-container">
       <div className="profile-background-wrapper">
         
@@ -79,17 +90,46 @@ const ProfilePage = () => {
               {bookings && Array.isArray(bookings) && bookings.length > 0 ? (
                 bookings.map((booking) => (
                   <div key={booking.id} className="booking-item">
-                    <p><strong>Booking Code:</strong> {booking.bookingReference}</p>
-                    <p><strong>Check-in Date:</strong> {booking.checkInDate}</p>
-                    <p><strong>Check-out Date:</strong> {booking.checkOutDate}</p>
-                    <p><strong>Payment Status:</strong> {booking.paymentStatus}</p>
-                    <p><strong>Booking Status:</strong> {booking.bookingStatus}</p>
-                    <p><strong>Amount:</strong> {booking.totalPrice}</p>
-                    <p><strong>Room Number:</strong> {booking.room?.roomNumber}</p>
-                    <p><strong>Room Type:</strong> {booking.room?.type || booking.room?.roomType}</p>
-                    {booking.room?.imageUrl && (
-                      <img src={booking.room.imageUrl} alt="Room" className="room-photo" />
-                    )}
+                    
+                    <h4 className="booking-item-title">
+                      Booking Code: <span className="booking-code-text">{booking.bookingReference}</span>
+                    </h4>
+
+                    <div className="booking-info-row">
+                      <strong>Room Number:</strong>
+                      <span>{booking.room?.roomNumber || "N/A"}</span>
+                    </div>
+
+                    <div className="booking-info-row">
+                      <strong>Room Type:</strong>
+                      <span className="room-type-capitalize">{booking.room?.type || booking.room?.roomType || "SINGLE"}</span>
+                    </div>
+
+                    <div className="booking-info-row">
+                      <strong>Check-in Date:</strong>
+                      <span>{booking.checkInDate}</span>
+                    </div>
+
+                    <div className="booking-info-row">
+                      <strong>Check-out Date:</strong>
+                      <span>{booking.checkOutDate}</span>
+                    </div>
+
+                    <div className="booking-info-row">
+                      <strong>Amount:</strong>
+                      <span className="booking-price-amount">${booking.totalPrice}</span>
+                    </div>
+
+                    <div className="booking-info-row">
+                      <strong>Payment Status:</strong>
+                      <span className={getBadgeClass(booking.paymentStatus)}>{booking.paymentStatus || "PENDING"}</span>
+                    </div>
+
+                    <div className="booking-info-row final-row">
+                      <strong>Booking Status:</strong>
+                      <span className={getBadgeClass(booking.bookingStatus)}>{booking.bookingStatus}</span>
+                    </div>
+
                   </div>
                 ))
               ) : (

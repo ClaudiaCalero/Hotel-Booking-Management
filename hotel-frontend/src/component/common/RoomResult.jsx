@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import ApiService from "../../service/ApiService";
 import { useNavigate } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
+import '../../styles/room-result.css';
 
-// Componente para limitar y expandir la descripción
+
 const RoomDescription = ({ text }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const characterLimit = 180; 
@@ -30,18 +31,15 @@ const RoomDescription = ({ text }) => {
   );
 };
 
-// Componente para el Carrusel
 const RoomImageCarousel = ({ imageUrls }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  
-  // 🌟 CORREGIDO: Ahora apunta a un archivo de imagen real de hotel como salvavidas
+
   const placeholder = "https://unsplash.com"; 
 
   if (!imageUrls || imageUrls.length === 0) {
     return <img src={placeholder} alt="Room placeholder" className="carousel-img-fluid" />;
   }
 
-  // 🌟 LIMPIEZA DE RUTAS: Aseguramos que la barra inicial sea correcta para el servidor local
   let currentImageUrl = imageUrls[currentIndex];
   if (currentImageUrl && !currentImageUrl.startsWith("http") && !currentImageUrl.startsWith("/")) {
     currentImageUrl = "/" + currentImageUrl;
@@ -64,8 +62,6 @@ const RoomImageCarousel = ({ imageUrls }) => {
         alt={`Room slide ${currentIndex + 1}`} 
         className="carousel-img-fluid"
         onError={(e) => {
-          // 🌟 Si el compilador de React no encuentra la foto local en su caché estática,
-          // carga la foto estética de Unsplash para que la interfaz nunca luzca vacía
           e.target.onerror = null; 
           e.target.src = placeholder; 
         }}
@@ -83,13 +79,10 @@ const RoomImageCarousel = ({ imageUrls }) => {
   );
 };
 
-// Componente Principal
-// Componente Principal
 const RoomResult = ({ roomSearchResults }) => {
     const navigate = useNavigate();
     const isAdmin = ApiService.isAdmin();
 
-    // 🌟 AÑADE ESTA LÍNEA DE LOG AQUÍ ABAJO PARA VER LOS DATOS EN LA CONSOLA:
     console.log("Room data received in React:", roomSearchResults);
 
     return (
