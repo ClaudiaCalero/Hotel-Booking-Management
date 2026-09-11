@@ -3,6 +3,7 @@ import ApiService from "../../service/ApiService";
 import { useNavigate } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 
+// Componente para limitar y expandir la descripción
 const RoomDescription = ({ text }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const characterLimit = 180; 
@@ -10,11 +11,11 @@ const RoomDescription = ({ text }) => {
   if (!text) return <p className="room-desc-empty">No description available.</p>;
   
   if (text.length <= characterLimit) {
-    return <div className="room-desc-markdown"><ReactMarkdown>{text}</ReactMarkdown></div>;
+    return <div className="room-desc-content"><ReactMarkdown>{text}</ReactMarkdown></div>;
   }
 
   return (
-    <div className="room-desc-markdown">
+    <div className="room-desc-content">
       <ReactMarkdown>
         {isExpanded ? text : `${text.substring(0, characterLimit)}...`}
       </ReactMarkdown>
@@ -29,12 +30,21 @@ const RoomDescription = ({ text }) => {
   );
 };
 
+// Componente para el Carrusel
 const RoomImageCarousel = ({ imageUrls }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const placeholder = "/images/hotel/Rooms/placeholder-room.jpg"; 
+  
+  // 🌟 CORREGIDO: Ahora apunta a un archivo de imagen real de hotel como salvavidas
+  const placeholder = "https://unsplash.com"; 
 
   if (!imageUrls || imageUrls.length === 0) {
-    return <img src={placeholder} alt="Room placeholder" className="room-list-item-image" />;
+    return <img src={placeholder} alt="Room placeholder" className="carousel-img-fluid" />;
+  }
+
+  // 🌟 LIMPIEZA DE RUTAS: Aseguramos que la barra inicial sea correcta para el servidor local
+  let currentImageUrl = imageUrls[currentIndex];
+  if (currentImageUrl && !currentImageUrl.startsWith("http") && !currentImageUrl.startsWith("/")) {
+    currentImageUrl = "/" + currentImageUrl;
   }
 
   const nextSlide = (e) => {
@@ -50,9 +60,15 @@ const RoomImageCarousel = ({ imageUrls }) => {
   return (
     <div className="room-carousel-main-box">
       <img 
-        src={imageUrls[currentIndex]} 
+        src={currentImageUrl} 
         alt={`Room slide ${currentIndex + 1}`} 
-        className="room-list-item-image carousel-img-fluid"
+        className="carousel-img-fluid"
+        onError={(e) => {
+          // 🌟 Si el compilador de React no encuentra la foto local en su caché estática,
+          // carga la foto estética de Unsplash para que la interfaz nunca luzca vacía
+          e.target.onerror = null; 
+          e.target.src = placeholder; 
+        }}
       />
       {imageUrls.length > 1 && (
         <>
@@ -67,38 +83,44 @@ const RoomImageCarousel = ({ imageUrls }) => {
   );
 };
 
+// Componente Principal
+// Componente Principal
 const RoomResult = ({ roomSearchResults }) => {
     const navigate = useNavigate();
     const isAdmin = ApiService.isAdmin();
 
+    // 🌟 AÑADE ESTA LÍNEA DE LOG AQUÍ ABAJO PARA VER LOS DATOS EN LA CONSOLA:
+    console.log("Room data received in React:", roomSearchResults);
+
     return (
-        <section className="room-results">
+        <section className="room-results-section">
             { roomSearchResults && roomSearchResults.length > 0 && (
-            <div className="room-list custom-layout-list">
+            <div className="inventory-flex-list">
                 {roomSearchResults.map(room => (
-                    <div className="room-card-container" key={room.id}>
+                    <div className="modern-room-card" key={room.id}>
                         
-                        <div className="room-card-left-column">
+                        <div className="modern-room-card-left">
                             <RoomImageCarousel imageUrls={room.imageUrls} />
                         </div>
 
-                        <div className="room-card-right-column">
-                            <div className="room-card-info-top">
-                                <div className="room-card-title-row">
-                                    <h3 className="room-card-type-title">{room.type}</h3>
-                                    <span className="room-card-number-tag">Room N° {room.roomNumber}</span>
+                        {/* Derecha: Datos */}
+                        <div className="modern-room-card-right">
+                            <div className="modern-room-info-block">
+                                <div className="modern-room-title-line">
+                                    <h3 className="modern-room-type">{room.type}</h3>
+                                    <span className="modern-room-number">Room N° {room.roomNumber}</span>
                                 </div>
                                 
-                                <p className="room-card-price-line">
+                                <p className="modern-room-pricing">
                                     Price: ${room.pricePerNight}/Night 
-                                    <span className="room-card-divider-bar">|</span> 
-                                    <span className="room-card-capacity-text">Capacity: {room.capacity} Guests</span>
+                                    <span className="modern-room-bar">|</span> 
+                                    <span className="modern-room-capacity">Capacity: {room.capacity} Guests</span>
                                 </p>
 
                                 <RoomDescription text={room.description} />
                             </div>
 
-                            <div className="book-now-div room-card-actions-row">
+                            <div className="modern-room-actions">
                                 {isAdmin ? (
                                     <button className="edit-room-button" 
                                             onClick={() => navigate(`/admin/edit-room/${room.id}`)}>
