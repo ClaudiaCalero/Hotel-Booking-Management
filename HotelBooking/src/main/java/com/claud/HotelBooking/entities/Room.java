@@ -9,8 +9,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Data
@@ -37,10 +37,14 @@ public class Room {
     @Min(value = 1, message = "capacity must be at least 1")
     private Integer capacity;
 
-    private String description; //additional data for the room
+    @Column(columnDefinition = "TEXT")
+    private String description;
 
-    //private List<String> imageUrl; //to hold more than 1 picture
-    private String imageUrl; //to hold 1 picture
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "room_images", joinColumns = @JoinColumn(name = "room_id"))
+    @Column(name = "image_url", columnDefinition = "TEXT")
+    private List<String> imageUrls;  //to hold more than 1 picture
+   // private String imageUrl; //to hold 1 picture
 
 
 }

@@ -192,11 +192,11 @@ const EditRoomPage = () => {
               )}
 
               {previews.length > 0 && (
-                <div style={{ marginTop: "15px" }}>
-                  <label className="gallery-section-label" style={{ color: "#2b6cb0" }}>New Photos to Upload</label>
+                <div>
+                  <label className="gallery-section-label">New Photos to Upload</label>
                   <div className="modal-previews-grid">
                     {previews.map((src, index) => (
-                      <div className="modal-thumb-box" key={index} style={{ borderColor: "#2b6cb0" }}>
+                      <div className="modal-thumb-box" key={index}>
                         <img src={src} alt={`New upload thumb ${index + 1}`} className="modal-thumb-img" />
                       </div>
                     ))}
@@ -204,7 +204,7 @@ const EditRoomPage = () => {
                 </div>
               )}
 
-              <div style={{ marginTop: "15px" }}>
+              <div>
                 <input type="file" name="imageFiles" accept="image/*" multiple onChange={handleFileChange} />
               </div>
             </div>

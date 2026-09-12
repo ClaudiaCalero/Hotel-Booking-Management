@@ -9,11 +9,9 @@ const ManageBookingsPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Control del modal de gestión de la reserva
   const [selectedBooking, setSelectedBooking] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Formulario de edición
   const [paymentStatus, setPaymentStatus] = useState("");
   const [bookingStatus, setBookingStatus] = useState("");
 
@@ -21,13 +19,12 @@ const ManageBookingsPage = () => {
     fetchBookings();
   }, []);
 
-     const fetchBookings = async () => {
+  const fetchBookings = async () => {
     try {
       const data = await ApiService.getAllBookings();
-      
-      console.log("Respuesta cruda del servidor:", data);
 
-      // 🎯 Corrección: Accedemos directamente a la propiedad 'bookings' que envía tu Spring Boot
+      console.log("Raw server response:", data);
+
       if (data && Array.isArray(data.bookings)) {
         setBookings(data.bookings);
       } else if (Array.isArray(data)) {
@@ -37,12 +34,14 @@ const ManageBookingsPage = () => {
       } else if (data && Array.isArray(data.bookingList)) {
         setBookings(data.bookingList);
       } else {
-        console.warn("No se encontró la propiedad 'bookings' en la respuesta del servidor.");
+        console.warn(
+          "Could not find a 'bookings' collection property in the server response.",
+        );
         setBookings([]);
       }
       setLoading(false);
     } catch (err) {
-      setError(err.message || "Error al cargar las reservas.");
+      setError(err.message || "Error loading reservations.");
       setLoading(false);
     }
   };
@@ -50,8 +49,8 @@ const ManageBookingsPage = () => {
   const handleManageClick = (booking, refCode, email) => {
     setSelectedBooking({
       ...booking,
-      // Guardamos explícitamente el código real que usará el backend
-      bookingReference: booking.bookingReference || booking.bookingReferenceCode || refCode,
+      bookingReference:
+        booking.bookingReference || booking.bookingReferenceCode || refCode,
       derivedRef: refCode,
       derivedEmail: email,
     });
@@ -62,32 +61,30 @@ const ManageBookingsPage = () => {
 
   const handleSaveChanges = async () => {
     try {
-      // 🧱 Construimos la maleta con la estructura exacta que exige Java:
       const updatedBooking = {
-        id: selectedBooking.id, // ID de la reserva necesario para el UPDATE
-        bookingReference: selectedBooking.bookingReference, // 👈 Nombre exacto del DTO
+        id: selectedBooking.id,
+        bookingReference: selectedBooking.bookingReference,
         bookingStatus: bookingStatus,
         paymentStatus: paymentStatus,
-        checkInDate: selectedBooking.checkInDate,   // Conserva las fechas existentes
-        checkOutDate: selectedBooking.checkOutDate, // Conserva las fechas existentes
-        numOfGuests: selectedBooking.numOfGuests || 1, // Evita mandar nulos obligatorios
-        // Si el backend te pide explícitamente el ID de habitación a nivel raíz:
-        roomId: selectedBooking.roomId || (selectedBooking.room && selectedBooking.room.id)
+        checkInDate: selectedBooking.checkInDate,
+        checkOutDate: selectedBooking.checkOutDate,
+        numOfGuests: selectedBooking.numOfGuests || 1,
+        roomId:
+          selectedBooking.roomId ||
+          (selectedBooking.room && selectedBooking.room.id),
       };
 
-      // Enviamos el DTO limpio a la API
       await ApiService.updateBooking(updatedBooking);
-      
+
       setIsModalOpen(false);
       fetchBookings();
-      alert("Reserva actualizada correctamente");
+      alert("Reservation updated successfully");
     } catch (err) {
-      alert("Error al actualizar la reserva: " + err.message);
+      alert("Error updating reservation: " + err.message);
     }
   };
 
   const filteredBookings = bookings.filter((booking) => {
-    // 👇 Corrección: Buscamos sobre la variable exacta de tu Java DTO
     const refCode = booking.bookingReference || "";
     const email =
       booking.customerEmail || (booking.user && booking.user.email) || "";
@@ -100,7 +97,7 @@ const ManageBookingsPage = () => {
   if (loading)
     return (
       <div className="gbh-loading-screen">
-        <p>Cargando conserjería...</p>
+        <p>Loading Concierge System...</p>
       </div>
     );
 
@@ -108,34 +105,28 @@ const ManageBookingsPage = () => {
     <div className="gbh-bookings-page-container">
       <div className="gbh-bookings-panel-wrapper">
         <div className="gbh-bookings-main-card">
-          {/* Sección Superior: Título y Buscador */}
           <div className="gbh-bookings-top-bar">
-            <h2 className="gbh-bookings-main-title">
-              🗃️ Registro General de Reservas
-            </h2>
+            <h2 className="gbh-bookings-main-title">General Bookings Log</h2>
             <input
               type="text"
-              placeholder="Buscar por código o email..."
+              placeholder="Search by code or email..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="gbh-bookings-search-input"
             />
           </div>
-
           {error && <p className="gbh-bookings-error-msg">{error}</p>}
-
-          {/* Tabla de Resultados */}
           <div className="gbh-bookings-table-section">
             <div className="gbh-bookings-table-scroll">
               <table className="gbh-custom-data-table">
                 <thead>
                   <tr>
-                    <th>Código Referencia</th>
-                    <th>Email Cliente</th>
+                    <th>Reference Code</th>
+                    <th>Customer Email</th>
                     <th>Check-In</th>
                     <th>Check-Out</th>
-                    <th>Estado</th>
-                    <th>Acción</th>
+                    <th>Status</th>
+                    <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -147,7 +138,7 @@ const ManageBookingsPage = () => {
                     const email =
                       booking.customerEmail ||
                       (booking.user && booking.user.email) ||
-                      "invitado@grandbudapest.com";
+                      "guest@grandbudapest.com";
 
                     return (
                       <tr key={booking.id || index} className="gbh-table-row">
@@ -170,7 +161,7 @@ const ManageBookingsPage = () => {
                             }
                             className="gbh-btn-manage-action"
                           >
-                            Gestionar
+                            Manage
                           </button>
                         </td>
                       </tr>
@@ -180,27 +171,27 @@ const ManageBookingsPage = () => {
               </table>
             </div>
           </div>
-
-          {/* Popup o Modal de Gestión a nivel Reserva */}
           {isModalOpen && selectedBooking && (
             <div className="gbh-popup-overlay">
               <div className="gbh-popup-box">
-                <h3 className="gbh-popup-title">📋 Panel de Gestión de Reserva</h3>
-
-                {/* SECCIÓN 1: IDENTIFICADORES CLAVE */}
-                <div className="gbh-popup-section-title">🔑 Identificación</div>
+                <h3 className="gbh-popup-title">Booking Management Panel</h3>
+                <div className="gbh-popup-section-title">Identification</div>
                 <div className="gbh-popup-form-grid">
                   <div className="gbh-popup-field">
-                    <label>Código Referencia</label>
+                    <label>Reference Code</label>
                     <input
                       type="text"
-                      value={selectedBooking.bookingReference || selectedBooking.derivedRef || "N/A"}
+                      value={
+                        selectedBooking.bookingReference ||
+                        selectedBooking.derivedRef ||
+                        "N/A"
+                      }
                       disabled
                       className="gbh-popup-input-disabled"
                     />
                   </div>
                   <div className="gbh-popup-field">
-                    <label>ID de Reserva (Database)</label>
+                    <label>Booking ID (Database)</label>
                     <input
                       type="text"
                       value={selectedBooking.id || "N/A"}
@@ -209,39 +200,49 @@ const ManageBookingsPage = () => {
                     />
                   </div>
                 </div>
-
-                {/* SECCIÓN 2: DATOS DEL CLIENTE / HUÉSPED */}
-                <div className="gbh-popup-section-title">👤 Datos del Huésped</div>
+                <div className="gbh-popup-section-title">👤 Guest Details</div>
                 <div className="gbh-popup-form-grid">
                   <div className="gbh-popup-field">
-                    <label>Nombre Completo</label>
+                    <label>Full Name</label>
                     <input
                       type="text"
-                      value={`${selectedBooking.user?.firstName || ''} ${selectedBooking.user?.lastName || ''}`.trim() || selectedBooking.customerName || "Invitado"}
+                      value={
+                        `${selectedBooking.user?.firstName || ""} ${selectedBooking.user?.lastName || ""}`.trim() ||
+                        selectedBooking.customerName ||
+                        "Guest"
+                      }
                       disabled
                       className="gbh-popup-input-disabled"
                     />
                   </div>
                   <div className="gbh-popup-field">
-                    <label>Email de Contacto</label>
+                    <label>Contact Email</label>
                     <input
                       type="text"
-                      value={selectedBooking.user?.email || selectedBooking.customerEmail || selectedBooking.derivedEmail}
+                      value={
+                        selectedBooking.user?.email ||
+                        selectedBooking.customerEmail ||
+                        selectedBooking.derivedEmail
+                      }
                       disabled
                       className="gbh-popup-input-disabled"
                     />
                   </div>
                   <div className="gbh-popup-field">
-                    <label>Teléfono</label>
+                    <label>Phone Number</label>
                     <input
                       type="text"
-                      value={selectedBooking.user?.phoneNumber || selectedBooking.customerPhone || "No registrado"}
+                      value={
+                        selectedBooking.user?.phoneNumber ||
+                        selectedBooking.customerPhone ||
+                        "Not registered"
+                      }
                       disabled
                       className="gbh-popup-input-disabled"
                     />
                   </div>
                   <div className="gbh-popup-field">
-                    <label>Total Huéspedes</label>
+                    <label>Total Guests</label>
                     <input
                       type="text"
                       value={selectedBooking.numOfGuests || "1"}
@@ -250,30 +251,31 @@ const ManageBookingsPage = () => {
                     />
                   </div>
                 </div>
-
-                                {/* SECCIÓN 3: DETALLES DE LA HABITACIÓN Y FECHAS */}
-                <h4 className="gbh-popup-section-title">🏨 Habitación y Estancia</h4>
+                <h4 className="gbh-popup-section-title">
+                  Room and Stay Period
+                </h4>
                 <div className="gbh-popup-form-grid">
                   <div className="gbh-popup-field">
-                    <label>Número / Tipo de Habitación</label>
+                    <label>Room Number / Type</label>
                     <input
                       type="text"
                       value={
-                        selectedBooking.room 
-                          ? `Nº ${selectedBooking.room.roomNumber} - ${selectedBooking.room.roomType || selectedBooking.room.type || "Asignada"}` 
-                          : "No asignada"
+                        selectedBooking.room
+                          ? `Room Nº ${selectedBooking.room.roomNumber} - ${selectedBooking.room.roomType || selectedBooking.room.type || "Assigned"}`
+                          : "Not assigned"
                       }
                       disabled
                       className="gbh-popup-input-disabled"
                     />
                   </div>
                   <div className="gbh-popup-field">
-                    <label>Precio por Noche</label>
+                    <label>Price per Night</label>
                     <input
                       type="text"
                       value={
-                        selectedBooking.room?.roomPrice || selectedBooking.room?.pricePerNight
-                          ? `${selectedBooking.room.roomPrice || selectedBooking.room.pricePerNight} USD` 
+                        selectedBooking.room?.roomPrice ||
+                        selectedBooking.room?.pricePerNight
+                          ? `${selectedBooking.room.roomPrice || selectedBooking.room.pricePerNight} USD`
                           : "N/A"
                       }
                       disabled
@@ -281,7 +283,7 @@ const ManageBookingsPage = () => {
                     />
                   </div>
                   <div className="gbh-popup-field">
-                    <label>Fecha Check-In</label>
+                    <label>Check-In Date</label>
                     <input
                       type="text"
                       value={selectedBooking.checkInDate}
@@ -290,7 +292,7 @@ const ManageBookingsPage = () => {
                     />
                   </div>
                   <div className="gbh-popup-field">
-                    <label>Fecha Check-Out</label>
+                    <label>Check-Out Date</label>
                     <input
                       type="text"
                       value={selectedBooking.checkOutDate}
@@ -299,51 +301,46 @@ const ManageBookingsPage = () => {
                     />
                   </div>
                 </div>
-
-
-                {/* SECCIÓN 4: ACCIONES DE ADMINISTRACIÓN */}
-                <div className="gbh-popup-section-title">⚙️ Control de Estado</div>
+                <div className="gbh-popup-section-title">State Control</div>
                 <div className="gbh-popup-form-grid">
                   <div className="gbh-popup-field">
-                    <label>Estado de la Reserva</label>
+                    <label>Booking Status</label>
                     <select
                       value={bookingStatus}
                       onChange={(e) => setBookingStatus(e.target.value)}
                       className="gbh-popup-select-control"
                     >
-                      <option value="BOOKED">🟢 BOOKED (Confirmada)</option>
-                      <option value="CANCELLED">🔴 CANCELLED (Cancelada)</option>
+                      <option value="BOOKED">BOOKED (Confirmed)</option>
+                      <option value="CANCELLED">CANCELLED (Cancelled)</option>
                     </select>
                   </div>
                   <div className="gbh-popup-field">
-                    <label>Estado del Pago</label>
+                    <label>Payment Status</label>
                     <select
                       value={paymentStatus}
                       onChange={(e) => setPaymentStatus(e.target.value)}
                       className="gbh-popup-select-control"
                     >
-                      <option value="PENDING">🟡 PENDING (Pendiente)</option>
-                      <option value="PAID">🟢 PAID (Pagado)</option>
-                      <option value="FAILED">🔴 FAILED (Fallido)</option>
+                      <option value="PENDING">PENDING (Pending)</option>
+                      <option value="PAID">PAID (Paid)</option>
+                      <option value="FAILED">FAILED (Failed)</option>
                     </select>
                   </div>
                 </div>
-
-                {/* BOTONERA */}
-                <div className="gbh-popup-buttons-row" style={{ marginTop: "24px" }}>
+                <div className="gbh-popup-buttons-row">
                   <button
                     type="button"
                     onClick={handleSaveChanges}
                     className="gbh-popup-btn-save"
                   >
-                    Guardar Cambios del Sistema
+                    Save System Changes
                   </button>
                   <button
                     type="button"
                     onClick={() => setIsModalOpen(false)}
                     className="gbh-popup-btn-close"
                   >
-                    Cerrar Ventana
+                    Close Window
                   </button>
                 </div>
               </div>
@@ -356,5 +353,3 @@ const ManageBookingsPage = () => {
 };
 
 export default ManageBookingsPage;
-
-

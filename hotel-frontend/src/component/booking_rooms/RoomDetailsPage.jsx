@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom"; 
 import ApiService from "../../service/ApiService";
 import ReactMarkdown from "react-markdown"; 
 import "../../styles/room-details.css";
@@ -49,6 +49,7 @@ const RoomDetailsCarousel = ({ imageUrls, onImageClick }) => {
 const RoomDetailsPage = () => {
   const { roomId } = useParams();
   const navigate = useNavigate();
+  const location = useLocation(); 
 
   const [room, setRoom] = useState(null);
   const [checkInDate, setCheckInDate] = useState("");
@@ -57,6 +58,24 @@ const RoomDetailsPage = () => {
   const [success, setSuccess] = useState("");
   
   const [zoomImageIndex, setZoomImageIndex] = useState(null); 
+
+  useEffect(() => {
+    if (location.state) {
+      const { initialStartDate, initialEndDate } = location.state;
+      
+      if (initialStartDate) {
+        const dIn = new Date(initialStartDate);
+        const formattedIn = new Date(dIn.getTime() - dIn.getTimezoneOffset() * 60000).toISOString().split("T")[0];
+        setCheckInDate(formattedIn);
+      }
+      
+      if (initialEndDate) {
+        const dOut = new Date(initialEndDate);
+        const formattedOut = new Date(dOut.getTime() - dOut.getTimezoneOffset() * 60000).toISOString().split("T")[0];
+        setCheckOutDate(formattedOut);
+      }
+    }
+  }, [location.state]);
 
   useEffect(() => {
     const fetchRoomData = async () => {
@@ -164,7 +183,7 @@ const RoomDetailsPage = () => {
           </div>
 
           <button type="button" className="btn-submit-room-booking" onClick={handleBooking}>
-            Select Stay Dates
+            {checkInDate && checkOutDate ? "Book Room Now" : "Select Stay Dates"}
           </button>
         </div>
       </div>

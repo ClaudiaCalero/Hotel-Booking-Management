@@ -18,7 +18,7 @@ public class EmailService {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom("cld.d.clr@gmail.com");
         message.setTo(toEmail);
-        message.setSubject("Password recovery - Onyx Crown Hotel");
+        message.setSubject("Password recovery - The Grand Hotel Budapest");
 
         String emailBody = """
             Hello,

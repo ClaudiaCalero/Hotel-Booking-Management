@@ -105,14 +105,14 @@ export default class ApiService {
     }
     static async getAllRooms() {
         const response = await axios.get(`${this.BASE_URL}/rooms/all`, {
-            headers: this.getHeader() // 👈 CORREGIDO: Usa las cabeceras con el token descifrado
+            headers: this.getHeader() 
         });
         return response.data;
     }
 
     static async getRoomTypes() {
         const response = await axios.get(`${this.BASE_URL}/rooms/types`, {
-            headers: this.getHeader() // 👈 CORREGIDO: Usa las cabeceras con el token descifrado
+            headers: this.getHeader()
         });
         return response.data;
     }

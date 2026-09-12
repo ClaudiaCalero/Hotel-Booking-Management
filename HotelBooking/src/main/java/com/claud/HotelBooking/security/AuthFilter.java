@@ -29,10 +29,8 @@ public class AuthFilter extends OncePerRequestFilter {
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
 
-        // 1. Extraemos el token usando de forma limpia tu método auxiliar
         String token = getTokenFromRequest(request);
 
-        // 2. Si hay un token presente, realizamos la autenticación en el contexto de seguridad
         if (token != null) {
             try {
                 String email = jwtUtils.getUsernameFromToken(token);
@@ -53,7 +51,6 @@ public class AuthFilter extends OncePerRequestFilter {
             }
         }
 
-        // 3. UNA ÚNICA LLAMADA CONTROLADA al filtro siguiente para continuar la petición de forma segura
         filterChain.doFilter(request, response);
     }
 

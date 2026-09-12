@@ -93,7 +93,7 @@ const AddRoomPage = () => {
 
       if (files.length > 0) {
         files.forEach((file) => {
-          formData.append("imageFiles", file); // Coincide perfectamente con @RequestParam de Java
+          formData.append("imageFiles", file); 
         });
       }
 

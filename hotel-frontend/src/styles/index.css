@@ -1,10 +1,8 @@
 :root {
-  /* Fondo general / Tarjetas */
   --bg-cream: #FFF4F8;         
   --bg-white: #FFFFFF;
-  /*#f0e8e8
+  /*#f0e8e8*/
   
-  /* Colores de marca Principales (Botones y enlaces) */
   --hotel-green: #588569;       
   --hotel-coral: #EFA899;      
   --hotel-pink: #E07F99;       
@@ -52,8 +50,8 @@
  
 * {
   margin: 0;
-  box-sizing: border-box; /* Activado para que los paddings no deformen las cajas */
-  font-family: Arial, sans-serif;
+  box-sizing: border-box; 
+  font-family: 'Futura', sans-serif;
 
 }
 

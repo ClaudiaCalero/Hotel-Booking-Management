@@ -63,8 +63,7 @@ const ForgotPassword = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                placeholder="Enter your registered email"
-              />
+                placeholder="Enter your registered email"/>
             </div>
 
             <button type="submit">
@@ -73,9 +72,7 @@ const ForgotPassword = () => {
           </form>
 
           <p className="password-recovery-link">
-            <a href="/login">
-              Back to Login
-            </a>
+            <a href="/login">Back to Login</a>
           </p>
 
         </div>

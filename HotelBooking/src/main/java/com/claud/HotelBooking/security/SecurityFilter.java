@@ -1,6 +1,5 @@
 package com.claud.HotelBooking.security;
 
-
 import com.claud.HotelBooking.exceptions.CustomAccessDenialHandler;
 import com.claud.HotelBooking.exceptions.CustomAuthenticationEntryPoint;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +17,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 
 @Configuration
 @EnableMethodSecurity
@@ -25,16 +25,12 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 public class SecurityFilter {
 
-
     private final AuthFilter authFilter;
-
     private final CustomAccessDenialHandler customAccessDenialHandler;
-
     private final CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-
         httpSecurity.csrf(AbstractHttpConfigurer::disable)
                 .cors(Customizer.withDefaults())
                 .exceptionHandling(exception ->
@@ -47,16 +43,18 @@ public class SecurityFilter {
                                 "/api/auth/login",
                                 "/api/auth/forgot-password",
                                 "/api/auth/reset-password",
-                                "/api/rooms/types" // <-- AGREGADO DE FORMA DEFINITIVA
+                                "/api/rooms/types",
+                                "/api/rooms/all",
+                                "/api/rooms/available"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
-
-
                 .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class);
+
         return httpSecurity.build();
     }
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -66,9 +64,11 @@ public class SecurityFilter {
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
             throws Exception {
-
         return authenticationConfiguration.getAuthenticationManager();
     }
 
-
+    @Bean
+    public StandardServletMultipartResolver multipartResolver() {
+        return new StandardServletMultipartResolver();
+    }
 }

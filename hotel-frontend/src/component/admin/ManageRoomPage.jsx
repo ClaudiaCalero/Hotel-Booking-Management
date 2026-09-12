@@ -27,7 +27,6 @@ const ManageRoomPage = () => {
         const roomsResponse = await ApiService.getAllRooms();
         const typesResponse = await ApiService.getRoomTypes();
         
-        // Conserva el mapeo exacto de tu backend
         const roomsData = roomsResponse?.rooms || roomsResponse?.roomList || roomsResponse || [];
         setRooms(roomsData);
         setFilteredRooms(roomsData);
@@ -45,7 +44,6 @@ const ManageRoomPage = () => {
     setCurrentPage(1);
   };
 
-  // Lógica de Paginación exacta a tu archivo de GitHub
   const indexOfLastRoom = currentPage * roomsPerPage;
   const indexOfFirstRoom = indexOfLastRoom - roomsPerPage;
   const currentRooms = filteredRooms.slice(indexOfFirstRoom, indexOfLastRoom);
@@ -64,26 +62,17 @@ const ManageRoomPage = () => {
 
           {error && <p className="error-message">{error}</p>}
 
-          {/* 🌟 MANTENEMOS ESTA SECCIÓN VISUAL: Pero en lugar del formulario largo, 
-              colocamos un llamado a la acción limpio hacia AddRoomPage */}
           <div className="inner-management-section">
             <h3>Create New Room Listing</h3>
-            <div style={{ padding: "20px 0", textAlign: "center" }}>
-              <p style={{ marginBottom: "15px", color: "#555" }}>
-                To register a new room with its image, pricing, and specific characteristics:
-              </p>
+            <div>
+              <p>To register a new room with its image, pricing, and specific characteristics:</p>
               <button 
-                type="button" 
-                className="action-btn-save" 
-                onClick={() => navigate("/admin/add-room")}
-                style={{ display: "inline-block", width: "auto", padding: "10px 25px" }}
-              >
+                type="button" className="action-btn-save" onClick={() => navigate("/admin/add-room")}>
                 Go to Add Room Page
               </button>
             </div>
           </div>
 
-          {/* SECCIÓN INVENTARIO: Queda exactamente idéntica y funcional */}
           <div className="inner-management-section inventory-list-section">
             <h3>Current Room Inventory</h3>
 

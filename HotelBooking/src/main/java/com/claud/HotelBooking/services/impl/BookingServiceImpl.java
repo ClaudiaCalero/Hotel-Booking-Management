@@ -45,13 +45,8 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public Response getAllBookings() {
-        List<Booking> bookingList =bookingRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
+        List<Booking> bookingList = bookingRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
         List<BookingDTO> bookingDTOList = modelMapper.map(bookingList, new TypeToken<List<BookingDTO>>() {}.getType());
-
-        for(BookingDTO bookingDTO: bookingDTOList){
-            bookingDTO.setUser(null);
-            bookingDTO.setRoom(null);
-        }
 
         return Response.builder()
                 .status(200)
@@ -59,6 +54,8 @@ public class BookingServiceImpl implements BookingService {
                 .bookings(bookingDTOList)
                 .build();
     }
+
+
 
     @Override
     public Response createBooking(BookingDTO bookingDTO) {
