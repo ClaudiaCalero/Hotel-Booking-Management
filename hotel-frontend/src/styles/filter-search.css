@@ -3,10 +3,8 @@
   gap: 15px;
   background-color: rgba(255, 255, 255, 0.85);
   padding: 20px;
-  border-radius: 50px;
+  border-radius: 15px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
   width: 100%;
   max-width: 900px;
 }
@@ -20,7 +18,7 @@
 .search-field label {
   font-size: 12px;
   font-weight: 700;
-  color: #6d5b52;
+  color: #3B1516;
   margin-bottom: 5px;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -28,11 +26,11 @@
 
 .search-field select, 
 .search-field input {
-  border: 1px solid #e0d9d5;
+  border: 1px solid var(--putty);
   padding: 10px 15px;
-  border-radius: 25px;
+  border-radius: 10px;
   font-size: 14px;
-  color: #4a3e3d;
+  color: var(--cool-gray);
   background-color: white;
   outline: none;
   transition: border-color 0.3s;
@@ -40,11 +38,11 @@
 
 .search-field select:focus, 
 .search-field input:focus {
-  border-color: #f1b3a3;
+  border-color: var(--rose-dust);
 }
 
 .home-search-button {
-  background-color: #f1b3a3;
+background-color: var(--hotel-babyblue);
   color: white;
   border: none;
   padding: 0 35px;
@@ -56,7 +54,7 @@
 }
 
 .home-search-button:hover {
-  background-color: #e29f8e;
+  background-color: var(--misty-blue);
   transform: translateY(-2px);
 }
 
@@ -76,7 +74,7 @@
 .filter-select-div label {
   font-size: 14px;
   font-weight: 600;
-  color: #4a3e3d;
+  color: var(--chocolate);
   margin-bottom: 8px;
 }
 

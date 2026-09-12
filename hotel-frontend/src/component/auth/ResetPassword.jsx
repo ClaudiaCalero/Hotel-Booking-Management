@@ -79,8 +79,7 @@ const ResetPassword = () => {
                 onChange={(e) =>
                   setNewPassword(e.target.value)
                 }
-                required
-              />
+                required/>
             </div>
 
             <div className="form-group">
@@ -95,8 +94,7 @@ const ResetPassword = () => {
                 onChange={(e) =>
                   setConfirmPassword(e.target.value)
                 }
-                required
-              />
+                required/>
             </div>
 
             <button type="submit">
@@ -109,7 +107,6 @@ const ResetPassword = () => {
               Back to Login
             </a>
           </p>
-
         </div>
       </div>
     </div>

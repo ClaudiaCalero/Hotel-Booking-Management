@@ -18,7 +18,6 @@ public interface RoomRepository extends JpaRepository<Room, Long> {
      * - Its booking status is 'BOOKED' or 'CHECKED_IN'.
      * - The room type matches the given roomType parameter (if it's not null).
      */
-
     @Query("""
             SELECT r FROM Room r
             WHERE
@@ -46,7 +45,6 @@ public interface RoomRepository extends JpaRepository<Room, Long> {
      * - capacity (as string)
      * - description (ignores case and uses LIKE operator)
      */
-
     @Query("""
                 SELECT r FROM Room r
                 WHERE CAST(r.roomNumber AS string) LIKE %:searchParam%
@@ -57,6 +55,7 @@ public interface RoomRepository extends JpaRepository<Room, Long> {
             """)
     List<Room> searchRooms(@Param("searchParam") String searchParam);
 
-
+    List<Room> findByType(RoomType type);
 }
+
 

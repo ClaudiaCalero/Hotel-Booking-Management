@@ -4,9 +4,9 @@ import com.claud.HotelBooking.dtos.Response;
 import com.claud.HotelBooking.dtos.RoomDTO;
 import com.claud.HotelBooking.entities.Room;
 import com.claud.HotelBooking.enums.RoomType;
-import com.claud.HotelBooking.exceptions.InvalidBookingStateAndDateException;
 import com.claud.HotelBooking.exceptions.NotFoundException;
 import com.claud.HotelBooking.repositories.RoomRepository;
+import com.claud.HotelBooking.repositories.BookingRepository;
 import com.claud.HotelBooking.services.RoomService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,16 +31,21 @@ import java.util.stream.Collectors;
 public class RoomServiceImpl implements RoomService {
 
     private final RoomRepository roomRepository;
+    private final BookingRepository bookingRepository;
     private final ModelMapper modelMapper;
 
     private static final String IMAGE_DIRECTORY_FRONTEND = "C:\\Users\\Cyltia\\HotelBooking\\hotel-frontend\\public\\images\\hotel\\Rooms\\";
 
     @Override
     public Response addRoom(RoomDTO roomDTO, List<MultipartFile> imageFiles) {
+        Room roomToSave = Room.builder()
+                .roomNumber(roomDTO.getRoomNumber())
+                .type(roomDTO.getType())
+                .pricePerNight(roomDTO.getPricePerNight())
+                .capacity(roomDTO.getCapacity())
+                .description(roomDTO.getDescription())
+                .build();
 
-        Room roomToSave = modelMapper.map(roomDTO, Room.class);
-
-        // 🌟 ACUMULADOR: Almacena físicamente todas las fotos y concatena sus rutas web
         if (imageFiles != null && !imageFiles.isEmpty()) {
             List<String> paths = new ArrayList<>();
             for (MultipartFile file : imageFiles) {
@@ -48,8 +53,7 @@ public class RoomServiceImpl implements RoomService {
                     paths.add(saveImageToFrontend(file));
                 }
             }
-            String combinedPaths = String.join(",", paths);
-            roomToSave.setImageUrl(combinedPaths);
+            roomToSave.setImageUrls(paths);
         }
 
         roomRepository.save(roomToSave);
@@ -61,11 +65,10 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public Response updateRoom(RoomDTO roomDTO, List<MultipartFile> imageFiles) { // 🌟 Cambiado a List
+    public Response updateRoom(RoomDTO roomDTO, List<MultipartFile> imageFiles) {
         Room existingRoom = roomRepository.findById(roomDTO.getId())
                 .orElseThrow(() -> new NotFoundException("Room not found"));
 
-        // 🌟 ACTUALIZADOR: Permite al admin subir una nueva tanda de imágenes para la galería
         if (imageFiles != null && !imageFiles.isEmpty()) {
             List<String> paths = new ArrayList<>();
             for (MultipartFile file : imageFiles) {
@@ -73,8 +76,7 @@ public class RoomServiceImpl implements RoomService {
                     paths.add(saveImageToFrontend(file));
                 }
             }
-            String combinedPaths = String.join(",", paths);
-            existingRoom.setImageUrl(combinedPaths);
+            existingRoom.setImageUrls(paths);
         }
 
         if (roomDTO.getRoomNumber() != null && roomDTO.getRoomNumber() >= 0) {
@@ -102,7 +104,18 @@ public class RoomServiceImpl implements RoomService {
     @Override
     public Response getAllRooms() {
         List<Room> roomList = roomRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
-        List<RoomDTO> roomDTOList = modelMapper.map(roomList, new TypeToken<List<RoomDTO>>() {}.getType());
+
+        List<RoomDTO> roomDTOList = roomList.stream().map(room -> {
+            return RoomDTO.builder()
+                    .id(room.getId())
+                    .roomNumber(room.getRoomNumber())
+                    .type(room.getType())
+                    .pricePerNight(room.getPricePerNight())
+                    .capacity(room.getCapacity())
+                    .description(room.getDescription())
+                    .imageUrls(room.getImageUrls())
+                    .build();
+        }).collect(Collectors.toList());
 
         return Response.builder()
                 .status(200)
@@ -139,25 +152,35 @@ public class RoomServiceImpl implements RoomService {
 
     @Override
     public Response getAvailableRooms(LocalDate checkInDate, LocalDate checkOutDate, RoomType roomType) {
-        if (checkInDate.isBefore(LocalDate.now())) {
-            throw new InvalidBookingStateAndDateException("check in date cannot be before today ");
-        }
-        if (checkOutDate.isBefore(checkInDate)) {
-            throw new InvalidBookingStateAndDateException("check out date cannot be before check in date ");
-        }
-        if (checkInDate.isEqual(checkOutDate)) {
-            throw new InvalidBookingStateAndDateException("check in date cannot be equal to check out date ");
-        }
+        try {
+            List<Room> availableRooms = roomRepository.findAvailableRooms(checkInDate, checkOutDate, roomType);
 
-        List<Room> roomList = roomRepository.findAvailableRooms(checkInDate, checkOutDate, roomType);
-        List<RoomDTO> roomDTOList = modelMapper.map(roomList, new TypeToken<List<RoomDTO>>() {}.getType());
+            List<RoomDTO> availableRoomDTOs = availableRooms.stream().map(room -> {
+                return RoomDTO.builder()
+                        .id(room.getId())
+                        .roomNumber(room.getRoomNumber())
+                        .type(room.getType())
+                        .pricePerNight(room.getPricePerNight())
+                        .capacity(room.getCapacity())
+                        .description(room.getDescription())
+                        .imageUrls(room.getImageUrls())
+                        .build();
+            }).collect(Collectors.toList());
 
-        return Response.builder()
-                .status(200)
-                .message("success")
-                .rooms(roomDTOList)
-                .build();
+            return Response.builder()
+                    .status(200)
+                    .message("Success")
+                    .rooms(availableRoomDTOs)
+                    .build();
+
+        } catch (Exception e) {
+            return Response.builder()
+                    .status(500)
+                    .message("Error searching for available rooms: " + e.getMessage())
+                    .build();
+        }
     }
+
 
     @Override
     public List<RoomType> getAllRoomTypes() {

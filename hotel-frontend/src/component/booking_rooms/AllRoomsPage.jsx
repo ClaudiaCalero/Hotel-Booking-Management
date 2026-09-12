@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom"; // 👈 Importamos el hook de navegación de React Router
+import { useNavigate, useLocation } from "react-router-dom"; 
 import ApiService from "../../service/ApiService";
 import RoomResult from "../common/RoomResult";
-import RoomSearch from "../common/RoomSearch";
 import Pagination from "../common/Pagination"; 
 
 import "../../styles/all-rooms.css";
 import "../../styles/rooms.css";
 
 const AllRoomsPage = () => {
-    const navigate = useNavigate(); // 👈 Inicializamos el navegador
+    const navigate = useNavigate();
+    const location = useLocation(); 
     const [rooms, setRooms] = useState([]);
     const [filteredRooms, setFilteredRooms] = useState([]);
     const [roomTypes, setRoomTypes] = useState([]);
@@ -18,32 +18,15 @@ const AllRoomsPage = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [roomsPerPage] = useState(9);
 
-    const handleSearchResult = (results) => {
-        setRooms(results);
-        setFilteredRooms(results);
-    };
-
-    // 🎯 CONTROL DE ACCESO ADMINISTRATIVO AUTOMÁTICO:
     useEffect(() => {
         if (ApiService.isAdmin && ApiService.isAdmin()) {
-            navigate("/admin/manage-rooms"); // 👈 Redirección instantánea al panel interno
+            navigate("/admin/manage-rooms");
         }
     }, [navigate]);
 
     useEffect(() => {
-        // get all rooms
-        const fetchRooms = async () => {
-            try {
-                const resp = await ApiService.getAllRooms();
-                setRooms(resp.rooms);
-                setFilteredRooms(resp.rooms);
-            } catch (error) {
-                console.log(error);
-            }
-        };
-
         // get room types
-        const ftechRoomsType = async () => {
+        const fetchRoomsType = async () => {
             try {
                 const types = await ApiService.getRoomTypes();
                 setRoomTypes(types);
@@ -51,10 +34,28 @@ const AllRoomsPage = () => {
                 console.log(error);
             }
         };
-        
-        fetchRooms();
-        ftechRoomsType();
-    }, []);
+        fetchRoomsType();
+
+        if (location.state && location.state.initialFilteredRooms) {
+            setRooms(location.state.initialFilteredRooms);
+            setFilteredRooms(location.state.initialFilteredRooms);
+            
+            if (location.state.initialFilteredRooms.length > 0) {
+                setSelectedRoomType(location.state.initialFilteredRooms[0].type);
+            }
+        } else {
+            const fetchRooms = async () => {
+                try {
+                    const resp = await ApiService.getAllRooms();
+                    setRooms(resp.rooms);
+                    setFilteredRooms(resp.rooms);
+                } catch (error) {
+                    console.log(error);
+                }
+            };
+            fetchRooms();
+        }
+    }, [location.state]);
 
     // handle changes to room type filter
     const handleRoomTypeChange = (e) => {
@@ -96,9 +97,7 @@ const AllRoomsPage = () => {
                     ))}
                 </select>
             </div>
-
             <RoomResult roomSearchResults={currentRooms} />
-
             <Pagination
                 roomPerPage={roomsPerPage}
                 totalRooms={filteredRooms.length}

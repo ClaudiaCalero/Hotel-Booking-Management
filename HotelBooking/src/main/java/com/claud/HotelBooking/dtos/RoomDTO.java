@@ -10,6 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -32,8 +33,8 @@ public class RoomDTO {
 
     private String description; //additional data for the room
 
-    //private List<String> images; more than 1 img
-    private String imageUrl; //this will hold the room picture
+    private List<String> imageUrls; //more than 1 img
+    //private String imageUrl; //this will hold the room picture
 
 
 }

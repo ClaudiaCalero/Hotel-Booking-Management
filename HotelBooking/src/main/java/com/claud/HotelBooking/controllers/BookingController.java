@@ -35,7 +35,7 @@ public class BookingController {
     }
 
     @PutMapping("/update")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('CUSTOMER')")
     public ResponseEntity<Response> updateBooking(@RequestBody BookingDTO bookingDTO){
         return ResponseEntity.ok(bookingService.updateBooking(bookingDTO));
     }

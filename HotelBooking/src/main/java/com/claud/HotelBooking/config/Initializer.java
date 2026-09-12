@@ -1,7 +1,7 @@
 package com.claud.HotelBooking.config;
 
 import com.claud.HotelBooking.entities.User;
-import com.claud.HotelBooking.enums.UserRole; // ⬅️ IMPORTAMOS TU ENUM REAL
+import com.claud.HotelBooking.enums.UserRole; 
 import com.claud.HotelBooking.repositories.UserRepository;
 
 import org.springframework.boot.CommandLineRunner;

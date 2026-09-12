@@ -1,19 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'; // 👈 Importamos el hook de navegación
+import { useNavigate } from 'react-router-dom';
 import ApiService from '../../service/ApiService'; 
 import '../../styles/find-booking.css';
 
 const FindBookingPage = () => {
-    const navigate = useNavigate(); // 👈 Inicializamos el navegador de React Router
+    const navigate = useNavigate(); 
     const [confirmationCode, setConfirmationCode] = useState(''); 
     const [bookingDetails, setBookingDetails] = useState(null); 
     const [error, setError] = useState(null); 
 
-    // 🎯 CONTROL DE ACCESO ADMINISTRATIVO:
     useEffect(() => {
-        // Si el usuario está logueado y es administrador, se le desvía a su panel
         if (ApiService.isAdmin && ApiService.isAdmin()) {
-            navigate('/admin/manage-bookings'); // 👈 Ajusta esta ruta si tu router usa otra diferente
+            navigate('/admin/manage-bookings'); 
         }
     }, [navigate]);
 
