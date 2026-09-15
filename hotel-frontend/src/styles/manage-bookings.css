@@ -1,91 +1,200 @@
 .gbh-bookings-page-container {
-    padding: 40px 20px;
-    background-color: #fdfbf7;
+    position: relative;
+    padding: 60px 20px;
+    background-color: var(--bg-cream); 
     min-height: 100vh;
     display: flex;
     justify-content: center;
+    align-items: center; 
 }
+
+.gbh-bookings-page-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 40px;   
+    right: 40px; 
+    background-image: url('../../public/images/hotel/Hotelweb/7152ad903689b93788563ae8c5003dc8.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center 45%;
+    z-index: 0;
+    width: calc(100% - 80px);   
+    height: 100%;
+}
+
+.gbh-bookings-page-container::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 40px;
+    right: 40px;
+    background: rgba(255, 244, 248, 0.15); 
+    z-index: 0;
+    width: calc(100% - 80px);
+    height: 100%;
+}
+
 .gbh-bookings-panel-wrapper {
+    position: relative;
+    z-index: 1;
     width: 100%;
     max-width: 1100px;
 }
+
 .gbh-bookings-main-card {
-    background: #fff;
-    border-radius: 8px;
-    padding: 30px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    border: 1px solid #dfd5c6;
+    background: rgba(255, 255, 255, 0.85); 
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 35px;
+    box-shadow: 0 15px 35px rgba(72, 40, 27, 0.15);
+    border: 2px solid var(--nougat);
 }
+
 .gbh-bookings-top-bar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 2px solid #dfd5c6;
+    border-bottom: 2px solid var(--nougat);
     padding-bottom: 15px;
     margin-bottom: 25px;
 }
+
 .gbh-bookings-main-title {
-    color: #4a3e3d;
-    font-family: serif;
+    font-family: 'Futura', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 800;
+    font-size: 32px; 
+    color: var(--bistre-brown);
     margin: 0;
 }
+
 .gbh-bookings-search-input {
-    padding: 8px 15px;
-    border: 1px solid #dfd5c6;
+    font-family: 'Futura', sans-serif;
+    font-size: 14px;
+    color: var(--bistre-brown);
+    background-color: var(--bg-white);
+    border: 1px solid var(--putty);
     border-radius: 4px;
+    padding: 8px 12px;
     width: 280px;
-    background-color: #fdfbf7;
+    outline: none;
+    transition: all 0.2s ease;
 }
+
+
+.gbh-bookings-search-input:focus {
+    border-color: var(--nougat);       
+    background-color: var(--bg-white);    
+    box-shadow: 0 0 0 1px rgba(166, 136, 119, 0.15); 
+}
+
+
 .gbh-bookings-table-section {
     margin-top: 15px;
 }
+
+.gbh-bookings-table-scroll {
+    overflow-x: auto;
+}
+
 .gbh-custom-data-table {
     width: 100%;
     border-collapse: collapse;
     text-align: left;
+    font-family: 'Futura', sans-serif;
 }
+
 .gbh-custom-data-table th {
-    background-color: #4a3e3d;
-    color: white;
+    background-color: var(--bistre-brown);
+    color: var(--bg-cream);
     padding: 12px;
-    font-weight: 500;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 13px;
 }
+
 .gbh-custom-data-table td {
     padding: 14px 12px;
-    border-bottom: 1px solid #eee;
-    color: #555;
+    border-bottom: 1px solid var(--putty);
+    color: var(--text-dark);
+    font-size: 14px;
 }
+
 .gbh-table-row:nth-child(even) {
-    background-color: #faf8f5;
+    background-color: rgba(253, 246, 217, 0.3); 
 }
+
 .gbh-td-code {
-    font-weight: bold;
-    color: #2c3e50;
+    font-weight: 700;
+    color: var(--chocolate);
 }
+
 .gbh-status-badge {
+    font-family: 'Futura', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
     padding: 4px 10px;
-    border-radius: 4px;
-    font-size: 12px;
-    font-weight: bold;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    display: inline-block;
 }
+
 .gbh-status-booked {
-    background-color: #d4edda;
-    color: #155724;
+    background-color: rgba(88, 133, 105, 0.2); 
+    color: var(--hotel-green);
 }
+
 .gbh-status-cancelled {
-    background-color: #f8d7da;
-    color: #721c24;
+    background-color: rgba(163, 88, 92, 0.2);  
+    color: var(--redish-pink);
 }
+
 .gbh-btn-manage-action {
-    background-color: #cda250;
-    color: white;
-    border: none;
-    padding: 6px 14px;
-    border-radius: 4px;
+    font-family: 'Futura', sans-serif;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    font-size: 12px;
+    border-radius: 20px; 
+    background-color: var(--redish-pink); 
+    color: var(--bg-white);
+    padding: 8px 16px;
     cursor: pointer;
-    font-weight: bold;
-    transition: background 0.2s;
+    box-shadow: 0 4px 12px rgba(65, 21, 8, 0.15);
+    border: none;
+    outline: none;
+    transition: all 0.2s ease;
 }
+
 .gbh-btn-manage-action:hover {
-    background-color: #b58d40;
+    background-color: var(--light-french-beige);
+    color: var(--bg-white);
+    box-shadow: 0 4px 12px rgba(65, 21, 8, 0.15);
+}
+
+.gbh-bookings-error-msg {
+    color: var(--redish-pink);
+    font-family: 'Futura', sans-serif;
+    font-size: 14px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .gbh-bookings-page-container {
+        padding: 30px 15px;
+    }
+    .gbh-bookings-page-container::before,
+    .gbh-bookings-page-container::after {
+        left: 15px;
+        right: 15px;
+        width: calc(100% - 30px);
+    }
 }

@@ -87,10 +87,17 @@ export default class ApiService {
         return resp.data;
     }
 
-    static async deleteAccount() {
+  static async deleteAccount() {
         const resp = await axios.delete(`${this.BASE_URL}/users/delete`, {
             headers: this.getHeader()
         })
+        return resp.data;
+    }
+
+    static async updateProfile(userData) {
+        const resp = await axios.put(`${this.BASE_URL}/users/update`, userData, {
+            headers: this.getHeader()
+        });
         return resp.data;
     }
 

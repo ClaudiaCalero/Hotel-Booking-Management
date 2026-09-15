@@ -56,42 +56,39 @@ public class BookingServiceImpl implements BookingService {
     }
 
 
-
     @Override
     public Response createBooking(BookingDTO bookingDTO) {
 
         User currentUser = userService.getCurrentLoggedInUser();
 
         Room room = roomRepository.findById(bookingDTO.getRoomId())
-                .orElseThrow(()-> new NotFoundException("Room Not Found"));
+                .orElseThrow(() -> new NotFoundException("Room Not Found"));
 
-
-        //validation: Ensure the check-in date is not before today
-        if (bookingDTO.getCheckInDate().isBefore(LocalDate.now())){
-            throw new InvalidBookingStateAndDateException("check in date cannot be before today ");
+        // Validation: Ensure the check-in date is not before today
+        if (bookingDTO.getCheckInDate().isBefore(LocalDate.now())) {
+            throw new InvalidBookingStateAndDateException("Check-in date cannot be before today");
         }
 
-        //validation: Ensure the check-out date is not before check in date
-        if (bookingDTO.getCheckInDate().isBefore(bookingDTO.getCheckInDate())){
-            throw new InvalidBookingStateAndDateException("check out date cannot be before check in date ");
+        if (bookingDTO.getCheckOutDate().isBefore(bookingDTO.getCheckInDate())) {
+            throw new InvalidBookingStateAndDateException("Check-out date cannot be before check-in date");
         }
 
-        //validation: Ensure the check-in date is not same as check out date
-        if (bookingDTO.getCheckInDate().isEqual(bookingDTO.getCheckOutDate())){
-            throw new InvalidBookingStateAndDateException("check in date cannot be equal to check out date ");
+        // Validation: Ensure the check-in date is not same as check out date
+        if (bookingDTO.getCheckInDate().isEqual(bookingDTO.getCheckOutDate())) {
+            throw new InvalidBookingStateAndDateException("Check-in date cannot be equal to check out date");
         }
 
-        //validate room availability
-       boolean isAvailable = bookingRepository.isRoomAvailable(room.getId(), bookingDTO.getCheckInDate(), bookingDTO.getCheckOutDate());
+        // Validate room availability
+        boolean isAvailable = bookingRepository.isRoomAvailable(room.getId(), bookingDTO.getCheckInDate(), bookingDTO.getCheckOutDate());
         if (!isAvailable) {
             throw new InvalidBookingStateAndDateException("Room is not available for the selected date ranges");
         }
 
-        //calculate the total price needed to pay for the stay
+        // Calculate the total price needed to pay for the stay
         BigDecimal totalPrice = calculateTotalPrice(room, bookingDTO);
         String bookingReference = bookingCodeGenerator.generateBookingReference();
 
-        //create and save the booking
+        // Create and save the booking using your Enums correctly
         Booking booking = new Booking();
         booking.setUser(currentUser);
         booking.setRoom(room);
@@ -105,12 +102,11 @@ public class BookingServiceImpl implements BookingService {
 
         bookingRepository.save(booking); //save to database
 
-        //generate the payment url which will be sent via mail
-         String paymentUrl = "http://localhost:3000/payment/" + bookingReference + "/" + totalPrice;
+        // Generate the payment url which will be sent via mail
+        String paymentUrl = "http://localhost:3000/payment/" + bookingReference + "/" + totalPrice;
+        log.info("PAYMENT LINK: {}", paymentUrl);
 
-         log.info("PAYMENT LINK: {}", paymentUrl);
-
-         //send notification via email
+        // Send notification via email
         NotificationDTO notificationDTO = NotificationDTO.builder()
                 .recipient(currentUser.getEmail())
                 .subject("Booking Confirmation")
@@ -121,13 +117,24 @@ public class BookingServiceImpl implements BookingService {
 
         notificationService.sendEmail(notificationDTO);// sending email
 
-        return Response.builder()
-                .status(200)
-                .message("Booking is successfully")
-                .booking(bookingDTO)
+        BookingDTO savedBookingDTO = BookingDTO.builder()
+                .id(booking.getId())
+                .checkInDate(booking.getCheckInDate())
+                .checkOutDate(booking.getCheckOutDate())
+                .bookingReference(booking.getBookingReference())
+                .bookingStatus(booking.getBookingStatus())
+                .paymentStatus(booking.getPaymentStatus())
+                .totalPrice(booking.getTotalPrice())
+                .roomId(room.getId())
                 .build();
 
+        return Response.builder()
+                .status(200)
+                .message("Booking is successful")
+                .booking(savedBookingDTO)
+                .build();
     }
+
 
     @Override
     public Response findBookingByReferenceNum(String bookingReference) {
@@ -171,9 +178,5 @@ public class BookingServiceImpl implements BookingService {
         long days = ChronoUnit.DAYS.between(bookingDTO.getCheckInDate(), bookingDTO.getCheckOutDate());
         return pricePerNight.multiply(BigDecimal.valueOf(days));
     }
-
-
-
-
 
 }

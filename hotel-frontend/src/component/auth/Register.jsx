@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import ApiService from "../../service/ApiService";
 import "../../styles/register.css";
 
+
 const RegisterPage = () => {
   const [formData, setFormData] = useState({
     firstName: "",
@@ -46,7 +47,8 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="register-page-container">
+    /* CORRECCIÓN: Cambiado de register-page-container a register-container */
+    <div className="register-container">
       <div className="register-background-wrapper">
         <div className="register-auth-container">
           {message.text && (
@@ -76,7 +78,8 @@ const RegisterPage = () => {
                     name={field}
                     value={formData[field]}
                     onChange={handleInputChange}
-                    required/>
+                    required
+                  />
                 </div>
               ),
             )}

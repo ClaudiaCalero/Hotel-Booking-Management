@@ -4,7 +4,6 @@ import ApiService from "../../service/ApiService";
 import "../../styles/manage-room.css";
 import "../../styles/edit-room-popup.css";
 
-
 const EditRoomPage = () => {
   const { roomId } = useParams();
   const navigate = useNavigate();
@@ -18,10 +17,10 @@ const EditRoomPage = () => {
     description: "",
   });
 
-  const [roomTypes, setRoomTypes] = useState([]); 
-  const [existingImages, setExistingImages] = useState([]); 
-  const [newFiles, setNewFiles] = useState([]); 
-  const [previews, setPreviews] = useState([]); 
+  const [roomTypes, setRoomTypes] = useState([]);
+  const [existingImages, setExistingImages] = useState([]);
+  const [newFiles, setNewFiles] = useState([]);
+  const [previews, setPreviews] = useState([]);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
@@ -35,7 +34,7 @@ const EditRoomPage = () => {
       try {
         const roomResponse = await ApiService.getRoomById(roomId);
         const roomData = roomResponse.room;
-        
+
         setRoomDetails({
           roomNumber: roomData.roomNumber || "",
           type: roomData.type || "",
@@ -49,7 +48,11 @@ const EditRoomPage = () => {
         const typesResponse = await ApiService.getRoomTypes();
         setRoomTypes(typesResponse || []);
       } catch (error) {
-        setError(error.response?.data?.message || error.message || "Error fetching room data.");
+        setError(
+          error.response?.data?.message ||
+            error.message ||
+            "Error fetching room data.",
+        );
       }
     };
     fetchData();
@@ -74,8 +77,10 @@ const EditRoomPage = () => {
     if (selectedFiles.length > 0) {
       const updatedFiles = [...newFiles, ...selectedFiles];
       setNewFiles(updatedFiles);
-      
-      const filePreviews = updatedFiles.map((file) => URL.createObjectURL(file));
+
+      const filePreviews = updatedFiles.map((file) =>
+        URL.createObjectURL(file),
+      );
       setPreviews(filePreviews);
     }
   };
@@ -105,7 +110,11 @@ const EditRoomPage = () => {
         }, 2500);
       }
     } catch (error) {
-      setError(error.response?.data?.message || error.message || "Error updating room.");
+      setError(
+        error.response?.data?.message ||
+          error.message ||
+          "Error updating room.",
+      );
     }
   };
 
@@ -120,7 +129,11 @@ const EditRoomPage = () => {
           }, 2500);
         }
       } catch (error) {
-        setError(error.response?.data?.message || error.message || "Error deleting room.");
+        setError(
+          error.response?.data?.message ||
+            error.message ||
+            "Error deleting room.",
+        );
       }
     }
   };
@@ -130,10 +143,8 @@ const EditRoomPage = () => {
   return (
     <div className="edit-room-modal-overlay">
       <div className="edit-room-modal-card">
-        
         <div className="edit-room-modal-header">
           <h2>Edit Room Properties</h2>
-          <button type="button" className="edit-room-modal-close-x" onClick={() => navigate("/admin/manage-rooms")}>×</button>
         </div>
 
         <div className="edit-room-modal-body">
@@ -141,63 +152,105 @@ const EditRoomPage = () => {
           {success && <p className="success-message">{success}</p>}
 
           <form onSubmit={handleUpdate}>
-            
             <div className="modal-form-grid-row">
               <div className="modal-form-group">
                 <label>Room Type *</label>
-                <select name="type" value={roomDetails.type} onChange={handleChange} className="modal-form-control">
-                  <option value="">Select a type</option>
-                  {roomTypes.map((type) => (
-                    <option key={type} value={type}>{type}</option>
-                  ))}
+                <select
+                  value={roomDetails.type || ""}
+                  onChange={handleChange}
+                  className="form-control"
+                  name="type"
+                >
+                  <option value="">Select a room type</option>
+                  <option value="STANDARD_ROOM">Standard Room</option>
+                  <option value="DELUXE_SUITE">Deluxe Suite</option>
+                  <option value="MENDLS_SUITE">Mendl's Suite</option>
+                  <option value="THE_GRAND_SUITE">The Grand Suite</option>
                 </select>
               </div>
-
               <div className="modal-form-group">
                 <label>Room Number *</label>
-                <input type="number" name="roomNumber" value={roomDetails.roomNumber} onChange={handleChange} className="modal-form-control" />
+                <input
+                  type="number"
+                  name="roomNumber"
+                  value={roomDetails.roomNumber}
+                  onChange={handleChange}
+                  className="modal-form-control"
+                />
               </div>
             </div>
 
             <div className="modal-form-grid-row">
               <div className="modal-form-group">
                 <label>Price per Night ($) *</label>
-                <input type="number" name="pricePerNight" value={roomDetails.pricePerNight} onChange={handleChange} className="modal-form-control" />
+                <input
+                  type="number"
+                  name="pricePerNight"
+                  value={roomDetails.pricePerNight}
+                  onChange={handleChange}
+                  className="modal-form-control"
+                />
               </div>
 
               <div className="modal-form-group">
                 <label>Capacity (Guests) *</label>
-                <input type="number" name="capacity" value={roomDetails.capacity} onChange={handleChange} className="modal-form-control" />
+                <input
+                  type="number"
+                  name="capacity"
+                  value={roomDetails.capacity}
+                  onChange={handleChange}
+                  className="modal-form-control"
+                />
               </div>
             </div>
 
             <div className="modal-form-group" style={{ marginBottom: "20px" }}>
               <label>Room Description</label>
-              <textarea name="description" value={roomDetails.description} onChange={handleChange} className="modal-form-control modal-textarea-large" placeholder="Write room description comforts..."></textarea>
+              <textarea
+                name="description"
+                value={roomDetails.description}
+                onChange={handleChange}
+                className="modal-form-control modal-textarea-large"
+                placeholder="Write room description comforts..."
+              ></textarea>
             </div>
 
             <div className="modal-gallery-wrapper">
-              <label className="gallery-section-label">Current Gallery Images</label>
-              
+              <label className="gallery-section-label">
+                Current Gallery Images
+              </label>
+
               {existingImages.length > 0 ? (
                 <div className="modal-previews-grid">
                   {existingImages.map((src, index) => (
                     <div className="modal-thumb-box" key={index}>
-                      <img src={src} alt={`Source preview ${index + 1}`} className="modal-thumb-img" />
+                      <img
+                        src={src}
+                        alt={`Source preview ${index + 1}`}
+                        className="modal-thumb-img"
+                      />
                     </div>
                   ))}
                 </div>
               ) : (
-                <p className="no-photos-alert">No images linked to this room yet.</p>
+                <p className="no-photos-alert">
+                  No images linked to this room yet.
+                </p>
               )}
 
               {previews.length > 0 && (
                 <div>
-                  <label className="gallery-section-label">New Photos to Upload</label>
+                  <label className="gallery-section-label">
+                    New Photos to Upload
+                  </label>
                   <div className="modal-previews-grid">
                     {previews.map((src, index) => (
                       <div className="modal-thumb-box" key={index}>
-                        <img src={src} alt={`New upload thumb ${index + 1}`} className="modal-thumb-img" />
+                        <img
+                          src={src}
+                          alt={`New upload thumb ${index + 1}`}
+                          className="modal-thumb-img"
+                        />
                       </div>
                     ))}
                   </div>
@@ -205,19 +258,37 @@ const EditRoomPage = () => {
               )}
 
               <div>
-                <input type="file" name="imageFiles" accept="image/*" multiple onChange={handleFileChange} />
+                <input
+                  type="file"
+                  name="imageFiles"
+                  accept="image/*"
+                  multiple
+                  onChange={handleFileChange}
+                />
               </div>
             </div>
 
             <div className="edit-room-modal-footer">
-              <button type="submit" className="modal-btn modal-btn-update">Update Details</button>
-              <button type="button" className="modal-btn modal-btn-delete" onClick={handleDelete}>Delete Room</button>
-              <button type="button" className="modal-btn modal-btn-cancel" onClick={() => navigate("/admin/manage-rooms")}>Cancel</button>
+              <button type="submit" className="modal-btn modal-btn-update">
+                Update Details
+              </button>
+              <button
+                type="button"
+                className="modal-btn modal-btn-delete"
+                onClick={handleDelete}
+              >
+                Delete Room
+              </button>
+              <button
+                type="button"
+                className="modal-btn modal-btn-cancel"
+                onClick={() => navigate("/admin/manage-rooms")}
+              >
+                Cancel
+              </button>
             </div>
-
           </form>
         </div>
-
       </div>
     </div>
   );

@@ -4,82 +4,164 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(64, 42, 23, 0.669); 
+    border-radius: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 2000;
 }
+
 .gbh-popup-box {
-    background-color: #fdfbf7;
-    padding: 30px;
-    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.95); 
+    padding: 35px;
+    border-radius: 15px;
     width: 100%;
-    max-width: 550px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-    border: 1px solid #dfd5c6;
+    max-width: 600px; 
+    max-height: 85vh; 
+    overflow-y: auto;
+    box-shadow: 0 15px 35px rgba(72, 40, 27, 0.15);
+    border: 2px solid var(--nougat);
 }
+
 .gbh-popup-title {
-    margin: 0 0 20px 0;
-    font-family: serif;
-    color: #4a3e3d;
-    border-bottom: 1px solid #dfd5c6;
-    padding-bottom: 10px;
+    margin: 0 0 25px 0;
+    font-family: 'Futura', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 800;
+    font-size: 24px;
+    color: var(--bistre-brown);
+    border-bottom: 2px solid var(--nougat);
+    padding-bottom: 12px;
 }
+
+.gbh-popup-section-title, h3.gbh-popup-title, h4.gbh-popup-section-title {
+    font-family: 'Futura', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--indigo-dye);
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+
 .gbh-popup-form-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 15px;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
+
 .gbh-popup-field {
     display: flex;
     flex-direction: column;
 }
+
 .gbh-popup-field label {
+    font-family: 'Futura', sans-serif;
     font-size: 11px;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
-    font-weight: bold;
-    color: #8c7e7c;
+    letter-spacing: 0.05em;
+    font-weight: 700;
+    color: var(--text-muted);
     margin-bottom: 5px;
 }
+
 .gbh-popup-input-disabled {
-    padding: 8px 12px;
-    background-color: #f1ebd9;
-    border: 1px solid #dfd5c6;
-    border-radius: 4px;
-    color: #555;
+    font-family: 'Futura', sans-serif;
+    padding: 10px 14px;
+    background-color: var(--bg-white);
+    border: 1px solid var(--light-french-beige); 
+    border-radius: 6px;
+    color: var(--text-dark);
+    opacity: 0.85;
+    cursor: not-allowed;
 }
+
 .gbh-popup-select-control {
-    padding: 9px 12px;
-    border: 1px solid #dfd5c6;
-    border-radius: 4px;
-    background-color: #fff;
-    color: #333;
+    font-family: 'Futura', sans-serif;
+    padding: 10px 14px;
+    border: 1px solid var(--putty);
+    border-radius: 6px;
+    background-color: var(--bg-white);
+    color: var(--bistre-brown);
+    outline: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
 }
+
+.gbh-popup-select-control:focus {
+    border-color: var(--saffron); 
+    box-shadow: 0 0 0 1px rgba(220, 169, 76, 0.2); 
+}
+
 .gbh-select-spacing {
     margin-bottom: 25px;
 }
+
 .gbh-popup-buttons-row {
     display: flex;
     justify-content: space-between;
+    margin-top: 25px;
+    border-top: 1px solid var(--putty);
+    padding-top: 20px;
 }
+
 .gbh-popup-btn-save {
-    background-color: #4a3e3d;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 4px;
+    font-family: 'Futura', sans-serif;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    font-size: 12px;
+    border-radius: 30px; 
+    background-color: var(--redish-pink); 
+    color: var(--bg-white);
+    padding: 10px 24px;
     cursor: pointer;
-    font-weight: bold;
+    box-shadow: 0 4px 12px rgba(65, 21, 8, 0.15);
+    border: none;
+    outline: none;
+    transition: all 0.2s ease;
 }
+
+.gbh-popup-btn-save:hover {
+    background-color: var(--light-french-beige); 
+    box-shadow: 0 4px 12px rgba(65, 21, 8, 0.15);
+}
+
 .gbh-popup-btn-close {
-    background-color: #bcaf9b;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 4px;
+    font-family: 'Futura', sans-serif;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    font-size: 12px;
+    background-color: var(--bg-white);
+    color: var(--chocolate);
+    border: 1px solid var(--nougat);
+    border-radius: 20px;
+    padding: 10px 24px;
     cursor: pointer;
-    font-weight: bold;
+    transition: all 0.2s ease;
+}
+
+.gbh-popup-btn-close:hover {
+    background-color: var(--putty);   
+    color: var(--bistre-brown);
+}
+.gbh-popup-box::-webkit-scrollbar {
+    width: 6px; 
+}
+
+.gbh-popup-box::-webkit-scrollbar-track {
+    background: transparent;
+    margin-top: 15px;       
+    margin-bottom: 15px;   
+}
+
+.gbh-popup-box::-webkit-scrollbar-thumb {
+    background-color: var(--light-french-beige); 
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.95); 
 }

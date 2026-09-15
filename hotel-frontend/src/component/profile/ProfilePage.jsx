@@ -55,10 +55,10 @@ const ProfilePage = () => {
       bookingStatus: "CANCELLED"            
     };
 
-    console.log("Enviando datos simplificados al backend:", cleanedBooking);
+    console.log("Sending simplified data to the backend:", cleanedBooking);
 
     await ApiService.updateBooking(cleanedBooking);
-    alert("Reserva cancelada correctamente.");
+    alert("Reservation successfully cancelled.");
     
     fetchUserProfile(); 
   } catch (err) {

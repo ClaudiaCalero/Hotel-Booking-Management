@@ -3,7 +3,7 @@
   min-height: 100vh;
   padding: 80px 20px; 
   box-sizing: border-box;
-  background-color: #fcf9f5;
+  background-color: var(--bg-cream); 
   display: flex;
   justify-content: center;
   align-items: center;
@@ -32,7 +32,7 @@
   bottom: 0;
   left: 40px;
   right: 40px;
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 244, 248, 0.15); 
   z-index: 0;
   width: calc(100% - 80px);
   height: 100%;
@@ -47,18 +47,22 @@
 }
 
 .add-room-card {
-  background-color: rgba(255, 255, 255, 0.75);
+  background-color: rgba(255, 255, 255, 0.85); 
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-radius: 16px;
   padding: 40px;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 15px 35px rgba(72, 40, 27, 0.15); 
+  border: 2px solid var(--nougat); 
 }
 
 .add-room-title {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Futura', sans-serif; 
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 800;
   font-size: 28px;
-  color: #2c3e50;
+  color: var(--bistre-brown);
   text-align: center;
   margin-top: 0;
   margin-bottom: 30px;
@@ -71,11 +75,12 @@
 }
 
 .add-room-form label {
+  font-family: 'Futura', sans-serif;
   font-size: 13px;
   font-weight: 700;
-  color: #6d5b52;
+  color: var(--chocolate); 
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.05em;
   margin-bottom: 8px;
   text-align: left;
 }
@@ -85,13 +90,14 @@
   height: 40px;
   padding: 0 15px;
   box-sizing: border-box;
-  border: 1px solid #e0d9d5;
+  border: 1px solid var(--putty); 
   border-radius: 25px; 
-  background-color: white;
-  color: #4a3e3d;
+  background-color: var(--bg-white);
+  color: var(--text-dark);
+  font-family: 'Futura', sans-serif;
   font-size: 14px;
   outline: none;
-  transition: border-color 0.3s;
+  transition: all 0.2s ease;
 }
 
 .add-room-form .textarea-control {
@@ -101,8 +107,8 @@
 }
 
 .add-room-form .form-control:focus {
-  border-color: #f1b3a3;
-  box-shadow: 0 0 5px rgba(241, 179, 163, 0.5);
+  border-color: var(--nougat);
+  box-shadow: 0 0 0 1px rgba(166, 136, 119, 0.15);
 }
 
 .form-row {
@@ -128,22 +134,24 @@
   border-radius: 12px;
   object-fit: cover;
   margin-bottom: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 12px rgba(72, 40, 27, 0.08);
 }
 
 .image-placeholder {
   background-color: rgba(255, 255, 255, 0.5);
-  border: 2px dashed #e0d9d5;
+  border: 2px dashed var(--putty);
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #777;
+  color: var(--text-muted);
+  font-family: 'Futura', sans-serif;
   font-size: 14px;
 }
 
 .file-input {
+  font-family: 'Futura', sans-serif;
   font-size: 13px;
-  color: #555;
+  color: var(--text-muted);
   cursor: pointer;
 }
 
@@ -157,36 +165,44 @@
   flex: 2;
   height: 42px;
   border: none;
+  outline: none;
   border-radius: 25px;
-  background-color: #f1b3a3; 
-  color: white;
+  background-color: var(--redish-pink); 
+  color: var(--bg-white);
+  font-family: 'Futura', sans-serif;
   font-size: 15px;
   font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
   cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s;
-  box-shadow: 0 4px 12px rgba(241, 179, 163, 0.3);
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(163, 88, 92, 0.25);
 }
 
 .add-room-submit-btn:hover {
-  background-color: #e29f8e;
+  background-color: var(--raw-sienna);
   transform: translateY(-1px);
 }
 
 .add-room-back-btn {
   flex: 1;
   height: 42px;
-  border: 1px solid #e0d9d5;
+  border: 1px solid var(--nougat);
   border-radius: 25px;
-  background-color: rgba(255, 255, 255, 0.5);
-  color: #6d5b52;
+  background-color: var(--bg-white);
+  color: var(--chocolate);
+  font-family: 'Futura', sans-serif;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: all 0.2s ease;
 }
 
 .add-room-back-btn:hover {
-  background-color: #e0d9d5;
+  background-color: var(--putty);   
+  color: var(--bistre-brown);
 }
 
 @media (max-width: 768px) {

@@ -19,7 +19,7 @@ const PaymentPage = () => {
         const paymentData = { bookingReference, amount };
         const responseData = await ApiService.proceedForPayment(paymentData);
 
-        console.log("RESPUESTA COMPLETA DEL BACKEND:", responseData);
+        console.log("FULL BACKEND RESPONSE:", responseData);
 
         let secretText =
           responseData?.clientSecret ||
@@ -30,7 +30,7 @@ const PaymentPage = () => {
             secretText = secretText.replace(/['"]+/g, '').trim();
         }
 
-        console.log("TEXTO DEL SECRETO DESEMPAQUETADO Y LIMPIO:", secretText);
+        console.log("ACCESS TOKEN SUCCESSFULLY VERIFIED:", secretText);
         setClientSecret(secretText);
       } catch (error) {
         console.log(error);

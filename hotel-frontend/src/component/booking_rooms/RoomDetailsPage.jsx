@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom"; 
 import ApiService from "../../service/ApiService";
 import ReactMarkdown from "react-markdown"; 
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import "../../styles/room-details.css";
 
 const RoomDetailsCarousel = ({ imageUrls, onImageClick }) => {
@@ -164,21 +166,39 @@ const RoomDetailsPage = () => {
 
           <div className="booking-input-group">
             <label>Check-In Date</label>
-            <input 
-              type="date" 
-              value={checkInDate} 
-              onChange={(e) => setCheckInDate(e.target.value)} 
-              min={new Date().toISOString().split("T")[0]}
+            <DatePicker
+              selected={checkInDate ? new Date(checkInDate + "T00:00:00") : null}
+              onChange={(date) => {
+                if (date) {
+                  const formatted = date.toISOString().split("T")[0];
+                  setCheckInDate(formatted);
+                } else {
+                  setCheckInDate("");
+                }
+              }}
+              dateFormat="yyyy-MM-dd"
+              minDate={new Date()}
+              placeholderText="Select Check-In Date"
+              className="datepicker-input"
             />
           </div>
 
           <div className="booking-input-group">
             <label>Check-Out Date</label>
-            <input 
-              type="date" 
-              value={checkOutDate} 
-              onChange={(e) => setCheckOutDate(e.target.value)} 
-              min={checkInDate || new Date().toISOString().split("T")[0]}
+            <DatePicker
+              selected={checkOutDate ? new Date(checkOutDate + "T00:00:00") : null}
+              onChange={(date) => {
+                if (date) {
+                  const formatted = date.toISOString().split("T")[0];
+                  setCheckOutDate(formatted);
+                } else {
+                  setCheckOutDate("");
+                }
+              }}
+              dateFormat="yyyy-MM-dd"
+              minDate={checkInDate ? new Date(checkInDate + "T00:00:00") : new Date()}
+              placeholderText="Select Check-Out Date"
+              className="datepicker-input"
             />
           </div>
 
