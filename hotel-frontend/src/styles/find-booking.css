@@ -7,6 +7,8 @@
   padding: 60px 20px;
   min-height: 100vh; 
   box-sizing: border-box;
+  background-color: var(--bg-cream);
+
 }
 
 .find-booking-container::before {
@@ -16,10 +18,10 @@
   bottom: 0;
   left: 40px;
   right: 40px;
-  background-image: url('../../public/images/hotel/Hotelweb/chupitos.jpg'); 
+  background-image: url('../../public/images/hotel/Hotelweb/bañera.jpg'); 
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: center 45%;
+  background-position: center 94%;
   z-index: 0;
   width: calc(100% - 80px);
   height: 100%;
@@ -28,21 +30,22 @@
 .find-booking-card {
   position: relative;
   z-index: 1; 
-  background-color: rgba(255, 255, 255, 0.75);
-  backdrop-filter: blur(12px);                
-  -webkit-backdrop-filter: blur(12px);
-  
+  background-color: rgba(255, 255, 255, 0.877);
   padding: 45px 40px;
-  border-radius: 16px;
+  border-radius: 17px;
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
   width: 100%;
   max-width: 500px;
   text-align: center;
+  border: 1px solid var(--nougat);           
 }
 
 .find-booking-card h2 {
-  font-family: 'Playfair Display', serif;
-  color: #2c3e50;
+  font-family: 'Futura', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 800;
+  color: var(--bistre-brown);
   font-size: 32px;
   margin-top: 0;
   margin-bottom: 25px;
@@ -57,6 +60,12 @@
   gap: 10px;
   align-items: center;
   border: 1px solid #e0d9d5;
+  transition: all 0.2s ease; 
+}
+
+.booking-search-box:focus-within {
+  border-color: var(--nougat); 
+  box-shadow: 0 0 1px rgba(166, 119, 151, 0.25); 
 }
 
 .booking-search-box input {
@@ -65,44 +74,88 @@
   background: transparent;
   padding: 10px 15px;
   font-size: 15px;
-  color: #4a3e3d;
+  color: var(--bistre-brown);;
   outline: none;
 }
 
 .booking-search-box button {
-  background-color: #f1b3a3; 
+  background-color: var(--haute-pink); 
   color: white;
   border: none;
   padding: 10px 25px;
   border-radius: 20px;
   font-size: 14px;
   font-weight: 700;
-  cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s;
 }
 
 .booking-search-box button:hover {
-  background-color: #e29f8e;
-  transform: translateY(-1px);
+  background-color: var(--rose-dust);
 }
 
 .booking-details-result {
   margin-top: 35px;
   text-align: left;
-  border-top: 1px dashed rgba(0, 0, 0, 0.15);
+  border-top: 2px dashed var(--nougat); 
   padding-top: 25px;
-  color: #34495e;
+  font-family: 'Futura', sans-serif;
+}
+
+
+.booking-details-result h3, 
+.booking-details-result h4,
+.booking-details-result div[class*="title"] {
+  font-family: 'Futura', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--finn-purple);
+  margin-top: 20px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid var(--rose-gold); 
+  padding-bottom: 4px;
+}
+
+.booking-details-result p {
+  font-size: 14px;
+  color: var(--text-dark);
+  margin: 0 0 8px 0;
+  line-height: 1.4;
+  display: flex;
+  justify-content: space-between; 
+}
+
+.booking-details-result p strong {
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.03em;
 }
 
 .status-badge {
   display: inline-block;
-  padding: 5px 15px;
-  border-radius: 15px;
-  font-size: 12px;
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-family: 'Futura', sans-serif;
+  font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
-  margin-top: 5px;
+  letter-spacing: 0.04em;
+  margin-top: 2px;
 }
 
-.status-confirmed { background-color: #d4edda; color: #155724; }
-.status-pending { background-color: #fff3cd; color: #856404; }
+.status-confirmed, .status-booked { 
+  background-color: rgba(88, 133, 105, 0.2); 
+  color: var(--hotel-green); 
+}
+
+.status-pending { 
+  background-color: rgba(220, 169, 76, 0.2); 
+  color: var(--saffron); 
+}
+
+.status-cancelled {
+  background-color: rgba(163, 88, 92, 0.2);  
+  color: var(--redish-pink);
+}

@@ -1,204 +1,235 @@
-/* ==========================================================================
-   HOJA DE ESTILOS EXCLUSIVA PARA LA PASARELA DE PAGOS (PAYMENT.CSS)
-   ========================================================================== */
-
-/* Contenedor general que centra la pasarela en la pantalla */
 .payment-page {
-  position: relative !important;
-  width: 100% !important;
-  min-height: calc(100vh - 75px) !important;
-  background-color: #fcf9f5 !important;
-  padding: 80px 20px !important;
-  box-sizing: border-box !important;
-  display: flex !important;
-  justify-content: center !important;
-  align-items: center !important;
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--bg-cream); 
+  padding: 80px 20px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-/* Caja de la tarjeta flotante con efecto cristal translúcido */
+.payment-page::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 40px;
+  right: 40px;
+  background-image: url('../../public/images/hotel/Hotelweb/cb6851195804df7c6e535a088f9d0da9.jpg'); 
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center 60%;
+  z-index: 0;
+  width: calc(100% - 80px);
+  height: 100%;
+}
+
 .payment-form {
-  background-color: rgba(255, 255, 255, 0.75) !important;
-  backdrop-filter: blur(12px) !important;
-  -webkit-backdrop-filter: blur(12px) !important;
-  width: 100% !important;
-  max-width: 520px !important; /* Ancho idóneo para tarjetas de crédito */
-  padding: 40px 35px !important;
-  border-radius: 16px !important;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1) !important;
-  border: 1px solid rgba(255, 255, 255, 0.5) !important;
-  box-sizing: border-box !important;
-  text-align: left !important;
+  position: relative;
+  z-index: 1;
+  background-color: rgba(255, 255, 255, 0.85);
+  width: 100%;
+  max-width: 520px; 
+  padding: 40px 35px;
+  border-radius: 15px; 
+  box-shadow: 0 15px 35px rgba(72, 40, 27, 0.15);
+  border: 2px solid var(--nougat); 
+  box-sizing: border-box;
+  text-align: left;
 }
 
 .payment-form h3 {
-  font-family: 'Playfair Display', serif !important;
-  font-size: 26px !important;
-  color: #2c3e50 !important;
-  margin-top: 0 !important;
-  margin-bottom: 20px !important;
-  text-align: center !important;
-  font-weight: 700 !important;
+  font-family: 'Futura', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 26px;
+  color: var(--bistre-brown);
+  margin-top: 0;
+  margin-bottom: 25px;
+  text-align: center;
+  font-weight: 800;
 }
 
-/* Visor del monto total a abonar */
 .amount-display {
-  background-color: #ffffff !important;
-  border-left: 4px solid #b38e5d !important; /* Tu toque dorado corporativo */
-  padding: 12px 18px !important;
-  margin-bottom: 30px !important;
-  border-radius: 4px !important;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02) !important;
+  background-color: var(--bg-white);
+  border-left: 4px solid var(--saffron); 
+  padding: 14px 18px;
+  margin-bottom: 30px;
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(64, 42, 23, 0.03);
 }
 
 .amount-display strong {
-  font-size: 1.1rem !important;
-  color: #2c3e50 !important;
+  font-family: 'Futura', sans-serif;
+  font-size: 1.1rem;
+  color: var(--chocolate);
 }
 
-/* 🌟 CAJA CRÍTICA: Contenedor acolchado para inyectar el iframe de Stripe seguro */
 .card-element-container {
-  background-color: #ffffff !important;
-  border: 1px solid #cbd5e0 !important;
-  border-radius: 25px !important; /* Bordes redondeados en armonía con tus inputs */
-  padding: 14px 18px !important;
-  margin-bottom: 25px !important;
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.03) !important;
-  box-sizing: border-box !important;
+  background-color: var(--bg-white);
+  border: 1px solid var(--putty);
+  border-radius: 25px; 
+  padding: 14px 18px;
+  margin-bottom: 25px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+  box-sizing: border-box;
+  transition: all 0.2s ease;
 }
 
-/* Botón de pago redondeado */
+.card-element-container:focus-within {
+  border-color: var(--nougat);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05), 0 0 0 1px var(--nougat);
+}
+
 .payment-button {
-  width: 100% !important;
-  height: 46px !important;
-  border: none !important;
-  border-radius: 25px !important;
-  background-color: #f1b3a3 !important; /* El color coral característico */
-  color: #ffffff !important;
-  font-size: 16px !important;
-  font-weight: 700 !important;
-  cursor: pointer !important;
-  transition: background-color 0.3s ease, transform 0.2s ease !important;
-  box-shadow: 0 4px 12px rgba(241, 179, 163, 0.3) !important;
+  width: 100%;
+  height: 46px;
+  border: none;
+  outline: none;
+  border-radius: 25px;
+  background-color: var(--redish-pink); 
+  color: var(--bg-white);
+  font-family: 'Futura', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(163, 88, 92, 0.25);
 }
 
 .payment-button:hover:not(:disabled) {
-  background-color: #e29f8e !important;
-  transform: translateY(-1px) !important;
+  background-color: var(--raw-sienna);
+  transform: translateY(-1px);
 }
 
 .payment-button:disabled {
-  background-color: #cbd5e0 !important;
-  color: #718096 !important;
-  cursor: not-allowed !important;
-  box-shadow: none !important;
+  background-color: var(--putty);
+  color: var(--text-muted);
+  cursor: not-allowed;
+  box-shadow: none;
 }
 
-/* Avisos informativos de éxito y errores de transacciones */
 .payment-form .error-message {
-  margin-top: 15px !important;
-  padding: 10px 15px !important;
-  background-color: #fff3cd !important;
-  border-left: 3px solid #856404 !important;
-  border-radius: 4px !important;
-  color: #856404 !important;
-  font-size: 13px !important;
-  font-weight: 600 !important;
+  margin-top: 15px;
+  padding: 12px 15px;
+  background-color: rgba(163, 88, 92, 0.1);
+  border-left: 4px solid var(--redish-pink);
+  border-radius: 4px;
+  color: var(--redish-pink);
+  font-family: 'Futura', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  box-sizing: border-box;
 }
 
 .payment-form .success-message {
-  margin-top: 15px !important;
-  padding: 10px 15px !important;
-  background-color: #d4edda !important;
-  border-left: 3px solid #155724 !important;
-  border-radius: 4px !important;
-  color: #155724 !important;
-  font-size: 13px !important;
+  margin-top: 15px;
+  padding: 12px 15px;
+  background-color: rgba(88, 133, 105, 0.1);
+  border-left: 4px solid var(--hotel-green);
+  border-radius: 4px;
+  color: var(--hotel-green);
+  font-family: 'Futura', sans-serif;
+  font-size: 13px;
   font-weight: 600;
+  box-sizing: border-box;
 }
-
-@media (max-width: 580px) {
-  .payment-page {
-    padding: 40px 15px !important;
-  }
-  .payment-form {
-    padding: 30px 20px !important;
-  }
-}
-/* ==========================================================================
-   ESTILOS ADICIONALES PARA PÁGINAS DE ÉXITO Y FALLO (PAYMENT.CSS)
-   ========================================================================== */
 
 .text-center-align {
-  text-align: center !important;
+  text-align: center;
 }
 
 .payment-status-title {
-  font-family: 'Playfair Display', serif !important;
-  font-size: 26px !important;
-  margin: 0 0 20px 0 !important;
-  font-weight: 700 !important;
-  border-bottom: 2px solid !important;
-  padding-bottom: 8px !important;
+  font-family: 'Futura', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 24px;
+  margin: 0 0 20px 0;
+  font-weight: 800;
+  border-bottom: 2px solid;
+  padding-bottom: 8px;
 }
 
-/* Modificadores de color según el resultado del banco */
 .success-border {
-  color: #2c3e50 !important;
-  border-color: #b38e5d !important; /* Tu dorado clásico */
+  color: var(--chocolate);
+  border-color: var(--saffron); 
 }
 
 .failure-border {
-  color: #bd4b4b !important;
-  border-color: #bd4b4b !important;
+  color: var(--redish-pink);
+  border-color: var(--redish-pink);
 }
 
 .failure-bg {
-  border-left-color: #bd4b4b !important;
-  background-color: #fff5f5 !important;
+  border-left-color: var(--redish-pink);
+  background-color: rgba(163, 88, 92, 0.05);
 }
 
 .status-alert-text {
-  margin: 0 !important;
-  font-size: 0.95rem !important;
-  line-height: 1.5 !important;
+  margin: 0;
+  font-family: 'Futura', sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
 }
 
 .text-dark-red {
-  color: #9c3030 !important;
+  color: var(--redish-pink);
 }
 
 .text-navy-blue {
-  color: #2c3e50 !important;
+  color: var(--bistre-brown);
 }
 
 .payment-status-instructions {
-  color: #555555 !important;
-  font-size: 0.9rem !important;
-  margin-bottom: 25px !important;
-  line-height: 1.5 !important;
+  color: var(--text-muted);
+  font-family: 'Futura', sans-serif;
+  font-size: 14px;
+  margin-bottom: 25px;
+  line-height: 1.5;
 }
 
 .payment-actions-column {
-  display: flex !important;
-  flex-direction: column !important;
-  gap: 12px !important;
-  width: 100% !important;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
 }
 
-/* Botón secundario estilizado para cancelar/regresar */
 .payment-btn-secondary {
-  width: 100% !important;
-  padding: 12px !important;
-  border: 1px solid #cbd5e0 !important;
-  background-color: #edf2f7 !important;
-  color: #4a5568 !important;
-  border-radius: 25px !important;
-  font-weight: 600 !important;
-  font-size: 0.95rem !important;
-  cursor: pointer !important;
-  transition: background-color 0.2s ease !important;
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--nougat);
+  background-color: var(--bg-white);
+  color: var(--chocolate);
+  border-radius: 25px;
+  font-family: 'Futura', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
 .payment-btn-secondary:hover {
-  background-color: #e2e8f0 !important;
+  background-color: var(--putty);   
+  color: var(--bistre-brown);
+}
+
+@media (max-width: 768px) {
+  .payment-page {
+    padding: 40px 15px;
+  }
+  .payment-page::before {
+    left: 15px;
+    right: 15px;
+    width: calc(100% - 30px);
+  }
+  .payment-form {
+    padding: 30px 20px;
+  }
 }

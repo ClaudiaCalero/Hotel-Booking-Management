@@ -24,22 +24,22 @@
   --parchment:#F2E8CF;
   --rose-gold:#B76E79;
   --cyclamen: #EE7098;
-    --rose-dust: #AB6879;
-    --charm-pink: #E891A6;
-    --queen-blue: #3B6887;
-    --indigo-dye: #1A4A70;
-    --raw-sienna: #AE6A2D;
-    --cornsilk: #FDF6D9;
-    --light-french-beige: #C5A572;
-    --dark-sienna: #3B1516;
-    --red: #A2100D;
-    --old-mauve: #55203F;
-    --new-york-pink: #C7776F;
-    --saffron: #DCA94C;
-    --finn-purple: #4E1333;
-    --dark-red: #981B12;
-    --copper-red: #BF785D;
-    --bistre-brown: #411508;
+  --rose-dust: #AB6879;
+  --charm-pink: #E891A6;
+  --queen-blue: #3B6887;
+  --indigo-dye: #1A4A70;
+  --raw-sienna: #AE6A2D;
+  --cornsilk: #FDF6D9;
+  --light-french-beige: #C5A572;
+  --dark-sienna: #3B1516;
+  --red: #A2100D;
+  --old-mauve: #55203F;
+  --new-york-pink: #C7776F;
+  --saffron: #DCA94C;
+  --finn-purple: #4E1333;
+  --dark-red: #981B12;
+  --copper-red: #BF785D;
+  --bistre-brown: #411508;
   
   /* Colores oscuros y Textos */
   --text-dark: #333333;         
@@ -52,7 +52,6 @@
   margin: 0;
   box-sizing: border-box; 
   font-family: 'Futura', sans-serif;
-
 }
 
 body {

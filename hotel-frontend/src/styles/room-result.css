@@ -54,7 +54,7 @@
 .modern-room-type {
   margin: 0;
   font-size: 1.4rem;
-  color: #222222;
+  color: var( --bistre-brown);
   font-weight: 700;
 }
 
@@ -66,7 +66,7 @@
 
 .modern-room-pricing {
   margin: 0 0 15px 0;
-  color: #b38e5d; 
+  color: var(--hotel-gold); 
   font-weight: 600;
   font-size: 1.1rem;
 }

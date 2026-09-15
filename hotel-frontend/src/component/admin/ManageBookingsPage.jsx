@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ApiService from "../../service/ApiService";
+import { useNavigate } from "react-router-dom";
 import "../../styles/manage-bookings.css";
 import "../../styles/manage-bookings-popup.css";
 
@@ -14,6 +15,7 @@ const ManageBookingsPage = () => {
 
   const [paymentStatus, setPaymentStatus] = useState("");
   const [bookingStatus, setBookingStatus] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchBookings();
@@ -322,8 +324,10 @@ const ManageBookingsPage = () => {
                       className="gbh-popup-select-control"
                     >
                       <option value="PENDING">PENDING (Pending)</option>
-                      <option value="PAID">PAID (Paid)</option>
+                      <option value="COMPLETED">PAID (Paid)</option>
                       <option value="FAILED">FAILED (Failed)</option>
+                      <option value="REFUNDED">REFUNDED (Refunded)</option>
+                      <option value="REVERSED">REVERSED (Reversed)</option>
                     </select>
                   </div>
                 </div>
@@ -346,6 +350,13 @@ const ManageBookingsPage = () => {
               </div>
             </div>
           )}
+          <button
+            type="button"
+            className="btn-global-back"
+            onClick={() => navigate("/admin")}
+          >
+            Back to Admin Panel
+          </button>
         </div>
       </div>
     </div>

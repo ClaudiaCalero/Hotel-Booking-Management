@@ -3,7 +3,7 @@
   min-height: 100vh;
   padding: 60px 20px; 
   box-sizing: border-box;
-  background-color: #fcf9f5; 
+  background-color: var(--bg-cream); 
   display: flex;
   justify-content: center;
   align-items: center;
@@ -16,8 +16,8 @@
   bottom: 0;
   left: 40px;   
   right: 40px; 
-  background-image: url('../../public/images/hotel/Hotelweb/cocktailwes.jpg');
-   background-repeat: no-repeat;
+  background-image: url('../../public/images/hotel/Hotelweb/7152ad903689b93788563ae8c5003dc8.jpg');
+  background-repeat: no-repeat;
   background-size: cover;
   background-position: center 45%;
   z-index: 0;
@@ -32,7 +32,7 @@
   bottom: 0;
   left: 40px;
   right: 40px;
-  background: rgba(255, 255, 255, 0.10);
+  background: rgba(255, 244, 248, 0.15); 
   z-index: 0;
   width: calc(100% - 80px);
   height: 100%;
@@ -47,37 +47,46 @@
 }
 
 .manage-rooms-card-content {
-  background-color: rgba(255, 255, 255, 0.65);
+  background:rgba(255,255,255,.85); 
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-radius: 15px;
   padding: 35px;
   height: auto;
   overflow: visible;
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+  box-shadow:0 15px 35px rgba(72,40,27,.15);
+  border: 2px solid var(--nougat);
 }
 
 .manage-rooms-title {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Futura', sans-serif; 
+  text-transform: uppercase;         
+  letter-spacing: 0.08em;
+  font-weight: 800;
   font-size: 32px;
-  color: #2c3e50;
+  color: var(--bistre-brown);      
   text-align: center;
   margin-bottom: 30px;
 }
 
 .inner-management-section {
-  background-color: white;
+  background-color: var(--bg-white);
   border-radius: 10px;
   padding: 25px;
   margin-bottom: 30px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+  box-shadow: 0 4px 12px rgba(64, 42, 23, 0.05);
+  border: 1px solid var(--putty);
 }
 
 .inner-management-section h3 {
   margin-top: 0;
-  color: #34495e;
+  font-family: 'Futura', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-weight: 700;
+  color: var(--chocolate);           
   font-size: 18px;
-  border-left: 4px solid #f1b3a3;
+  border-left: 4px solid var(--saffron); 
   padding-left: 10px;
   margin-bottom: 20px;
 }
@@ -96,9 +105,112 @@
   width: 6px;
 }
 .admin-preview-scroll-box::-webkit-scrollbar-thumb {
-  background-color: rgba(0, 0, 0, 0.15);
+  background-color: var(--grayish-pink);
   border-radius: 10px;
 }
+
+.filter-select-div label {
+  font-family: 'Futura', sans-serif;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  font-size: 14px;
+  color: var(--chocolate); 
+  margin-bottom: 8px;
+  display: block;
+}
+
+.filter-select {
+  font-family: 'Futura', sans-serif;
+  font-size: 14px;
+  color: var(--bistre-brown);
+  background-color: var(--bg-white);
+  border: 1px solid var(--putty);
+  border-radius: 4px;
+  padding: 8px 12px;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.filter-select:focus {
+  border-color: var(--hotel-pink);
+  background-color: var(--bg-cream);
+}
+
+.action-btn-save {
+  font-family: 'Futura', sans-serif;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  font-size: 13px;
+  border-radius: 30px; 
+  background-color: var(--redish-pink); 
+  color: var(--bg-white);
+  padding: 10px 20px;
+  cursor: pointer;
+  box-shadow:0 4px 12px rgba(65,21,8,.15);
+  margin-top: 12px;
+  border: none;
+  outline: none;
+}
+
+.action-btn-save:hover {
+  background-color: var(--raw-sienna);
+  color: var(--bg-white);
+  box-shadow:0 4px 12px rgba(65,21,8,.15);
+}
+
+.btn-global-back {
+  font-family: 'Futura', sans-serif;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  font-size: 12px;
+  background-color: var(--bg-white);
+  color: var(--chocolate);
+  border: 1px solid var(--nougat);
+  border-radius: 10px;
+  padding: 8px 16px;
+  cursor: pointer;
+  display: block;
+  margin-top: 25px; 
+  transition: all 0.2s ease;
+}
+
+.btn-global-back:hover {
+  background-color: var(--putty);   
+  color: var(--bistre-brown);
+}
+
+.inner-management-section p {
+  font-family: 'Futura', sans-serif;
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+.edit-room-btn, .edit-btn, button[class*="edit"] {
+  font-family: 'Futura', sans-serif;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  font-size: 13px; 
+  background-color: var(--bg-white);
+  color: var(--chocolate);
+  border: 1px solid var(--nougat);
+  border-radius: 20px;
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-block;
+
+}
+
+.edit-room-btn:hover, .edit-btn:hover, button[class*="edit"]:hover {
+  background-color: var(--putty);   
+  color: var(--bistre-brown);
+}
+
 
 @media (max-width: 768px) {
   .manage-rooms-container {

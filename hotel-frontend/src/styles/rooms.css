@@ -1,12 +1,12 @@
 .all-rooms {
     position: relative;
-    width: 100%;
-    min-height: calc(100vh - 55px);
-    margin: 0 auto;
-    padding: 45px 25px 35px;
+    min-height: 100vh;
+    padding: 60px 20px; 
     box-sizing: border-box;
     background-color: var(--bg-cream);
-    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .all-rooms::before {
@@ -16,11 +16,13 @@
     bottom: 0;
     left: 40px;
     right: 40px;
-    background-image: url("../../public/images/hotel/Hotelweb/find.jpg");
+    background-image: url("../../public/images/hotel/Hotelweb/nomolestes.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center 30%;
     z-index: 0;
+    width: calc(100% - 80px);
+    height: 100%;
 }
 
 .all-rooms::after {
@@ -30,73 +32,98 @@
     bottom: 0;
     left: 40px;
     right: 40px;
-    background: rgba(255, 255, 255, 0.25);
+    background: rgba(255, 244, 248, 0.15); 
     z-index: 0;
-}
-
-.all-rooms > * {
-    position: relative;
-    z-index: 1;
+    width: calc(100% - 80px);
+    height: 100%;
 }
 
 .all-rooms h2 {
+    position: relative;
+    z-index: 1;
     margin: 0 0 38px;
     text-align: center;
-    color: var(--bg-white);
-    font-size: 21px;
-    font-weight: 700;
+    font-family: 'Futura', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 800;
+    color: var(--bistre-brown);
+    font-size: 32px; 
 }
 
+
 .all-room-filter-div {
+    position: relative;
+    z-index: 1;
     display: flex;
     align-items: center;
     gap: 12px;
-    width: 100%;
-    margin: 0 35px 35px;
+    width: max-content; 
+    max-width: 100%;
+    margin: 0 auto 35px 40px; 
     padding: 0;
     background: transparent;
     box-shadow: none;
     box-sizing: border-box;
 }
 
+
 .all-room-filter-div label {
     margin: 0;
-    color: var(--hotel-coral);
-    font-size: 17px;
+    font-family: 'Futura', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--chocolate); 
+    font-size: 14px;
     font-weight: 700;
     white-space: nowrap;
 }
 
 .all-room-filter-div select {
-    width: 60px;
+    width: 120px; 
     height: 35px;
-    padding: 0 10px;
-    border: none;
-    border-radius: 0;
-    background: var(--bg-white);
-    color: var(--text-dark);
-    font-size: 11px;
+    padding: 0 12px;
+    border: 1px solid var(--putty);
+    border-radius: 4px;
+    background-color: var(--bg-white);
+    color: var(--bistre-brown);
+    font-family: 'Futura', sans-serif;
+    font-size: 13px;
     outline: none;
     cursor: pointer;
     box-sizing: border-box;
+    transition: all 0.2s ease;
+}
+
+.all-room-filter-div select:focus {
+    border-color: var(--nougat);
+    box-shadow: 0 0 0 1px rgba(166, 136, 119, 0.15);
 }
 
 .all-rooms .error-message {
+    position: relative;
+    z-index: 1;
     width: 100%;
-    margin: -25px 0 20px;
-    padding: 8px 10px;
-    background: rgba(255, 235, 235, 0.96);
-    border-left: 3px solid #bd4b4b;
-    border-radius: 3px;
-    color: #9c3030;
-    font-size: 10px;
+    max-width: 1100px;
+    margin: -25px auto 20px;
+    padding: 12px;
+    background: rgba(163, 88, 92, 0.1);
+    border: 1px solid var(--redish-pink);
+    border-radius: 6px;
+    color: var(--redish-pink);
+    font-family: 'Futura', sans-serif;
+    font-size: 13px;
     font-weight: 600;
     box-sizing: border-box;
+    text-align: center;
 }
 
 .all-rooms .room-results {
+    position: relative;
+    z-index: 1;
     display: block;
     width: 100%;
+    max-width: 1100px;
     margin: 0 auto 25px !important;
 }
 
@@ -110,11 +137,12 @@
     .all-rooms::after {
         left: 15px;
         right: 15px;
+        width: calc(100% - 30px);
     }
 
     .all-rooms h2 {
         margin-bottom: 28px;
-        font-size: 20px;
+        font-size: 24px;
     }
 
     .all-room-filter-div {
@@ -122,15 +150,11 @@
         align-items: center;
         gap: 10px;
         margin-bottom: 25px;
-        margin-left: 0; 
+        padding: 0;
     }
 
     .all-room-filter-div label {
-        font-size: 15px;
-    }
-
-    .all-rooms .error-message {
-        margin-top: -15px;
+        font-size: 13px;
     }
 }
 
@@ -144,11 +168,12 @@
     .all-rooms::after {
         left: 10px;
         right: 10px;
+        width: calc(100% - 20px);
     }
 
     .all-rooms h2 {
         margin-bottom: 25px;
-        font-size: 19px;
+        font-size: 20px;
     }
 
     .all-room-filter-div {
@@ -157,7 +182,7 @@
     }
 
     .all-room-filter-div label {
-        font-size: 14px;
+        font-size: 12px;
     }
 
     .all-rooms .room-results {

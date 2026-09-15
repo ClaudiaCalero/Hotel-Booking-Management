@@ -1,143 +1,201 @@
+.register-container {
+  position: relative;
+  width: 100%;
+  min-height: 100vh; 
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
 .register-background-wrapper {
-    position: relative;
-    width: 100%;
-    min-height: calc(100vh - 75px);
-    background-color: #fcf9f5;
-    padding: 80px 20px; 
-    box-sizing: border-box;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-} 
+  position: relative;
+  width: 100%;
+  flex: 1; 
+  background-color: var(--bg-cream); 
+  padding: 60px 20px; 
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  min-height: calc(100vh - 160px);
+}
 
 .register-background-wrapper::before,
 .register-background-wrapper::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 40px;
-    right: 40px;
-    width: calc(100% - 80px);
-    height: 100%;
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0; 
+  left: 40px;
+  right: 40px;
+  z-index: 0;
 }
 
 .register-background-wrapper::before {
-    background-image: url(../../public/images/hotel/Hotelweb/logreg.jpg); 
-      background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center 60%;
-    z-index: 0;
+    background-image: url("../../public/images/hotel/Hotelweb/fba8ba16033eb45bf08c76bc30be07f7.jpg"); 
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center 70%; 
 }
 
 .register-background-wrapper::after {
-    background: rgba(255, 255, 255, 0.15);
-    z-index: 0;
+  background: rgba(64, 42, 23, 0.05); 
 }
+
 
 .register-background-wrapper > * {
     position: relative;
     z-index: 1;
 }
 
-.register-auth-container {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    width: 360px;
-    max-width: calc(100% - 40px);
-    padding: 40px;
-    box-sizing: border-box;
-    background: rgba(255, 255, 255, 0.75);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-radius: 16px;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+.register-background-wrapper .register-auth-container {
+   position: relative;
+   z-index: 1;
+   background-color: var(--bg-white);
+   padding: 45px 40px;
+   border-radius: 17px; 
+   box-shadow: 0 15px 35px rgba(72, 40, 27, 0.1);
+   width: 100%;
+   max-width: 500px;
+   text-align: center;
+   border: 1px solid var(--putty);
 }
 
-.register-auth-container h2 {
-    margin: 0 0 24px;
+.register-background-wrapper .register-auth-container h2 {
+    margin: 0 0 28px;
     text-align: center;
-    color: #2c3e50;
-    font-family: 'Playfair Display', serif;
-    font-size: 26px;
+    font-family: 'Futura', sans-serif;
     font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--bistre-brown); 
+    font-size: 30px;
 }
 
-.register-auth-container .form-group {
-    margin-bottom: 18px;
+.register-background-wrapper .form-group {
+    margin-bottom: 12px; 
 }
 
-.register-auth-container .form-group label {
-    display: block !important;
-    margin-bottom: 8px !important;
-    color: #6d5b52 !important;
-    font-size: 13px !important;
-    font-weight: 700 !important;
-    text-align: left !important;
-    text-transform: uppercase !important;
-    letter-spacing: 0.5px !important;
+.register-background-wrapper .form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--hotel-burgundy); 
+    font-size: 11px;
+    font-weight: 700;
+    text-align: left;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
 }
 
-.register-auth-container .form-group input {
+.register-background-wrapper .form-group input {
     width: 100%;
-    height: 40px;
+    height: 42px;
     font-size: 14px;
-    padding: 0 15px;
     box-sizing: border-box;
-    border: 1px solid #e0d9d5;
-    border-radius: 25px;
-    background-color: white;
-    color: #4a3e3d;
+    background-color: var(--bg-white); 
+    color: var(--text-dark);
     outline: none;
-    transition: border-color 0.3s;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    display: block; 
+    padding: 8px 16px;
+    border-radius: 30px; 
+    border: 1px solid var(--putty);
 }
 
-.register-auth-container .form-group input:focus {
-    border-color: #f1b3a3;
-    box-shadow: 0 0 5px rgba(241, 179, 163, 0.5);
+.register-background-wrapper .form-group input:focus {
+    border-color: var(--hotel-pink); 
+    box-shadow: 0 0 0 1px rgba(239, 168, 153, 0.25);
 }
 
-.register-auth-container button[type="submit"] {
+.register-background-wrapper button[type="submit"] {
     width: 100%;
-    height: 40px;
-    margin-top: 10px;
+    height: 42px;
+    margin-top: 15px;
+    padding: 0 12px;
     border: none;
-    border-radius: 25px;
-    background-color: #f1b3a3;
-    color: white;
-    font-size: 15px;
+    border-radius: 30px; 
+    background-color: var(--haute-pink); 
+    color: var(--bg-white);
+    font-size: 14px;
     font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.2s;
-    box-shadow: 0 4px 12px rgba(241, 179, 163, 0.3);
 }
 
-.register-auth-container button[type="submit"]:hover {
-    background-color: #e29f8e;
-    transform: translateY(-1px);
+.register-background-wrapper button[type="submit"]:hover {
+    background-color: var(--rose-dust); 
 }
 
-.register-auth-container .register-link {
+.register-background-wrapper .register-link {
     margin: 25px 0 0;
     text-align: center;
-    color: #555;
-    font-size: 14px;
+    color: var(--text-muted);
+    font-size: 13px;
+    letter-spacing: 0.5px;
 }
 
-.register-auth-container .register-link a {
-    color: #e29f8e;
+.register-background-wrapper .register-link a {
+    color: var(--hotel-pink); 
     font-weight: 700;
     text-decoration: none;
-    border-bottom: 1px dashed #e29f8e;
+    border-bottom: 1px dashed var(--hotel-pink);
+    transition: color 0.3s, border-color 0.3s;
+}
+
+.register-background-wrapper .register-link a:hover {
+    color: var(--rose-dust); 
+    font-weight: 700;
+    text-decoration: none;
+    transition: color 0.3s, border-color 0.3s;
+}
+
+.register-background-wrapper .error-alert-box {
+    margin-bottom: 20px;
+    padding: 10px;
+    text-align: center;
+    background: rgba(162, 16, 13, 0.08);
+    border: 1px solid var(--red);
+    color: var(--red);
+    font-size: 13px;
+    border-radius: 4px;
 }
 
 @media (max-width: 768px) {
     .register-background-wrapper {
+        min-height: calc(100vh - 90px);
         padding: 40px 15px;
     }
-    .register-auth-container {
+    
+    .register-background-wrapper::before,
+    .register-background-wrapper::after {
+        left: 0;
+        right: 0;
+    }
+
+    .register-background-wrapper .register-auth-container {
+        width: 100%; 
+        max-width: 360px; 
+        padding: 35px 20px; 
+    }
+}
+
+@media (max-width: 400px) {
+    .register-background-wrapper {
+        min-height: calc(100vh - 85px);
+        padding: 20px 10px;
+    }
+
+    .register-background-wrapper::before,
+    .register-background-wrapper::after {
+        left: 0;
+        right: 0;
+    }
+
+    .register-background-wrapper .register-auth-container {
         width: 100%;
-        padding: 30px 25px;
+        max-width: 100%;
+        padding: 30px 15px;
     }
 }

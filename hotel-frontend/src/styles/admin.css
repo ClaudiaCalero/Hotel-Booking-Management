@@ -8,7 +8,7 @@
     position: relative;
     width: 100%;
     min-height: calc(100vh - 75px);
-    background-color: #fcf9f5; 
+    background-color: var(--bg-cream); 
     padding: 80px 20px; 
     box-sizing: border-box;
     display: flex;
@@ -16,27 +16,18 @@
     align-items: center;
 }
 
-.admin-background-wrapper::before,
-.admin-background-wrapper::after {
+.admin-background-wrapper::before {
     content: "";
     position: absolute;
     top: 0;
     bottom: 0;
-    left: 15%;
-    right: 15%;
+    left: 40px;
+    right: 40px;
     height: 100%;
-}
-
-.admin-background-wrapper::before {
-    background-image: url("../../public/images/hotel/Hotelweb/admin.jpg");
+    background-image: url("../../public/images/hotel/Hotelweb/2584d8956586abf8d0a16d1275219278.jpg");
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: center 60%;
-    z-index: 0;
-}
-
-.admin-background-wrapper::after {
-    background: rgba(255, 255, 255, 0.15);
+    background-position: center 33%;
     z-index: 0;
 }
 
@@ -46,125 +37,84 @@
 }
 
 .admin-background-wrapper .admin-page-container {
-    position: absolute !important;
-    top: 50% !important;
-    left: 50% !important;
-    transform: translate(-50%, -50%) !important;
-    display: flex !important;
-    flex-direction: column !important;
-    width: 630px !important;
-    min-height: 270px !important;
-    box-sizing: border-box !important;
-    padding: 45px 40px !important;
-    
-    background: rgba(255, 255, 255, 0.75) !important;
-    backdrop-filter: blur(12px) !important;
-    -webkit-backdrop-filter: blur(12px) !important;
-    
-    border-radius: 16px !important;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15) !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-    z-index: 2 !important;
+    display: flex;
+    flex-direction: column;
+    width: 630px;
+    box-sizing: border-box;
+    padding: 45px 40px;
+    background: #ffffffbd; 
+    border-radius: 16px;
+    border: 1px solid var(--grayish-pink); 
+    box-shadow: 0 20px 40px rgba(72, 40, 27, 0.08);
+    opacity: 1;
+    visibility: visible;
+    z-index: 2;
 }
 
 .welcome-message {
-  font-family: 'Playfair Display', serif;
-  font-size: 2.2em;
+  font-family: 'Futura', serif;
   font-weight: 700;
-  color: #2c3e50;
-  margin-bottom: 25px;
+  color: var(--old-mauve); 
+  margin-bottom: 35px;
   display: flex;
   justify-content: center;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-size: 1.6em;
 }
 
 .admin-actions {
   display: flex;
   justify-content: center;
-  gap: 40px;
-  margin-top: 20px;
+  gap: 30px;
+  margin-top: 10px;
 }
 
 .admin-button {
-  padding: 12px 35px;
-  font-size: 15px;
-  color: white;
-  background-color: #f1b3a3; 
+  padding: 14px 35px;
+  font-size: 14px;
+  color: var(--bg-white);
+  background-color: var(--grayish-pink); 
   border: none;
   border-radius: 25px; 
   font-weight: 700;
   cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
   transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
-  box-shadow: 0 4px 12px rgba(241, 179, 163, 0.3);
+  box-shadow: 0 4px 15px rgba(239, 168, 153, 0.25);
 }
 
 .admin-button:hover {
-  background-color: #e29f8e;
-  transform: translateY(-1px);
-  box-shadow: 0 6px 15px rgba(241, 179, 163, 0.4);
+  background-color: var(--haute-pink); 
+  box-shadow: 0 6px 20px rgba(171, 104, 121, 0.35);
 }
 
+/* --- Media Queries responsivas --- */
 @media (max-width: 992px) {
-    .admin-background-wrapper::before,
-    .admin-background-wrapper::after {
-        left: 5%;  
-        right: 5%;
-    }
+    .admin-background-wrapper::before { left: 5%; right: 5%; }
 }
 
 @media (max-width: 768px) {
-    .admin-background-wrapper {
-        min-height: calc(100vh - 90px);
-        padding: 40px 15px;
+    .admin-background-wrapper { min-height: calc(100vh - 90px); padding: 40px 15px; }
+    .admin-background-wrapper::before { left: 0; right: 0; }
+    
+    .admin-background-wrapper .admin-page-container { 
+        width: 90%; 
+        max-width: 450px; 
+        padding: 35px 25px; 
     }
-
-    .admin-background-wrapper::before,
-    .admin-background-wrapper::after {
-        left: 0;
-        right: 0;
-    }
-
-    .admin-background-wrapper .admin-page-container {
-        width: 90% !important;
-        max-width: 450px !important;
-        min-height: auto !important;
-        padding: 35px 25px !important;
-    }
-
-    .welcome-message {
-        font-size: 1.8em;
-    }
-
-    .admin-actions {
-        gap: 20px; 
-        margin-top: 20px;
-    }
+    .welcome-message { font-size: 1.4em; }
+    .admin-actions { gap: 20px; }
 }
 
 @media (max-width: 480px) {
-    .admin-background-wrapper {
-        min-height: calc(100vh - 85px);
-        padding: 30px 10px;
+    .admin-background-wrapper .admin-page-container { 
+        width: 92%; 
+        max-width: 92%; 
+        padding: 30px 20px; 
     }
-
-    .admin-background-wrapper .admin-page-container {
-        width: 92% !important;
-        max-width: 92% !important;
-        padding: 30px 20px !important;
-    }
-
-    .welcome-message {
-        font-size: 1.5em;
-    }
-
-    .admin-actions {
-        flex-direction: column;
-        gap: 12px;
-        width: 100%;
-    }
-
-    .admin-button {
-        width: 100%; 
-        padding: 12px 20px;
-    }
+    .welcome-message { font-size: 1.2em; }
+    .admin-actions { flex-direction: column; gap: 12px; width: 100%; }
+    .admin-button { width: 100%; padding: 12px 20px; }
 }

@@ -22,7 +22,7 @@ const RoomSearch = ({ handSearchResult }) => {
 
   const startDateRef = useRef(null);
   const endDateRef = useRef(null);
-
+  const [currentMonth, setCurrentMonth] = useState(new Date());
   useEffect(() => {
     const fetchRoomTypes = async () => {
       try {
@@ -95,7 +95,6 @@ const RoomSearch = ({ handSearchResult }) => {
   return (
     <section>
       <div className="search-container">
-        {/* Check-in Date Field */}
         <div className="search-field" style={{ position: "relative" }}>
           <label>Check-in Date</label>
           <input
@@ -114,13 +113,13 @@ const RoomSearch = ({ handSearchResult }) => {
                   setStartDate(date);
                   setStartDatePickerVisible(false);
                 }}
-                month={startDate}
+                month={currentMonth}              
+                onMonthChange={setCurrentMonth}   
               />
             </div>
           )}
         </div>
 
-        {/* Check-out Date Field */}
         <div className="search-field" style={{ position: "relative" }}>
           <label>Check-Out Date</label>
           <input
@@ -139,13 +138,12 @@ const RoomSearch = ({ handSearchResult }) => {
                   setEndDate(date);
                   setEndDatePickerVisible(false);
                 }}
-                month={startDate}
+                month={currentMonth}             
+                onMonthChange={setCurrentMonth}   
               />
             </div>
           )}
         </div>
-
-        {/* Room Type Selection Field */}
         <div className="search-field">
           <label>Room Type</label>
           <select
