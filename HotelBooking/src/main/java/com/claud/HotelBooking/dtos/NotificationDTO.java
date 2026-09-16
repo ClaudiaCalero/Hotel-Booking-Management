@@ -27,6 +27,7 @@ public class NotificationDTO {
 
     @NotBlank(message = "Recipient is required")
     private String recipient;
+    private String phoneNumber;
 
     private String body;
 

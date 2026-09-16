@@ -44,8 +44,12 @@ public class SecurityFilter {
                                 "/api/auth/forgot-password",
                                 "/api/auth/reset-password",
                                 "/api/rooms/types",
-                                "/api/rooms/all",
-                                "/api/rooms/available"
+                                "/api/rooms/*",
+                                "/api/rooms/available",
+                                "/api/bookings",
+                                "/api/bookings/*",
+                                "/api/payments/pay",
+                                "/api/payments/update"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )

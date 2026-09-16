@@ -34,7 +34,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BookingServiceImpl implements BookingService {
 
-
     private final BookingRepository bookingRepository;
     private final RoomRepository roomRepository;
     private final NotificationService notificationService;
@@ -42,11 +41,19 @@ public class BookingServiceImpl implements BookingService {
     private final UserService userService;
     private final BookingCodeGenerator bookingCodeGenerator;
 
-
     @Override
     public Response getAllBookings() {
-        List<Booking> bookingList = bookingRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
-        List<BookingDTO> bookingDTOList = modelMapper.map(bookingList, new TypeToken<List<BookingDTO>>() {}.getType());
+
+        List<Booking> bookingList =
+                bookingRepository.findAll(
+                        Sort.by(Sort.Direction.DESC, "id")
+                );
+
+        List<BookingDTO> bookingDTOList =
+                modelMapper.map(
+                        bookingList,
+                        new TypeToken<List<BookingDTO>>() {}.getType()
+                );
 
         return Response.builder()
                 .status(200)
@@ -55,78 +62,208 @@ public class BookingServiceImpl implements BookingService {
                 .build();
     }
 
-
     @Override
     public Response createBooking(BookingDTO bookingDTO) {
 
-        User currentUser = userService.getCurrentLoggedInUser();
+        User currentUser = null;
+
+        var authentication =
+                org.springframework.security.core.context.SecurityContextHolder
+                        .getContext()
+                        .getAuthentication();
+
+        if (authentication != null
+                && authentication.isAuthenticated()
+                && !"anonymousUser".equals(authentication.getName())) {
+
+            currentUser = userService.getCurrentLoggedInUser();
+        }
+
+        if (currentUser == null) {
+
+            if (bookingDTO.getGuestFirstName() == null
+                    || bookingDTO.getGuestFirstName().isBlank()) {
+
+                throw new InvalidBookingStateAndDateException(
+                        "Guest first name is required"
+                );
+            }
+
+            if (bookingDTO.getGuestLastName() == null
+                    || bookingDTO.getGuestLastName().isBlank()) {
+
+                throw new InvalidBookingStateAndDateException(
+                        "Guest last name is required"
+                );
+            }
+
+            if (bookingDTO.getGuestEmail() == null
+                    || bookingDTO.getGuestEmail().isBlank()) {
+
+                throw new InvalidBookingStateAndDateException(
+                        "Guest email is required"
+                );
+            }
+
+            if (bookingDTO.getGuestPhoneNumber() == null
+                    || bookingDTO.getGuestPhoneNumber().isBlank()) {
+
+                throw new InvalidBookingStateAndDateException(
+                        "Guest phone number is required"
+                );
+            }
+        }
 
         Room room = roomRepository.findById(bookingDTO.getRoomId())
-                .orElseThrow(() -> new NotFoundException("Room Not Found"));
+                .orElseThrow(() ->
+                        new NotFoundException("Room Not Found")
+                );
 
-        // Validation: Ensure the check-in date is not before today
         if (bookingDTO.getCheckInDate().isBefore(LocalDate.now())) {
-            throw new InvalidBookingStateAndDateException("Check-in date cannot be before today");
+
+            throw new InvalidBookingStateAndDateException(
+                    "Check-in date cannot be before today"
+            );
         }
 
-        if (bookingDTO.getCheckOutDate().isBefore(bookingDTO.getCheckInDate())) {
-            throw new InvalidBookingStateAndDateException("Check-out date cannot be before check-in date");
+        if (bookingDTO.getCheckOutDate()
+                .isBefore(bookingDTO.getCheckInDate())) {
+
+            throw new InvalidBookingStateAndDateException(
+                    "Check-out date cannot be before check-in date"
+            );
         }
 
-        // Validation: Ensure the check-in date is not same as check out date
-        if (bookingDTO.getCheckInDate().isEqual(bookingDTO.getCheckOutDate())) {
-            throw new InvalidBookingStateAndDateException("Check-in date cannot be equal to check out date");
+        if (bookingDTO.getCheckOutDate()
+                .isEqual(bookingDTO.getCheckInDate())) {
+
+            throw new InvalidBookingStateAndDateException(
+                    "Check-in date cannot be equal to check out date"
+            );
         }
 
-        // Validate room availability
-        boolean isAvailable = bookingRepository.isRoomAvailable(room.getId(), bookingDTO.getCheckInDate(), bookingDTO.getCheckOutDate());
+        boolean isAvailable =
+                bookingRepository.isRoomAvailable(
+                        room.getId(),
+                        bookingDTO.getCheckInDate(),
+                        bookingDTO.getCheckOutDate()
+                );
+
         if (!isAvailable) {
-            throw new InvalidBookingStateAndDateException("Room is not available for the selected date ranges");
+
+            throw new InvalidBookingStateAndDateException(
+                    "Room is not available for the selected date ranges"
+            );
         }
 
-        // Calculate the total price needed to pay for the stay
-        BigDecimal totalPrice = calculateTotalPrice(room, bookingDTO);
-        String bookingReference = bookingCodeGenerator.generateBookingReference();
+        BigDecimal totalPrice =
+                calculateTotalPrice(room, bookingDTO);
 
-        // Create and save the booking using your Enums correctly
+        String bookingReference =
+                bookingCodeGenerator.generateBookingReference();
+
         Booking booking = new Booking();
+
         booking.setUser(currentUser);
         booking.setRoom(room);
-        booking.setCheckInDate(bookingDTO.getCheckInDate());
-        booking.setCheckOutDate(bookingDTO.getCheckOutDate());
+
+        booking.setCheckInDate(
+                bookingDTO.getCheckInDate()
+        );
+
+        booking.setCheckOutDate(
+                bookingDTO.getCheckOutDate()
+        );
+
         booking.setTotalPrice(totalPrice);
         booking.setBookingReference(bookingReference);
+
         booking.setBookingStatus(BookingStatus.BOOKED);
         booking.setPaymentStatus(PaymentStatus.PENDING);
         booking.setCreatedAt(LocalDateTime.now());
 
-        bookingRepository.save(booking); //save to database
+        if (currentUser == null) {
 
-        // Generate the payment url which will be sent via mail
-        String paymentUrl = "http://localhost:3000/payment/" + bookingReference + "/" + totalPrice;
+            booking.setGuestFirstName(
+                    bookingDTO.getGuestFirstName()
+            );
+
+            booking.setGuestLastName(
+                    bookingDTO.getGuestLastName()
+            );
+
+            booking.setGuestEmail(
+                    bookingDTO.getGuestEmail()
+            );
+
+            booking.setGuestPhoneNumber(
+                    bookingDTO.getGuestPhoneNumber()
+            );
+        }
+
+        bookingRepository.save(booking);
+
+        String paymentUrl =
+                "http://localhost:3000/payment/"
+                        + bookingReference
+                        + "/"
+                        + totalPrice;
+
         log.info("PAYMENT LINK: {}", paymentUrl);
 
-        // Send notification via email
-        NotificationDTO notificationDTO = NotificationDTO.builder()
-                .recipient(currentUser.getEmail())
-                .subject("Booking Confirmation")
-                .body(String.format("Your booking has been created successfully. Please proceed with your payment using the payment link below " +
-                        "\n%s", paymentUrl))
-                .bookingReference(bookingReference)
-                .build();
+        String recipientEmail;
+        String recipientPhone;
 
-        notificationService.sendEmail(notificationDTO);// sending email
+        if (currentUser != null) {
 
-        BookingDTO savedBookingDTO = BookingDTO.builder()
-                .id(booking.getId())
-                .checkInDate(booking.getCheckInDate())
-                .checkOutDate(booking.getCheckOutDate())
-                .bookingReference(booking.getBookingReference())
-                .bookingStatus(booking.getBookingStatus())
-                .paymentStatus(booking.getPaymentStatus())
-                .totalPrice(booking.getTotalPrice())
-                .roomId(room.getId())
-                .build();
+            recipientEmail = currentUser.getEmail();
+            recipientPhone = currentUser.getPhoneNumber();
+
+        } else {
+
+            recipientEmail = booking.getGuestEmail();
+            recipientPhone = booking.getGuestPhoneNumber();
+        }
+
+        NotificationDTO notificationDTO =
+                NotificationDTO.builder()
+                        .recipient(recipientEmail)
+                        .phoneNumber(recipientPhone)
+                        .subject("Booking Confirmation")
+                        .body(
+                                String.format(
+                                        "Your booking has been created successfully."
+                                                + "\n\n"
+                                                + "Your booking reference is: %s"
+                                                + "\n\n"
+                                                + "Please proceed with your payment using the payment link below:"
+                                                + "\n%s",
+                                        bookingReference,
+                                        paymentUrl
+                                )
+                        )
+                        .bookingReference(bookingReference)
+                        .build();
+
+        notificationService.sendEmail(notificationDTO);
+        notificationService.sendSms(notificationDTO);
+        notificationService.sendWhatsapp(notificationDTO);
+
+        BookingDTO savedBookingDTO =
+                BookingDTO.builder()
+                        .id(booking.getId())
+                        .checkInDate(booking.getCheckInDate())
+                        .checkOutDate(booking.getCheckOutDate())
+                        .bookingReference(booking.getBookingReference())
+                        .bookingStatus(booking.getBookingStatus())
+                        .paymentStatus(booking.getPaymentStatus())
+                        .totalPrice(booking.getTotalPrice())
+                        .roomId(room.getId())
+                        .guestFirstName(booking.getGuestFirstName())
+                        .guestLastName(booking.getGuestLastName())
+                        .guestEmail(booking.getGuestEmail())
+                        .guestPhoneNumber(booking.getGuestPhoneNumber())
+                        .build();
 
         return Response.builder()
                 .status(200)
@@ -135,14 +272,26 @@ public class BookingServiceImpl implements BookingService {
                 .build();
     }
 
-
     @Override
     public Response findBookingByReferenceNum(String bookingReference) {
-        Booking booking = bookingRepository.findByBookingReference(bookingReference)
-                .orElseThrow(()-> new NotFoundException("Booking with reference No: " + bookingReference + "Not found"));
 
-        BookingDTO bookingDTO = modelMapper.map(booking, BookingDTO.class);
-        return  Response.builder()
+        Booking booking =
+                bookingRepository.findByBookingReference(bookingReference)
+                        .orElseThrow(() ->
+                                new NotFoundException(
+                                        "Booking with reference No: "
+                                                + bookingReference
+                                                + " Not found"
+                                )
+                        );
+
+        BookingDTO bookingDTO =
+                modelMapper.map(
+                        booking,
+                        BookingDTO.class
+                );
+
+        return Response.builder()
                 .status(200)
                 .message("success")
                 .booking(bookingDTO)
@@ -151,17 +300,29 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public Response updateBooking(BookingDTO bookingDTO) {
-        if (bookingDTO.getId() == null) throw new NotFoundException("Booking id is required");
 
-        Booking existingBooking = bookingRepository.findById(bookingDTO.getId())
-                .orElseThrow(()-> new NotFoundException("Booking Not Found"));
+        if (bookingDTO.getId() == null) {
+            throw new NotFoundException("Booking id is required");
+        }
+
+        Booking existingBooking =
+                bookingRepository.findById(bookingDTO.getId())
+                        .orElseThrow(() ->
+                                new NotFoundException("Booking Not Found")
+                        );
 
         if (bookingDTO.getBookingStatus() != null) {
-            existingBooking.setBookingStatus(bookingDTO.getBookingStatus());
+
+            existingBooking.setBookingStatus(
+                    bookingDTO.getBookingStatus()
+            );
         }
 
         if (bookingDTO.getPaymentStatus() != null) {
-            existingBooking.setPaymentStatus(bookingDTO.getPaymentStatus());
+
+            existingBooking.setPaymentStatus(
+                    bookingDTO.getPaymentStatus()
+            );
         }
 
         bookingRepository.save(existingBooking);
@@ -172,11 +333,22 @@ public class BookingServiceImpl implements BookingService {
                 .build();
     }
 
+    private BigDecimal calculateTotalPrice(
+            Room room,
+            BookingDTO bookingDTO) {
 
-    private BigDecimal calculateTotalPrice(Room room, BookingDTO bookingDTO){
-        BigDecimal pricePerNight = room.getPricePerNight();
-        long days = ChronoUnit.DAYS.between(bookingDTO.getCheckInDate(), bookingDTO.getCheckOutDate());
-        return pricePerNight.multiply(BigDecimal.valueOf(days));
+        BigDecimal pricePerNight =
+                room.getPricePerNight();
+
+        long days =
+                ChronoUnit.DAYS.between(
+                        bookingDTO.getCheckInDate(),
+                        bookingDTO.getCheckOutDate()
+                );
+
+        return pricePerNight.multiply(
+                BigDecimal.valueOf(days)
+        );
     }
-
 }
+

@@ -21,24 +21,25 @@ public class BookingController {
         return ResponseEntity.ok(bookingService.getAllBookings());
     }
 
-
     @PostMapping
-    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('CUSTOMER') ")
     public ResponseEntity<Response> createBooking(@RequestBody BookingDTO bookingDTO){
         return ResponseEntity.ok(bookingService.createBooking(bookingDTO));
     }
 
-
     @GetMapping("/{reference}")
-    public ResponseEntity<Response> findBookingByReferenceNo(@PathVariable String reference){
-        return ResponseEntity.ok(bookingService.findBookingByReferenceNum(reference));
+    public ResponseEntity<Response> findBookingByReferenceNo(
+            @PathVariable String reference){
+        return ResponseEntity.ok(
+                bookingService.findBookingByReferenceNum(reference)
+        );
     }
 
     @PutMapping("/update")
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('CUSTOMER')")
-    public ResponseEntity<Response> updateBooking(@RequestBody BookingDTO bookingDTO){
-        return ResponseEntity.ok(bookingService.updateBooking(bookingDTO));
+    public ResponseEntity<Response> updateBooking(
+            @RequestBody BookingDTO bookingDTO){
+        return ResponseEntity.ok(
+                bookingService.updateBooking(bookingDTO)
+        );
     }
-
-
 }

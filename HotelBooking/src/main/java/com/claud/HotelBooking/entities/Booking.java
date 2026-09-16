@@ -29,6 +29,11 @@ public class Booking {
     @JoinColumn(name = "user_id")
     private User user;
 
+    private String guestFirstName;
+    private String guestLastName;
+    private String guestEmail;
+    private String guestPhoneNumber;
+
     @ManyToOne
     @JoinColumn(name = "room_id")
     private Room room;
