@@ -2,9 +2,9 @@ package com.claud.HotelBooking.dtos;
 
 import com.claud.HotelBooking.enums.BookingStatus;
 import com.claud.HotelBooking.enums.PaymentStatus;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -46,5 +46,8 @@ public class BookingDTO {
 
     private BookingStatus bookingStatus;
 
+    private String guestFirstName;
+    private String guestLastName;
+    private String guestEmail;
+    private String guestPhoneNumber;
 }
-

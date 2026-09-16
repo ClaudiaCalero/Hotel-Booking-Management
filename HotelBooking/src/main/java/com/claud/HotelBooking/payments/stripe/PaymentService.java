@@ -34,12 +34,10 @@ public class PaymentService {
     @Value("${stripe.api.secret.key}")
     private String secreteKey;
 
-
-    public String createPaymentIntent(PaymentRequest paymentRequest){
+    public String createPaymentIntent(PaymentRequest paymentRequest) {
         log.info("Inside createPaymentIntent()");
         Stripe.apiKey = secreteKey;
         String bookingReference = paymentRequest.getBookingReference();
-
 
         Booking booking = bookingRepository.findByBookingReference(bookingReference)
                 .orElseThrow(() -> new NotFoundException("Booking Not Found"));
@@ -49,9 +47,9 @@ public class PaymentService {
 
         }
 
-        try{
+        try {
             PaymentIntentCreateParams params = PaymentIntentCreateParams.builder()
-                    .setAmount(paymentRequest.getAmount().multiply(BigDecimal.valueOf(100)).longValue()) //amount cents
+                    .setAmount(paymentRequest.getAmount().multiply(BigDecimal.valueOf(100)).longValue()) // amount cents
                     .setCurrency("usd")
                     .putMetadata("bookingReference", bookingReference)
                     .build();
@@ -59,20 +57,19 @@ public class PaymentService {
             PaymentIntent intent = PaymentIntent.create(params);
             return intent.getClientSecret();
 
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new RuntimeException("Error creating payment intent");
         }
 
     }
 
-
-    public void updatePaymentBooking(PaymentRequest paymentRequest){
+    public void updatePaymentBooking(PaymentRequest paymentRequest) {
 
         log.info("Inside updatePaymentBooking()");
         String bookingReference = paymentRequest.getBookingReference();
 
         Booking booking = bookingRepository.findByBookingReference(bookingReference)
-                .orElseThrow(()-> new NotFoundException("Booing Not Found"));
+                .orElseThrow(() -> new NotFoundException("Booing Not Found"));
 
         PaymentEntity payment = new PaymentEntity();
         payment.setPaymentGateway(PaymentGateway.STRIPE);
@@ -87,34 +84,43 @@ public class PaymentService {
             payment.setFailureReason(paymentRequest.getFailureReason());
         }
 
-        paymentRepository.save(payment); //save payment to database
+        paymentRepository.save(payment); // save payment to database
 
-        //create and send notification
+        // create and send notification
+        String recipientEmail;
+
+        if (booking.getUser() != null) {
+            recipientEmail = booking.getUser().getEmail();
+        } else {
+            recipientEmail = booking.getGuestEmail();
+        }
+
         NotificationDTO notificationDTO = NotificationDTO.builder()
-                .recipient(booking.getUser().getEmail())
+                .recipient(recipientEmail)
                 .type(NotificationType.EMAIL)
                 .bookingReference(bookingReference)
                 .build();
 
         log.info("About to send notification inside updatePaymentBooking  by sms");
 
-
-        if (paymentRequest.isSuccess()){
+        if (paymentRequest.isSuccess()) {
             booking.setPaymentStatus(PaymentStatus.COMPLETED);
-            bookingRepository.save(booking); //Update the booking
+            bookingRepository.save(booking); // Update the booking
 
             notificationDTO.setSubject("Booking Payment Successful");
-            notificationDTO.setBody("Congratulations!! Your payment for booking with reference: " + bookingReference + "is successful");
-            notificationService.sendEmail(notificationDTO); //send email
+            notificationDTO.setBody(
+                    "Congratulations!! Your payment for booking with reference: " + bookingReference + "is successful");
+            notificationService.sendEmail(notificationDTO); // send email
 
-        }else {
+        } else {
 
             booking.setPaymentStatus(PaymentStatus.FAILED);
-            bookingRepository.save(booking); //Update the booking
+            bookingRepository.save(booking); // Update the booking
 
             notificationDTO.setSubject("Booking Payment Failed");
-            notificationDTO.setBody("Your payment for booking with reference: " + bookingReference + "failed with reason: " + paymentRequest.getFailureReason());
-            notificationService.sendEmail(notificationDTO); //send email
+            notificationDTO.setBody("Your payment for booking with reference: " + bookingReference
+                    + "failed with reason: " + paymentRequest.getFailureReason());
+            notificationService.sendEmail(notificationDTO); // send email
         }
 
     }

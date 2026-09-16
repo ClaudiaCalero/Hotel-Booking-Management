@@ -7,7 +7,7 @@ public interface NotificationService {
 
     void sendEmail(NotificationDTO notificationDTO);
 
-    void sendSms();
+    void sendSms(NotificationDTO notificationDTO);
 
-    void sendWhatsapp();
+    void sendWhatsapp(NotificationDTO notificationDTO);
 }
