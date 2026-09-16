@@ -1,4 +1,4 @@
-# Hotel Booking Management
+# Hotel Booking Management not official readme, need lots of updates
 
 ## 🏨 About the Project
 This project is a web application for managing hoyrl bookings. It allows users to register, recover their credentials through a password reset system, and make room reservations. Additionally, it features an advanced administrative module to manage room inventory, user roles, and booking statuses.
