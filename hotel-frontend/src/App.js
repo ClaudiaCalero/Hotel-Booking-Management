@@ -57,20 +57,17 @@ function App() {
             <Route path="/rooms" element={<AllRoomsPage />} />
             <Route path="/find-booking" element={<FindBookingPage />} />
 
-            <Route path="/room-details/:roomId" element={<CustomerRoute element={<RoomDetailsPage />} />} />
+            <Route path="/room-details/:roomId" element={<RoomDetailsPage />} />
             <Route path="/profile" element={<CustomerRoute element={<ProfilePage />} />} />
             <Route path="/edit-profile" element={<CustomerRoute element={<EditProfilePage />} />} />
 
             {/* PAYMENT PAGES */}
 
-            <Route path="/payment/:bookingReference/:amount" element={<CustomerRoute element={<PaymentPage />} />} />
-            <Route path="/payment-success/:bookingReference" element={<CustomerRoute element={<PaymentSuccess />} />} />
-            <Route path="/payment-failed/:bookingReference" element={<CustomerRoute element={<PaymentFailure />} />} />
+            <Route path="/payment/:bookingReference/:amount" element={<PaymentPage />}/>
+            <Route path="/payment-success/:bookingReference" element={<PaymentSuccess />} />
+            <Route path="/payment-failed/:bookingReference" element={<PaymentFailure />} />
 
             {/* ADMIN ROUTES */}
-
-            {/* ADMIN ROUTES */}
-                        {/* ADMIN ROUTES */}
             <Route path="/admin" element={<AdminRoute element={<AdminPage />} />} />
             <Route path="/admin/manage-rooms" element={<AdminRoute element={<ManageRoomPage />} />} />
             <Route path="/admin/add-room" element={<AdminRoute element={<AddRoomPage />} />} />

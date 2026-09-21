@@ -87,7 +87,7 @@ export default class ApiService {
         return resp.data;
     }
 
-  static async deleteAccount() {
+    static async deleteAccount() {
         const resp = await axios.delete(`${this.BASE_URL}/users/delete`, {
             headers: this.getHeader()
         })
@@ -112,7 +112,7 @@ export default class ApiService {
     }
     static async getAllRooms() {
         const response = await axios.get(`${this.BASE_URL}/rooms/all`, {
-            headers: this.getHeader() 
+            headers: this.getHeader()
         });
         return response.data;
     }
@@ -168,20 +168,29 @@ export default class ApiService {
     //BOOKINGS
     static async getBookingByReference(bookingReference) {
         if (!bookingReference || bookingReference === "undefined") {
-            console.error("⚠️ ApiService: An attempt was made to retrieve a reservation, but the 'bookingReference' is null or undefined.");
             throw new Error("Booking reference is required.");
         }
 
-        const response = await axios.get(`${this.BASE_URL}/bookings/${bookingReference}`, {
-            headers: this.getHeader()
-        });
+        const response = await axios.get(
+            `${this.BASE_URL}/bookings/${bookingReference}`
+        );
+
         return response.data;
     }
 
     static async bookRoom(booking) {
-        const resp = await axios.post(`${this.BASE_URL}/bookings`, booking, {
-            headers: this.getHeader()
-        });
+        const token = this.getToken();
+
+        const config = token
+            ? { headers: this.getHeader() }
+            : {};
+
+        const resp = await axios.post(
+            `${this.BASE_URL}/bookings`,
+            booking,
+            config
+        );
+
         return resp.data;
     }
 
