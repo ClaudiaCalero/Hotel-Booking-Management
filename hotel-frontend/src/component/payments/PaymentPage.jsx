@@ -26,8 +26,8 @@ const PaymentPage = () => {
           responseData?.intentSecret ||
           responseData;
 
-        if (typeof secretText === 'string') {
-            secretText = secretText.replace(/['"]+/g, '').trim();
+        if (typeof secretText === "string") {
+          secretText = secretText.replace(/['"]+/g, "").trim();
         }
 
         console.log("ACCESS TOKEN SUCCESSFULLY VERIFIED:", secretText);
@@ -38,7 +38,7 @@ const PaymentPage = () => {
       }
     };
 
-    fetchClientSecrete(); 
+    fetchClientSecrete();
   }, [bookingReference, amount]);
 
   if (error) {
@@ -46,7 +46,7 @@ const PaymentPage = () => {
   }
 
   const stripePromise = loadStripe(
-    "pk_test_51QUUt8HB3OLSUETB41PkCNVZvXQdjyIJx4n7u9EHrMUH0j3R5VAJE76l1fnwQbC3OJlkPwQDIi0KwXGjdU1phB3s00ZJEZOlbv"
+    "pk_test_51QUUt8HB3OLSUETB41PkCNVZvXQdjyIJx4n7u9EHrMUH0j3R5VAJE76l1fnwQbC3OJlkPwQDIi0KwXGjdU1phB3s00ZJEZOlbv",
   );
 
   const handlePaymentStatus = async (
@@ -80,12 +80,16 @@ const PaymentPage = () => {
             onPaymentSuccess={(transactionId) => {
               setPaymentStatus("succeeded");
               handlePaymentStatus("succeeded", transactionId);
-              navigate(`/payment-success/${bookingReference}`);
+              navigate(
+                `/payment-success/${bookingReference}${localStorage.getItem("guestBooking") === "true" ? "?guest=true" : ""}`,
+              );
             }}
             onPaymentError={(error) => {
               setPaymentStatus("failed");
               handlePaymentStatus("failed", "", error.message);
-              navigate(`/payment-failed/${bookingReference}`);
+              navigate(
+                `/payment-failed/${bookingReference}${localStorage.getItem("guestBooking") === "true" ? "?guest=true" : ""}`,
+              );
             }}
           />
         </Elements>

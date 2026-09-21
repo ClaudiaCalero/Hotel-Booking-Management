@@ -368,6 +368,67 @@
   border-width:2px 2px 0 0;
 }
 
+.room-details-booking-card h3 + div,
+.room-details-booking-card p + div {
+  font-family: 'Futura', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--hotel-burgundy);
+  margin-top: 20px;
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.room-details-booking-card input[type="text"],
+.room-details-booking-card input[type="email"],
+.room-details-booking-card input[type="tel"] {
+  width: 100%;
+  height: 42px;
+  padding: 0 16px;
+  border: 1px solid var(--putty);
+  border-radius: 30px; 
+  font-size: 14px;
+  color: var(--hotel-burgundy);
+  outline: none;
+  background: #fbf0f2; 
+  box-sizing: border-box;
+  font-family: 'Futura', sans-serif;
+  margin-bottom: 4px;
+  transition: border-color 0.3s, box-shadow 0.3s, background-color 0.3s;
+}
+
+.room-details-booking-card input[type="text"]:focus,
+.room-details-booking-card input[type="email"]:focus,
+.room-details-booking-card input[type="tel"]:focus {
+  border-color: var(--bistre-brown);
+  background-color: var(--bg-white); 
+  box-shadow: 0 0 5px rgba(65, 21, 8, 0.1);
+}
+
+.room-details-booking-card input::placeholder {
+  color: var(--nougat);
+  opacity: 0.65;
+}
+
+.room-details-booking-card .booking-input-group {
+  margin-bottom: 18px;
+  display: flex;
+  flex-direction: column;
+}
+
+.room-details-booking-card .booking-input-group label {
+  font-family: 'Futura', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--hotel-burgundy);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 6px;
+  text-align: left;
+}
+
 @media (max-width:900px) {
   .room-details-content-grid { 
     flex-direction:column; 
