@@ -1,4 +1,4 @@
-package com.claud.HotelBooking;
+package com.claud.HotelBooking.serviceTest;
 
 import com.claud.HotelBooking.dtos.Response;
 import com.claud.HotelBooking.dtos.RoomDTO;
