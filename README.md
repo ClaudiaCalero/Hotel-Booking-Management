@@ -1,207 +1,481 @@
-# Hotel Booking Management not official readme, need lots of updates
+# 🏨 Hotel Booking Management
 
-## 🏨 About the Project
-This project is a web application for managing hoyrl bookings. It allows users to register, recover their credentials through a password reset system, and make room reservations. Additionally, it features an advanced administrative module to manage room inventory, user roles, and booking statuses.
+A hotel booking management backend developed with **Java 21** and **Spring Boot**. The application provides REST APIs for authentication, user management, room management, booking management and payment processing.
+
+The project also includes **JWT-based authentication**, **role-based authorization** and a comprehensive automated test suite using **JUnit 5, Mockito and Spring Boot Test**.
+
+---
 
 ## 🎨 Creative Concept
-When I think about the movie "The Grand Budapest Hotel", directed by Wes Anderson, I find it curious to imagine what its website would look like. Originally, this project was born as a part of my portfolio. However, while setting up the mockup, choosing the style, selecting the photos, the colors, etc., I couldn't help out but think of that movie. Could it be because I watched it shortly before working on the design? Who knows. The point is, I find it fun to think that, if it had one, this could be the official website of the Grand Budapest Hotel.
 
-## 📚 Table of Contents
+When I think about the movie ***The Grand Budapest Hotel***, directed by Wes Anderson, I find it curious to imagine what its website would look like.
 
+Originally, this project was created as part of my portfolio. However, while working on the mockup, choosing the visual style, selecting the photos, colors, and overall aesthetic, I couldn't help but think of that movie.
 
-## 🧪 Technologies
-- **Frontend**: React, HTML, CSS
-- **Backend**: Java Spring Boot
-- **Database**: MySQL
-- **Authentication**: JWT
-- **Testing**: Postman
+Could it be because I watched it shortly before working on the design? Who knows.
 
-## 🛠️ Installation
-#### Clone the repository
+The point is, I find it fun to imagine that, if it had one, **this could be the official website of the Grand Budapest Hotel**.
 
-    git clone https://github.com/ClaudiaCalero/Hotel-Booking-Management.git
+---
 
-#### Navigate to the project folder
+## ✨ Features
 
-    cd Hotel-Booking-Management
+### 🔐 Authentication & Security
 
-####  Backend: Build and run (assuming Java Spring Boot is installed)
+* User registration and login
+* JWT-based authentication
+* Password encryption with BCrypt
+* Role-based authorization
+* `ADMIN` and `CUSTOMER` roles
+* Password recovery and password reset
+* Stateless Spring Security configuration
+* Custom authentication and authorization handling
 
-    ./mvnw spring-boot:run
+### 👤 User Management
 
-####  Frontend: Navigate to the frontend folder and start
+* Retrieve all users
+* Update user information
+* Delete users
+* Retrieve the authenticated user's account
+* Retrieve the user's bookings
+* Administrator-only user management operations
 
-    cd hotel-frontend
+### 🛏️ Room Management
 
-    npm install
+* Add rooms
+* Update rooms
+* Delete rooms
+* Retrieve all rooms
+* Retrieve a room by ID
+* Search rooms
+* Retrieve available rooms by date
+* Retrieve available room types
+* Support for room images
+* Room capacity and price management
 
-    npm start
+### 📅 Booking Management
 
+* Create bookings
+* Search bookings by reference number
+* Update bookings
+* Retrieve all bookings
+* Booking authorization based on user roles
+* Availability validation
 
-## 🖼️ MockUp
-[Click to view the Figma project](https://www.figma.com/design/RiiARqgNRd5CpYm5VHAzvB/OnyxCrownHotel?node-id=0-1&p=f&t=GYhQ6tYGtqEKdx9E-0)
+### 💳 Payments
+
+* Stripe payment integration
+* Payment status management
+* Secure payment configuration through environment variables
+
+### 📱 Notifications
+
+* Twilio integration for SMS/WhatsApp notifications
+* External service credentials managed through environment variables
+
+---
+
+## 🛠️ Technologies
+
+### Backend
+
+* Java 21
+* Spring Boot 3.4.4
+* Spring Security 6
+* Spring Data JPA
+* Hibernate
+* Maven
+
+### Database
+
+* MySQL
+
+### Security
+
+* JWT
+* JJWT
+* BCrypt
+* Spring Security
+
+### Payments & Notifications
+
+* Stripe
+* Twilio
+
+### Testing
+
+* JUnit 5
+* Mockito
+* Spring Boot Test
+* MockMvc
+* Spring Security Test
+
+### Additional Libraries
+
+* ModelMapper
+* Lombok
+
+---
+
+## 🔌 API Endpoints
+
+### Authentication
+
+| Method | Endpoint                    | Description               | Access |
+| ------ | --------------------------- | ------------------------- | ------ |
+| `POST` | `/api/auth/register`        | Register a new user       | Public |
+| `POST` | `/api/auth/login`           | Authenticate a user       | Public |
+| `POST` | `/api/auth/forgot-password` | Request password recovery | Public |
+| `POST` | `/api/auth/reset-password`  | Reset password            | Public |
+
+### Users
+
+| Method   | Endpoint              | Description                      | Access        |
+| -------- | --------------------- | -------------------------------- | ------------- |
+| `GET`    | `/api/users/all`      | Retrieve all users               | ADMIN         |
+| `PUT`    | `/api/users/update`   | Update user information          | Authenticated |
+| `DELETE` | `/api/users/delete`   | Delete a user                    | Authenticated |
+| `GET`    | `/api/users/account`  | Retrieve current user's account  | Authenticated |
+| `GET`    | `/api/users/bookings` | Retrieve current user's bookings | Authenticated |
+
+### Rooms
+
+| Method   | Endpoint                 | Description              | Access |
+| -------- | ------------------------ | ------------------------ | ------ |
+| `POST`   | `/api/rooms/add`         | Add a new room           | ADMIN  |
+| `PUT`    | `/api/rooms/update`      | Update a room            | ADMIN  |
+| `GET`    | `/api/rooms/all`         | Retrieve all rooms       | Public |
+| `GET`    | `/api/rooms/{id}`        | Retrieve a room by ID    | Public |
+| `DELETE` | `/api/rooms/delete/{id}` | Delete a room            | ADMIN  |
+| `GET`    | `/api/rooms/available`   | Retrieve available rooms | Public |
+| `GET`    | `/api/rooms/types`       | Retrieve room types      | Public |
+| `GET`    | `/api/rooms/search`      | Search for rooms         | Public |
+
+### Bookings
+
+| Method | Endpoint                    | Description                 | Access           |
+| ------ | --------------------------- | --------------------------- | ---------------- |
+| `GET`  | `/api/bookings/all`         | Retrieve all bookings       | ADMIN            |
+| `POST` | `/api/bookings`             | Create a booking            | Public           |
+| `GET`  | `/api/bookings/{reference}` | Find a booking by reference | Public           |
+| `PUT`  | `/api/bookings/update`      | Update a booking            | ADMIN / CUSTOMER |
+
+Protected endpoints require a valid JWT token in the `Authorization` header:
+
+```text
+Authorization: Bearer <token>
+```
+
+---
+
+## ⚙️ Configuration
+
+The application uses environment variables for sensitive configuration values.
+
+Create the required environment variables before starting the application.
+
+### 🗄️ Database
+
+The application uses a MySQL database named:
+
+```text
+hotel_bookings
+```
+
+The default configuration expects:
+
+```properties
+spring.datasource.url=jdbc:mysql://localhost:3306/hotel_bookings
+spring.datasource.username=root
+spring.datasource.password=
+```
+
+Update the database credentials according to your local MySQL configuration.
+
+### 🔑 JWT
+
+```text
+JWT_SECRET=your_secure_jwt_secret
+```
+
+The JWT secret should be kept private and should **never be committed to the repository**.
+
+### 👑 Administrator
+
+```text
+HOTEL_ADMIN_EMAIL=admin@example.com
+```
+
+The configured email address is automatically assigned administrator permissions according to the application's user management logic.
+
+### 📧 Email
+
+```text
+MAIL_USERNAME=your_email
+MAIL_PASSWORD=your_email_password
+```
+
+### 📱 Twilio
+
+```text
+TWILIO_ACCOUNT_SID=your_account_sid
+TWILIO_AUTH_TOKEN=your_auth_token
+TWILIO_SMS_NUMBER=your_sms_number
+TWILIO_WHATSAPP_NUMBER=your_whatsapp_number
+```
+
+### 💳 Stripe
+
+```text
+STRIPE_PUBLIC_KEY=your_stripe_public_key
+STRIPE_SECRET_KEY=your_stripe_secret_key
+```
+
+> ⚠️ **Do not commit real credentials, API keys or secrets to GitHub.**
+
+---
+
+## 🚀 Running the Application
+
+### Prerequisites
+
+Make sure you have installed:
+
+* Java 21
+* Maven
+* MySQL 8 or compatible version
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/ClaudiaCalero/Hotel-Booking-Management.git
+cd Hotel-Booking-Management/HotelBooking
+```
+
+### 2. Create the database
+
+Create a MySQL database named:
+
+```sql
+CREATE DATABASE hotel_bookings;
+```
+
+Configure the database credentials in `application.properties` or through your environment.
+
+### 3. Configure environment variables
+
+Set the required environment variables described in the [Configuration](#️-configuration) section.
+
+### 4. Run the application
+
+Using Maven:
+
+```bash
+mvn spring-boot:run
+```
+
+The application runs by default on:
+
+```text
+http://localhost:8080
+```
+
+---
+
+## 🧪 Testing
+
+The project includes a comprehensive automated test suite covering the main application layers.
+
+### Test Coverage
+
+Tests include:
+
+* Service layer
+* Controller layer
+* JWT utilities
+* JWT authentication filter
+* User details service
+* Authentication user model
+* Spring Security configuration
+* CORS configuration
+* Application context
+* Authentication and authorization scenarios
+* Room availability and room management
+* Booking operations
+* User operations
+
+### Test Result
+
+The complete test suite currently passes with:
+
+```text
+96 tests
+0 failures
+0 errors
+0 skipped
+```
+
+### Run all tests
+
+From the `HotelBooking` directory:
+
+```bash
+mvn test
+```
+
+Expected result:
+
+```text
+Tests run: 96
+Failures: 0
+Errors: 0
+Skipped: 0
+BUILD SUCCESS
+```
+
+---
+
+## 🔒 Security
+
+The application uses **Spring Security with JWT authentication**.
+
+The authentication flow is:
+
+```text
+User
+  │
+  ▼
+Login / Register
+  │
+  ▼
+JWT Token
+  │
+  ▼
+Authorization Header
+  │
+  ▼
+AuthFilter
+  │
+  ▼
+JWT Validation
+  │
+  ▼
+SecurityContext
+  │
+  ▼
+Protected API Endpoint
+```
+
+Protected operations are restricted according to the user's authorities.
+
+For example:
+
+* `ADMIN` users can manage rooms and access administrative booking and user operations.
+* `CUSTOMER` users can perform customer-level operations such as creating and updating bookings.
+
+---
+
+## 🛏️ Room Availability
+
+The application provides an endpoint for searching available rooms:
+
+```text
+GET /api/rooms/available
+```
+
+The endpoint accepts:
+
+* Check-in date
+* Check-out date
+* Optional room type
+
+Example:
+
+```text
+/api/rooms/available?checkInDate=2026-10-01&checkOutDate=2026-10-05&roomType=STANDARD_ROOM
+```
+
+The room type can be omitted when availability should be searched across all room types.
+
+---
+
+## ⚠️ Error Handling
+
+The application includes custom exception handling for common API errors, including:
+
+* Resource not found
+* Authentication errors
+* Authorization errors
+* Validation errors
+* Invalid requests
+* JWT authentication errors
+
+The security configuration also provides custom authentication and access-denied handling.
+
+---
+
+## 🏗️ Development
+
+The project follows a layered Spring Boot architecture:
+
+```text
+Controller
+    │
+    ▼
+Service
+    │
+    ▼
+Repository
+    │
+    ▼
+MySQL Database
+```
+
+DTOs are used to transfer data between the API and application layers, while **ModelMapper** is used where appropriate to map between DTOs and entities.
+
+---
+
+## 🖼️ Mockup
+
+The initial visual concept for the project was developed in Figma and has since evolved significantly, with several design changes and refinements made throughout the process.
+
+Initial concept:
+[**Click to view the Figma project**](https://www.figma.com/design/RiiARqgNRd5CpYm5VHAzvB/OnyxCrownHotel?node-id=0-1&p=f&t=GYhQ6tYGtqEKdx9E-0)
 
 [![OnyxCrownHotel Preview](https://github.com/user-attachments/assets/0e1facdc-86c0-4f44-a4cc-ab175dd31bb4)](https://www.figma.com/design/RiiARqgNRd5CpYm5VHAzvB/OnyxCrownHotel?node-id=0-1&p=f&t=GYhQ6tYGtqEKdx9E-0)
 
-## 🧪 API Testing (Postman)
+Current Project:
+[**Click to view the Figma project**](https://www.figma.com/design/WU4gOPa11P11Mx1P9mLkmD/The-Grand-Hotel-Budapest?node-id=0-1&p=f)
 
----
-> ⚠️ **Authorization Required**  
-> For **all requests**, you need an **authorization token (Bearer Token)**.  
-> This token is obtained when an **admin** registers (`/api/auth/register`) and then logs in (`/api/auth/login`).  
-> Once retrieved, you must add it in Postman under **Authorization → Bearer Token**.
----
+[![The Grand Hotel Budapest Preview](https://github.com/user-attachments/assets/a4bd600e-4980-464e-8a1b-589bd1c5e947)](https://www.figma.com/design/WU4gOPa11P11Mx1P9mLkmD/The-Grand-Hotel-Budapest?node-id=0-1&p=f)
 
-### 1️⃣ User HTTP Requests
-
-**Register a New User**  
-`POST: localhost:9090/api/auth/register`
-
-<details>
-<summary>View Images</summary>
-
-![Register](https://github.com/user-attachments/assets/eb07578f-84aa-43ae-8271-4987456a11fc)  
-![Register Example](https://github.com/user-attachments/assets/aaff5054-303f-428c-a68c-e2e100b2ece0)
-
-</details>
-
-**Register Without Role**  
-`POST: localhost:9090/api/auth/register`
-
-<details>
-<summary>View Images</summary>
-
-![No Role](https://github.com/user-attachments/assets/846895d1-f02f-42c9-bfef-5347fbe76b54)  
-![No Role Example](https://github.com/user-attachments/assets/dbbb8505-35f3-447a-a760-e802666d5221)
-
-</details>
-
-**Login**  
-`POST: localhost:9090/api/auth/login`
-
-<details>
-<summary>View Image</summary>
-
-![Login](https://github.com/user-attachments/assets/85c51d67-d451-49d3-a328-301ff82e87cf)
-
-</details>
 
 ---
 
-### 2️⃣ User Management (Admin Only)
+## 🔮 Future Improvements
 
-**Get All Users**  
-`GET /api/users/all`
+Possible future improvements include:
 
-<details>
-<summary>View Image</summary>
-
-![Get All Users](https://github.com/user-attachments/assets/56336e62-23a3-414c-a595-0b23dcc5b092)
-
-</details>
-
-**Update User**  
-`PUT /api/users/update`
-
-<details>
-<summary>View Images</summary>
-
-![Update User](https://github.com/user-attachments/assets/802f0e37-de5c-4264-b296-6a79574fe25f)  
-![Update Example](https://github.com/user-attachments/assets/cb667a36-5dff-40fe-81c0-f11c393e86cb)
-
-</details>
-
-**Delete User**  
-`DELETE /api/users/delete`
-
-<details>
-<summary>View Images</summary>
-
-![Delete User](https://github.com/user-attachments/assets/1ab7abf5-16c1-4156-8ecb-147b4006379f)  
-![Delete Example](https://github.com/user-attachments/assets/ad354919-0103-4b43-ab07-d85335c793d0)
-
-</details>
-
-**Get My Account**  
-`GET /api/users/account`
-
-<details>
-<summary>View Image</summary>
-
-![Get Account](https://github.com/user-attachments/assets/f4b144b9-07eb-41c8-b952-e4c651941821)
-
-</details>
-
-**My Bookings**  
-`GET /api/users/bookings` (no data yet)
-
-<details>
-<summary>View Image</summary>
-
-![My Bookings](https://github.com/user-attachments/assets/3bb0c83a-504b-43f2-89e3-0ba51211b523)
-
-</details>
+* API documentation with OpenAPI/Swagger
+* Integration and end-to-end testing with a dedicated test database
+* Docker support
+* CI/CD pipeline with GitHub Actions
+* Improved validation responses and API error formats
+* Additional booking and payment features
+* Production deployment configuration
 
 ---
 
-### 4️⃣ Booking HTTP Requests
+## 👩‍💻 Author
 
-**Create Booking**  
-`POST /api/bookings/create`
+**Clàudia Calero**
 
-<details>
-<summary>View Image</summary>
+GitHub:
+https://github.com/ClaudiaCalero
 
-![Create Booking](https://github.com/user-attachments/assets/6c5b7dbf-58bf-4275-829f-1a4324c957ac)
+---
 
-</details>
+## 📄 License
 
-**Get All Bookings**  
-`GET /api/bookings/all`
-
-<details>
-<summary>View Image</summary>
-
-![Get All Bookings](https://github.com/user-attachments/assets/d9694439-16ef-413d-b844-2f667b0c8df7)
-
-</details>
-
-**Find Booking by Reference Number**  
-`GET /api/bookings/{reference}`
-
-<details>
-<summary>View Image</summary>
-
-![Find Booking](https://github.com/user-attachments/assets/c3e4e70f-c3c3-4e49-b4ee-a9e02477ca4f)
-
-</details>
-
-> 💡 You need to do **Get All Bookings** first in order to find the reference number.
-
-<details>
-<summary>Example Response</summary>
-
-<img width="319" height="25" alt="image" src="https://github.com/user-attachments/assets/74865085-b099-4fd5-9881-9cc3cbe8b4e8" />
-
-</details>
-
-**Update Booking Status**  
-`PUT /api/bookings/update`
-
-<details>
-<summary>View Images</summary>
-
-![Update Booking](https://github.com/user-attachments/assets/fa37ac1c-8b9e-49f7-b68c-1c0bcb3a728b)  
-
-</details>
-
-<details>
-<summary> Payment Email Example</summary>
-
-![Update Example](https://github.com/user-attachments/assets/80ae03b8-00e6-4703-ace0-363f506d8ff5)
-
-</details>
-
-
-
+This project is for educational and development purposes.
 
