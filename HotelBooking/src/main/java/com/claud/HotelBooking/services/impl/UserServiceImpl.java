@@ -199,7 +199,7 @@ public class UserServiceImpl implements UserService {
     public Response forgotPassword(String email) {
         // Check if the user exists
         User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new NotFoundException("No se encontró ningún usuario con ese correo electrónico."));
+                .orElseThrow(() -> new NotFoundException("No user was found with that email address."));
 
         // Generate random unique token
         String token = java.util.UUID.randomUUID().toString();
@@ -214,7 +214,7 @@ public class UserServiceImpl implements UserService {
 
         return Response.builder()
                 .status(200)
-                .message("Se ha enviado un enlace de recuperación a tu correo electrónico.")
+                .message("A recovery link has been sent to your email.")
                 .build();
     }
 
@@ -222,11 +222,11 @@ public class UserServiceImpl implements UserService {
     public Response resetPassword(String token, String newPassword) {
         // Search the user with their token
         User user = userRepository.findByResetPasswordToken(token)
-                .orElseThrow(() -> new NotFoundException("El enlace de recuperación es inválido o no existe."));
+                .orElseThrow(() -> new NotFoundException("The recovery link is invalid or does not exist."));
 
         // Verify if the token is expired
         if (user.getTokenExpirationDate().isBefore(LocalDateTime.now())) {
-            throw new InvalidCredentialException("El enlace de recuperación ha expirado.");
+            throw new InvalidCredentialException("The recovery link has expired.");
         }
 
         // Encrypt the new password and save it
@@ -239,7 +239,7 @@ public class UserServiceImpl implements UserService {
 
         return Response.builder()
                 .status(200)
-                .message("Contraseña actualizada correctamente.")
+                .message("Password updated successfully.")
                 .build();
     }
 }

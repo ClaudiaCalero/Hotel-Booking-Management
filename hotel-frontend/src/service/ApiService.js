@@ -18,27 +18,23 @@ export default class ApiService {
     }
 
 
-    //save token
     static saveToken(token) {
         const encrytpedToken = this.encrypt(token);
         localStorage.setItem("token", encrytpedToken);
     }
 
-    //retreive token
     static getToken() {
         const encrytpedToken = localStorage.getItem("token");
         if (!encrytpedToken) return null;
         return this.decrypt(encrytpedToken)
     }
 
-    //save role
     static saveRole(role) {
         const encrytpedRole = this.encrypt(role);
         localStorage.setItem("role", encrytpedRole);
     }
 
 
-    //get role
     static getRole() {
         const encrytpedRole = localStorage.getItem("role");
         if (!encrytpedRole) return null;
@@ -60,7 +56,6 @@ export default class ApiService {
 
     /** AUTH AND USERS API METHODS */
 
-    // AUTH
     static async registerUser(registrationData) {
         const resp = await axios.post(`${this.BASE_URL}/auth/register`, registrationData);
         return resp.data;
