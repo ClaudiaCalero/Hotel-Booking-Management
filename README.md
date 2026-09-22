@@ -470,8 +470,10 @@ Possible future improvements include:
 
 **Clàudia Calero**
 
-GitHub:
-https://github.com/ClaudiaCalero
+[GitHub](https://github.com/ClaudiaCalero)
+
+
+[LinkedIn](https://www.linkedin.com/in/claudia-calero/)
 
 ---
 
