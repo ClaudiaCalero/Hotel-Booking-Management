@@ -16,7 +16,6 @@ const FindBookingPage = () => {
     }
   }, [navigate]);
 
-  // Buscar una reserva por su código
   const searchBooking = async (reference) => {
     try {
       const response = await ApiService.getBookingByReference(reference);
@@ -34,7 +33,6 @@ const FindBookingPage = () => {
     }
   };
 
-  // Buscar reserva al pulsar el botón Find
   const handleSearch = async () => {
     if (!confirmationCode.trim()) {
       setError("Please Enter a booking confirmation code");

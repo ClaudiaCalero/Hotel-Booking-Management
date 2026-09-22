@@ -134,9 +134,9 @@ class BookingServiceImplTest {
                 .roomId(10L)
                 .checkInDate(checkIn)
                 .checkOutDate(checkOut)
-                .guestFirstName("John")
-                .guestLastName("Doe")
-                .guestEmail("john@example.com")
+                .guestFirstName("Monsieur")
+                .guestLastName("Gustave")
+                .guestEmail("Monsieur@example.com")
                 .guestPhoneNumber("+34123456789")
                 .build();
 
@@ -172,9 +172,9 @@ class BookingServiceImplTest {
         assertEquals(new BigDecimal("300.00"), response.getBooking().getTotalPrice());
         assertEquals(10L, response.getBooking().getRoomId());
 
-        assertEquals("John", response.getBooking().getGuestFirstName());
-        assertEquals("Doe", response.getBooking().getGuestLastName());
-        assertEquals("john@example.com", response.getBooking().getGuestEmail());
+        assertEquals("Monsieur", response.getBooking().getGuestFirstName());
+        assertEquals("Gustave", response.getBooking().getGuestLastName());
+        assertEquals("Monsieur@example.com", response.getBooking().getGuestEmail());
         assertEquals("+34123456789", response.getBooking().getGuestPhoneNumber());
 
         ArgumentCaptor<Booking> captor = ArgumentCaptor.forClass(Booking.class);
@@ -287,8 +287,8 @@ class BookingServiceImplTest {
         BookingDTO bookingDTO = BookingDTO.builder()
                 .roomId(1L)
                 .guestFirstName("")
-                .guestLastName("Doe")
-                .guestEmail("john@example.com")
+                .guestLastName("Gustave")
+                .guestEmail("Monsieur@example.com")
                 .guestPhoneNumber("123")
                 .checkInDate(LocalDate.now())
                 .checkOutDate(LocalDate.now().plusDays(1))
@@ -311,9 +311,9 @@ class BookingServiceImplTest {
 
         BookingDTO bookingDTO = BookingDTO.builder()
                 .roomId(1L)
-                .guestFirstName("John")
+                .guestFirstName("Monsieur")
                 .guestLastName(" ")
-                .guestEmail("john@example.com")
+                .guestEmail("Monsieur@example.com")
                 .guestPhoneNumber("123")
                 .checkInDate(LocalDate.now())
                 .checkOutDate(LocalDate.now().plusDays(1))
@@ -336,8 +336,8 @@ class BookingServiceImplTest {
 
         BookingDTO bookingDTO = BookingDTO.builder()
                 .roomId(1L)
-                .guestFirstName("John")
-                .guestLastName("Doe")
+                .guestFirstName("Monsieur")
+                .guestLastName("Gustave")
                 .guestEmail("")
                 .guestPhoneNumber("123")
                 .checkInDate(LocalDate.now())
@@ -361,9 +361,9 @@ class BookingServiceImplTest {
 
         BookingDTO bookingDTO = BookingDTO.builder()
                 .roomId(1L)
-                .guestFirstName("John")
-                .guestLastName("Doe")
-                .guestEmail("john@example.com")
+                .guestFirstName("Monsieur")
+                .guestLastName("Gustave")
+                .guestEmail("Monsieur@example.com")
                 .guestPhoneNumber("")
                 .checkInDate(LocalDate.now())
                 .checkOutDate(LocalDate.now().plusDays(1))
@@ -386,9 +386,9 @@ class BookingServiceImplTest {
 
         BookingDTO bookingDTO = BookingDTO.builder()
                 .roomId(999L)
-                .guestFirstName("John")
-                .guestLastName("Doe")
-                .guestEmail("john@example.com")
+                .guestFirstName("Monsieur")
+                .guestLastName("Gustave")
+                .guestEmail("Monsieur@example.com")
                 .guestPhoneNumber("123")
                 .checkInDate(LocalDate.now())
                 .checkOutDate(LocalDate.now().plusDays(1))
@@ -414,9 +414,9 @@ class BookingServiceImplTest {
 
         BookingDTO bookingDTO = BookingDTO.builder()
                 .roomId(1L)
-                .guestFirstName("John")
-                .guestLastName("Doe")
-                .guestEmail("john@example.com")
+                .guestFirstName("Monsieur")
+                .guestLastName("Gustave")
+                .guestEmail("Monsieur@example.com")
                 .guestPhoneNumber("123")
                 .checkInDate(checkIn)
                 .checkOutDate(checkIn.plusDays(1))
@@ -454,9 +454,9 @@ class BookingServiceImplTest {
 
         BookingDTO bookingDTO = BookingDTO.builder()
                 .roomId(1L)
-                .guestFirstName("John")
-                .guestLastName("Doe")
-                .guestEmail("john@example.com")
+                .guestFirstName("Monsieur")
+                .guestLastName("Gustave")
+                .guestEmail("Monsieur@example.com")
                 .guestPhoneNumber("123")
                 .checkInDate(checkIn)
                 .checkOutDate(checkOut)
@@ -490,9 +490,9 @@ class BookingServiceImplTest {
 
         BookingDTO bookingDTO = BookingDTO.builder()
                 .roomId(1L)
-                .guestFirstName("John")
-                .guestLastName("Doe")
-                .guestEmail("john@example.com")
+                .guestFirstName("Monsieur")
+                .guestLastName("Gustave")
+                .guestEmail("Monsieur@example.com")
                 .guestPhoneNumber("123")
                 .checkInDate(date)
                 .checkOutDate(date)
@@ -527,9 +527,9 @@ class BookingServiceImplTest {
 
         BookingDTO bookingDTO = BookingDTO.builder()
                 .roomId(1L)
-                .guestFirstName("John")
-                .guestLastName("Doe")
-                .guestEmail("john@example.com")
+                .guestFirstName("Monsieur")
+                .guestLastName("Gustave")
+                .guestEmail("Monsieur@example.com")
                 .guestPhoneNumber("123")
                 .checkInDate(checkIn)
                 .checkOutDate(checkOut)
