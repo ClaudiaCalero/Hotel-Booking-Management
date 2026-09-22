@@ -6,6 +6,16 @@ The project also includes **JWT-based authentication**, **role-based authorizati
 
 ---
 
+## 🌐 Live Demo
+
+The application is deployed and available online:
+
+[**Visit the deployed application**](https://hotel-booking-management-thegrandho-phi.vercel.app/)
+
+> 💳 **Test payment:** The application uses Stripe in test mode. No real payments are processed. To test the payment flow, use the Stripe test card `4242 4242 4242 4242`, with any future expiry date, any 3-digit CVC and any valid ZIP/postal code.
+
+---
+
 ## 🎨 Creative Concept
 
 When I think about the movie ***The Grand Budapest Hotel***, directed by Wes Anderson, I find it curious to imagine what its website would look like.
@@ -233,6 +243,21 @@ STRIPE_SECRET_KEY=your_stripe_secret_key
 
 > ⚠️ **Do not commit real credentials, API keys or secrets to GitHub.**
 
+### 💳 Stripe Test Payments
+
+The deployed application uses **Stripe test mode**, so no real payments are processed.
+
+To test the payment flow, use Stripe's test card:
+
+```text
+Card number: 4242 4242 4242 4242
+Expiry date: Any future date
+CVC: Any 3-digit number
+ZIP / Postal code: Any valid value
+```
+
+This test card can be used to simulate a successful payment without making a real charge.
+
 ---
 
 ## 🚀 Running the Application
@@ -440,15 +465,16 @@ DTOs are used to transfer data between the API and application layers, while **M
 The initial visual concept for the project was developed in Figma and has since evolved significantly, with several design changes and refinements made throughout the process.
 
 Initial concept:
+
 [**Click to view the Figma project**](https://www.figma.com/design/RiiARqgNRd5CpYm5VHAzvB/OnyxCrownHotel?node-id=0-1&p=f&t=GYhQ6tYGtqEKdx9E-0)
 
 [![OnyxCrownHotel Preview](https://github.com/user-attachments/assets/0e1facdc-86c0-4f44-a4cc-ab175dd31bb4)](https://www.figma.com/design/RiiARqgNRd5CpYm5VHAzvB/OnyxCrownHotel?node-id=0-1&p=f&t=GYhQ6tYGtqEKdx9E-0)
 
 Current Project:
+
 [**Click to view the Figma project**](https://www.figma.com/design/WU4gOPa11P11Mx1P9mLkmD/The-Grand-Hotel-Budapest?node-id=0-1&p=f)
 
 [![The Grand Hotel Budapest Preview](https://github.com/user-attachments/assets/a4bd600e-4980-464e-8a1b-589bd1c5e947)](https://www.figma.com/design/WU4gOPa11P11Mx1P9mLkmD/The-Grand-Hotel-Budapest?node-id=0-1&p=f)
-
 
 ---
 
@@ -472,7 +498,6 @@ Possible future improvements include:
 
 [GitHub](https://github.com/ClaudiaCalero)
 
-
 [LinkedIn](https://www.linkedin.com/in/claudia-calero/)
 
 ---
@@ -480,4 +505,5 @@ Possible future improvements include:
 ## 📄 License
 
 This project is for educational and development purposes.
+
 
