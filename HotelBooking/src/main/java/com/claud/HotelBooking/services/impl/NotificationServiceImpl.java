@@ -24,16 +24,16 @@ public class NotificationServiceImpl implements NotificationService {
     private final JavaMailSender javaMailSender;
     private final NotificationRepository notificationRepository;
 
-    @Value("${twilio.account-sid}")
+    @Value("${twilio.account-sid:}")
     private String twilioAccountSid;
 
-    @Value("${twilio.auth-token}")
+    @Value("${twilio.auth-token:}")
     private String twilioAuthToken;
 
-    @Value("${twilio.sms-number}")
+    @Value("${twilio.sms-number:}")
     private String twilioSmsNumber;
 
-    @Value("${twilio.whatsapp-number}")
+    @Value("${twilio.whatsapp-number:}")
     private String twilioWhatsappNumber;
 
     @Override
