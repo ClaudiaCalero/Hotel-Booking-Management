@@ -3,7 +3,7 @@ import CryptoJS from "crypto-js";
 
 export default class ApiService {
 
-    static BASE_URL = "http://localhost:8080/api";
+    static BASE_URL = "/api";
     static ENCRYPTION_KEY = "claud-secrete-key";
 
     //enctyp token using cruyptojs

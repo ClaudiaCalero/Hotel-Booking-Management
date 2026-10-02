@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/static/css/main.b3800200.css",
+    "main.js": "/static/js/main.d7e8a2ca.js",
+    "static/media/wallpaperflare.com_wallpaper (2).jpg": "/static/media/wallpaperflare.com_wallpaper (2).6a3adbd70bceb8088945.jpg",
+    "static/media/jpg": "/static/media/7152ad903689b93788563ae8c5003dc8.71f38c70b313f64e4ff7.jpg",
+    "static/media/b6de5649.jpg": "/static/media/b6de5649.8195af3aff9b22474f72.jpg",
+    "static/media/bañera.jpg": "/static/media/bañera.1a2503ceacfbb37e6799.jpg",
+    "static/media/odegon4.jpg": "/static/media/odegon4.ebc06fe58b6f2b9d6a3c.jpg",
+    "static/media/shoes.jpg": "/static/media/shoes.4e87f405a8021ce6f790.jpg",
+    "static/media/nomolestes.jpg": "/static/media/nomolestes.7b963ac9c6a7ed8bb40f.jpg",
+    "static/media/perro.jpg": "/static/media/perro.e50611df89cc36238be8.jpg",
+    "static/media/FuturaCyrillicMedium.ttf": "/static/media/FuturaCyrillicMedium.8c2b829a94e8be079974.ttf",
+    "index.html": "/index.html",
+    "main.b3800200.css.map": "/static/css/main.b3800200.css.map",
+    "main.d7e8a2ca.js.map": "/static/js/main.d7e8a2ca.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b3800200.css",
+    "static/js/main.d7e8a2ca.js"
+  ]
+}
