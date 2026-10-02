@@ -39,6 +39,36 @@ public class SecurityFilter {
                 )
                 .authorizeHttpRequests(request -> request
                         .requestMatchers(
+                                "/",
+                                "/index.html",
+                                "/static/**",
+                                "/images/**",
+                                "/rooms/**",
+                                "/fonts/**",
+
+                                // React SPA routes
+                                "/home",
+                                "/login",
+                                "/register",
+                                "/forgot-password",
+                                "/reset-password",
+                                "/find-booking",
+                                "/profile",
+                                "/edit-profile",
+                                "/room-details/**",
+                                "/payment/**",
+                                "/payment-success/**",
+                                "/payment-failed/**",
+                                "/admin",
+                                "/admin/manage-rooms",
+                                "/admin/add-room",
+                                "/admin/edit-room/**",
+                                "/admin-register",
+                                "/admin/all-rooms",
+                                "/admin/manage-bookings",
+                                "/admin/edit-booking/**",
+
+                                // Public API
                                 "/api/auth/register",
                                 "/api/auth/login",
                                 "/api/auth/forgot-password",
@@ -50,7 +80,8 @@ public class SecurityFilter {
                                 "/api/bookings/*",
                                 "/api/payments/pay",
                                 "/api/payments/update"
-                        ).permitAll()
+                        )
+                        .permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
