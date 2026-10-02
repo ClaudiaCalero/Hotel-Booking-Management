@@ -72,10 +72,6 @@ class RoomServiceImplTest {
                 .build();
     }
 
-    // =========================================================
-    // ADD ROOM
-    // =========================================================
-
     @Test
     void addRoom_shouldSuccessfullyAddRoomWithoutImages() {
 
@@ -106,10 +102,6 @@ class RoomServiceImplTest {
 
         verify(roomRepository).save(any(Room.class));
     }
-
-    // =========================================================
-    // UPDATE ROOM
-    // =========================================================
 
     @Test
     void updateRoom_shouldSuccessfullyUpdateRoom() {
@@ -198,10 +190,6 @@ class RoomServiceImplTest {
         verify(roomRepository).save(room);
     }
 
-    // =========================================================
-    // GET ALL ROOMS
-    // =========================================================
-
     @Test
     void getAllRooms_shouldReturnAllRooms() {
 
@@ -251,10 +239,6 @@ class RoomServiceImplTest {
         verify(roomRepository).findAll(any(Sort.class));
     }
 
-    // =========================================================
-    // GET ROOM BY ID
-    // =========================================================
-
     @Test
     void getRoomById_shouldReturnRoom() {
 
@@ -292,10 +276,6 @@ class RoomServiceImplTest {
         verify(modelMapper, never()).map(any(), any());
     }
 
-    // =========================================================
-    // DELETE ROOM
-    // =========================================================
-
     @Test
     void deleteRoom_shouldSuccessfullyDeleteRoom() {
 
@@ -326,10 +306,6 @@ class RoomServiceImplTest {
         verify(roomRepository).existsById(999L);
         verify(roomRepository, never()).deleteById(anyLong());
     }
-
-    // =========================================================
-    // AVAILABLE ROOMS
-    // =========================================================
 
     @Test
     void getAvailableRooms_shouldReturnAvailableRooms() {
@@ -417,10 +393,6 @@ class RoomServiceImplTest {
         );
     }
 
-    // =========================================================
-    // GET ALL ROOM TYPES
-    // =========================================================
-
     @Test
     void getAllRoomTypes_shouldReturnAllRoomTypes() {
 
@@ -438,9 +410,6 @@ class RoomServiceImplTest {
         );
     }
 
-    // =========================================================
-    // SEARCH ROOM
-    // =========================================================
     @Test
     void searchRoom_shouldReturnMatchingRooms() {
 
@@ -506,11 +475,6 @@ class RoomServiceImplTest {
         );
     }
 
-
-
-    // =========================================================
-    // IMAGE VALIDATION
-    // =========================================================
 
     @Test
     void addRoom_shouldRejectNonImageFile() {

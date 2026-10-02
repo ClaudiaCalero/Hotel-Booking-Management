@@ -31,7 +31,6 @@ class UserControllerTest {
     @MockBean
     private UserService userService;
 
-    // Necesarios porque AuthFilter se carga en el contexto
     @MockBean
     private JwtUtils jwtUtils;
 

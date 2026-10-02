@@ -25,7 +25,6 @@ class BookingControllerTest {
     @MockBean
     private BookingService bookingService;
 
-    // Necesarios porque AuthFilter se carga en el contexto
     @MockBean
     private JwtUtils jwtUtils;
 

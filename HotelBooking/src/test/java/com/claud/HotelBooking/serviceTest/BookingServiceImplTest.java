@@ -76,10 +76,6 @@ class BookingServiceImplTest {
         SecurityContextHolder.clearContext();
     }
 
-    // ---------------------------------------------------------
-    // getAllBookings
-    // ---------------------------------------------------------
-
     @Test
     void getAllBookings_shouldReturnBookingsSuccessfully() {
         List<Booking> bookings = List.of(
@@ -112,10 +108,6 @@ class BookingServiceImplTest {
                 org.mockito.ArgumentMatchers.<java.lang.reflect.Type>any()
         );
     }
-
-    // ---------------------------------------------------------
-    // createBooking - guest
-    // ---------------------------------------------------------
 
     @Test
     void createBooking_asGuest_shouldCreateBookingSuccessfully() {
@@ -196,10 +188,6 @@ class BookingServiceImplTest {
         verify(notificationService).sendWhatsapp(any(NotificationDTO.class));
     }
 
-    // ---------------------------------------------------------
-    // createBooking - logged user
-    // ---------------------------------------------------------
-
     @Test
     void createBooking_asLoggedUser_shouldUseCurrentUser() {
         User user = User.builder()
@@ -275,10 +263,6 @@ class BookingServiceImplTest {
 
         verify(userService).getCurrentLoggedInUser();
     }
-
-    // ---------------------------------------------------------
-    // createBooking validation
-    // ---------------------------------------------------------
 
     @Test
     void createBooking_guestWithoutFirstName_shouldThrowException() {
