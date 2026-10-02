@@ -5,6 +5,3 @@ WORKDIR /app
 COPY . .
 
 RUN mvn -f HotelBooking/pom.xml clean package -DskipTests
-
-
-
