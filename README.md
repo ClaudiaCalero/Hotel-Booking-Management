@@ -1,8 +1,35 @@
 # 🏨 Hotel Booking Management
 
-A hotel booking management backend developed with **Java 21** and **Spring Boot**. The application provides REST APIs for authentication, user management, room management, booking management and payment processing.
+A full-stack hotel booking management application built with **Java 21**, **Spring Boot** and **React**. The backend provides REST APIs for authentication, user management, room management, booking management and payment processing, and the React frontend is served by the same Spring Boot application.
 
 The project also includes **JWT-based authentication**, **role-based authorization** and a comprehensive automated test suite using **JUnit 5, Mockito and Spring Boot Test**.
+
+---
+
+## 🌐 Live Demo
+
+**Production:** https://hotel-booking-management-yjwq.onrender.com
+
+> ⏳ The app is hosted on a free Render instance. After a period of inactivity it goes to sleep, so the first load can take up to a minute.
+
+### Demo credentials
+
+| Role  | Email           | Password          |
+| ----- | --------------- | ----------------- |
+| Admin | admin@hotel.com | `AdminHotel2026*` |
+
+You can also register your own customer account from the site.
+
+### Test payments (Stripe test mode)
+
+No real charges are made. To complete a payment, use Stripe's test card:
+
+| Field          | Value                 |
+| -------------- | --------------------- |
+| Card number    | `4242 4242 4242 4242` |
+| Expiry (MM/YY) | `04 / 42`             |
+| CVC            | `424`                 |
+| Postal code    | `42424`               |
 
 ---
 
@@ -86,6 +113,14 @@ The point is, I find it fun to imagine that, if it had one, **this could be the 
 * Hibernate
 * Maven
 
+### Frontend
+
+* React 19
+* React Router
+* Axios
+* Stripe.js / React Stripe.js
+* Create React App
+
 ### Database
 
 * MySQL
@@ -109,6 +144,12 @@ The point is, I find it fun to imagine that, if it had one, **this could be the 
 * Spring Boot Test
 * MockMvc
 * Spring Security Test
+
+### Infrastructure
+
+* Docker (multi-stage build)
+* Render (hosting)
+* Aiven (managed MySQL)
 
 ### Additional Libraries
 
@@ -170,68 +211,73 @@ Authorization: Bearer <token>
 
 ## ⚙️ Configuration
 
-The application uses environment variables for sensitive configuration values.
+The application reads all sensitive values from environment variables. **Do not commit real credentials, API keys or secrets to GitHub.**
 
-Create the required environment variables before starting the application.
+| Variable                     | Description                                                 | Required |
+| ---------------------------- | ----------------------------------------------------------- | -------- |
+| `SPRING_DATASOURCE_URL`      | JDBC URL, e.g. `jdbc:mysql://localhost:3306/hotel_bookings` | Yes      |
+| `SPRING_DATASOURCE_USERNAME` | Database user                                               | Yes      |
+| `SPRING_DATASOURCE_PASSWORD` | Database password                                           | Yes      |
+| `SECRETEJWTSTRING`           | JWT signing secret (at least 32 characters)                 | Yes      |
+| `HOTEL_ADMIN_EMAIL`          | Email that is automatically granted the `ADMIN` role        | Yes      |
+| `HOTEL_ADMIN_PASSWORD`       | Password of the default `admin@hotel.com` user              | No\*     |
+| `APP_BASE_URL`               | Public URL of the app, used in emails and payment links     | No\*\*   |
+| `SPRING_MAIL_HOST`           | SMTP host                                                   | Yes      |
+| `SPRING_MAIL_PORT`           | SMTP port (default `587`)                                   | No       |
+| `SPRING_MAIL_USERNAME`       | SMTP user                                                   | Yes      |
+| `SPRING_MAIL_PASSWORD`       | SMTP password                                               | Yes      |
+| `TWILIO_ACCOUNT_SID`         | Twilio account SID                                          | Yes      |
+| `TWILIO_AUTH_TOKEN`          | Twilio auth token                                           | Yes      |
+| `TWILIO_SMS_NUMBER`          | Twilio SMS number                                           | No       |
+| `TWILIO_WHATSAPP_NUMBER`     | Twilio WhatsApp number                                      | No       |
+| `STRIPE_API_PUBLIC_KEY`      | Stripe public key (`pk_test_...` for test mode)             | Yes      |
+| `STRIPE_API_SECRET_KEY`      | Stripe secret key (`sk_test_...` for test mode)             | Yes      |
+
+\* If not set, the default admin user is not created.
+\*\* Defaults to `http://localhost:3000`.
+
+The server port is read from `PORT` (default `8080`).
 
 ### 🗄️ Database
 
-The application uses a MySQL database named:
+The application uses a MySQL database. For a local setup:
+
+```sql
+CREATE DATABASE hotel_bookings;
+```
 
 ```text
-hotel_bookings
+SPRING_DATASOURCE_URL=jdbc:mysql://localhost:3306/hotel_bookings
+SPRING_DATASOURCE_USERNAME=root
+SPRING_DATASOURCE_PASSWORD=your_password
 ```
 
-The default configuration expects:
+Tables are created automatically on startup (`spring.jpa.hibernate.ddl-auto=update`).
 
-```properties
-spring.datasource.url=jdbc:mysql://localhost:3306/hotel_bookings
-spring.datasource.username=root
-spring.datasource.password=
-```
-
-Update the database credentials according to your local MySQL configuration.
-
-### 🔑 JWT
-
-```text
-JWT_SECRET=your_secure_jwt_secret
-```
-
-The JWT secret should be kept private and should **never be committed to the repository**.
+When the database requires an encrypted connection (as with Aiven), add `?sslMode=REQUIRED` to the JDBC URL.
 
 ### 👑 Administrator
 
-```text
-HOTEL_ADMIN_EMAIL=admin@example.com
+The email set in `HOTEL_ADMIN_EMAIL` is automatically assigned administrator permissions when registering. Additionally, if `HOTEL_ADMIN_PASSWORD` is set, a default `admin@hotel.com` user is created on first startup.
+
+---
+
+## 🐳 Docker & Deployment
+
+The repository includes a multi-stage `Dockerfile` that builds the React frontend, bundles it into the Spring Boot application and produces a single image that serves both the API and the web app:
+
+1. **Frontend:** `npm ci` + `npm run build` (Create React App, Node 20)
+2. **Backend:** the build output is copied into `src/main/resources/static` and packaged with Maven (Java 21)
+3. **Runtime:** a slim JRE image runs the resulting JAR
+
+Run it locally (create a `.env` file with the variables listed above):
+
+```bash
+docker build -t hotel-booking .
+docker run -p 8080:8080 --env-file .env hotel-booking
 ```
 
-The configured email address is automatically assigned administrator permissions according to the application's user management logic.
-
-### 📧 Email
-
-```text
-MAIL_USERNAME=your_email
-MAIL_PASSWORD=your_email_password
-```
-
-### 📱 Twilio
-
-```text
-TWILIO_ACCOUNT_SID=your_account_sid
-TWILIO_AUTH_TOKEN=your_auth_token
-TWILIO_SMS_NUMBER=your_sms_number
-TWILIO_WHATSAPP_NUMBER=your_whatsapp_number
-```
-
-### 💳 Stripe
-
-```text
-STRIPE_PUBLIC_KEY=your_stripe_public_key
-STRIPE_SECRET_KEY=your_stripe_secret_key
-```
-
-> ⚠️ **Do not commit real credentials, API keys or secrets to GitHub.**
+The production demo runs on **Render** (free Web Service, Docker runtime) with a free **Aiven MySQL** database. The environment variables are configured in the Render dashboard, and every push to `master` triggers a new deploy.
 
 ---
 
@@ -244,6 +290,7 @@ Make sure you have installed:
 * Java 21
 * Maven
 * MySQL 8 or compatible version
+* Docker (optional, to run the full stack as in production)
 
 ### 1. Clone the repository
 
@@ -259,8 +306,6 @@ Create a MySQL database named:
 ```sql
 CREATE DATABASE hotel_bookings;
 ```
-
-Configure the database credentials in `application.properties` or through your environment.
 
 ### 3. Configure environment variables
 
@@ -449,7 +494,6 @@ Current Project:
 
 [![The Grand Hotel Budapest Preview](https://github.com/user-attachments/assets/a4bd600e-4980-464e-8a1b-589bd1c5e947)](https://www.figma.com/design/WU4gOPa11P11Mx1P9mLkmD/The-Grand-Hotel-Budapest?node-id=0-1&p=f)
 
-
 ---
 
 ## 🔮 Future Improvements
@@ -458,11 +502,11 @@ Possible future improvements include:
 
 * API documentation with OpenAPI/Swagger
 * Integration and end-to-end testing with a dedicated test database
-* Docker support
 * CI/CD pipeline with GitHub Actions
 * Improved validation responses and API error formats
 * Additional booking and payment features
-* Production deployment configuration
+* Email delivery through an HTTPS-based provider (SMTP is blocked on the free hosting tier)
+* Persistent storage for uploaded room images
 
 ---
 
@@ -472,8 +516,8 @@ Possible future improvements include:
 
 [GitHub](https://github.com/ClaudiaCalero)
 
-
 [LinkedIn](https://www.linkedin.com/in/claudia-calero/)
+
 
 ---
 
