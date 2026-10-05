@@ -22,6 +22,7 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -40,6 +41,9 @@ public class BookingServiceImpl implements BookingService {
     private final ModelMapper modelMapper;
     private final UserService userService;
     private final BookingCodeGenerator bookingCodeGenerator;
+
+    @Value("${app.base-url}")
+    private String baseUrl;
 
     @Override
     public Response getAllBookings() {
@@ -204,12 +208,10 @@ public class BookingServiceImpl implements BookingService {
         bookingRepository.save(booking);
 
         String paymentUrl =
-                "http://localhost:3000/payment/"
+                baseUrl + "/payment/"
                         + bookingReference
                         + "/"
                         + totalPrice;
-
-        log.info("PAYMENT LINK: {}", paymentUrl);
 
         String recipientEmail;
         String recipientPhone;
