@@ -1,3 +1,4 @@
+<img width="800" height="450" alt="VideoProject4-ezgif com-video-to-gif-converter" src="https://github.com/user-attachments/assets/6daec642-c6a4-4e18-9325-a4ebeacb1986" />
 # 🏨 Hotel Booking Management
 
 A full-stack hotel booking management application built with **Java 21**, **Spring Boot** and **React**. The backend provides REST APIs for authentication, user management, room management, booking management and payment processing, and the React frontend is served by the same Spring Boot application.
@@ -495,15 +496,16 @@ Current Project:
 [![The Grand Hotel Budapest Preview](https://github.com/user-attachments/assets/a4bd600e-4980-464e-8a1b-589bd1c5e947)](https://www.figma.com/design/WU4gOPa11P11Mx1P9mLkmD/The-Grand-Hotel-Budapest?node-id=0-1&p=f)
 
 ---
-## Visuals
-USER ROUTE
-<video src="https://github.com/user-attachments/assets/cc20f11a-bd68-4fa2-b72d-f02b8e987dca" width="550" height="480"></video>
+## 🎞️ 
+Visuals
+USER ROUTE falta por convertir video
+
 
 GUEST ROUTE
-<video src="https://github.com/user-attachments/assets/84095d2f-3b52-428e-a678-53d916ee24ce" width="550" height="480" ></video>
+<img width="800" height="450" alt="VideoProject21-ezgif com-video-to-gif-converter" src="https://github.com/user-attachments/assets/11bc6a95-3e76-42bb-b00b-84381913c119" />
 
 ADMIN ROUTE
-<video src="https://github.com/user-attachments/assets/97c2da40-ec52-476b-a5a7-09f116fda688" width="550" height="480" ></video>
+<img width="800" height="450" alt="VideoProject4-ezgif com-video-to-gif-converter" src="https://github.com/user-attachments/assets/7910a938-eaba-404b-86ae-3f88ec1b2421" />
 
 ## 🔮 Future Improvements
 
