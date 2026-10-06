@@ -496,6 +496,8 @@ Current Project:
 
 ---
 
+<video src="https://github.com/user-attachments/assets/cc20f11a-bd68-4fa2-b72d-f02b8e987dca" width="854" height="480" controls></video>
+
 ## 🔮 Future Improvements
 
 Possible future improvements include:
