@@ -495,8 +495,15 @@ Current Project:
 [![The Grand Hotel Budapest Preview](https://github.com/user-attachments/assets/a4bd600e-4980-464e-8a1b-589bd1c5e947)](https://www.figma.com/design/WU4gOPa11P11Mx1P9mLkmD/The-Grand-Hotel-Budapest?node-id=0-1&p=f)
 
 ---
+## Visuals
+USER ROUTE
+<video src="https://github.com/user-attachments/assets/cc20f11a-bd68-4fa2-b72d-f02b8e987dca" width="550" height="480"></video>
 
-<video src="https://github.com/user-attachments/assets/cc20f11a-bd68-4fa2-b72d-f02b8e987dca" width="854" height="480" controls></video>
+GUEST ROUTE
+<video src="https://github.com/user-attachments/assets/84095d2f-3b52-428e-a678-53d916ee24ce" width="550" height="480" ></video>
+
+ADMIN ROUTE
+<video src="https://github.com/user-attachments/assets/97c2da40-ec52-476b-a5a7-09f116fda688" width="550" height="480" ></video>
 
 ## 🔮 Future Improvements
 
