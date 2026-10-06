@@ -97,7 +97,7 @@ public class Initializer {
         return List.of(
                 room(101, RoomType.STANDARD_ROOM, "250", 1,
                         loadText("room-descriptions/room-101.txt"),
-                        IMG + "placeholder-room1.jpg",
+                        IMG + IMG + "single/placeholder-room1.jpg",
                         IMG + "single/2.jpg", IMG + "single/3.jpg", IMG + "single/6.jpg",
                         IMG + "single/7.jpg", IMG + "single/4.jpg", IMG + "single/9.jpg",
                         IMG + "single/8.jpg", IMG + "single/5.jpg"),
@@ -107,7 +107,7 @@ public class Initializer {
 
                 room(201, RoomType.DELUXE_SUITE, "480", 2,
                         loadText("room-descriptions/room-201.txt"),
-                        IMG + "placeholder-room2.jpg",
+                        IMG + "double/placeholder-room2.jpg",
                         IMG + "double/double201.jpg",
                         IMG + "double/209bddb8b6e656a4b82e35e7e78da48e.jpg",
                         IMG + "double/0b287cec2b918506c5508112f4b4c97f.jpg",
