@@ -26,6 +26,16 @@ You can also register your own customer account from the site.
 
 Payments are **simulated** in this public demo: no card data is validated and no real charge is made, so you can enter any values in the payment form. The backend also supports real Stripe payments with server-side verification (see `PAYMENTS_VERIFY_WITH_STRIPE` in the [Configuration](#️-configuration) section).
 
+### 💳 Test Credentials
+If you want to test the checkout quickly, you can use the standard Stripe test card:
+
+| Field | Test Value |
+| :--- | :--- |
+| **Card Number** | `4242 4242 4242 4242` |
+| **Expiration Date** | Any future date (e.g., `12/28`) |
+| **CVC** | `424` |
+| **Postal Code** | Any random code (e.g., `90210` or `08001`) |
+
 ---
 
 ## 🎨 Creative Concept
