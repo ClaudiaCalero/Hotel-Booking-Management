@@ -21,16 +21,9 @@ The project also includes **JWT-based authentication**, **role-based authorizati
 
 You can also register your own customer account from the site.
 
-### Test payments (Stripe test mode)
+### Payments (demo mode)
 
-No real charges are made. To complete a payment, use Stripe's test card:
-
-| Field          | Value                 |
-| -------------- | --------------------- |
-| Card number    | `4242 4242 4242 4242` |
-| Expiry (MM/YY) | `04 / 42`             |
-| CVC            | `424`                 |
-| Postal code    | `42424`               |
+Payments are **simulated** in this public demo: no card data is validated and no real charge is made, so you can enter any values in the payment form. The backend also supports real Stripe payments with server-side verification (see `PAYMENTS_VERIFY_WITH_STRIPE` in the [Configuration](#️-configuration) section).
 
 ---
 
@@ -92,7 +85,8 @@ The point is, I find it fun to imagine that, if it had one, **this could be the 
 
 ### 💳 Payments
 
-* Stripe payment integration
+* Stripe PaymentIntent integration, with optional server-side verification of the payment
+* The public demo runs in simulated payment mode
 * Payment status management
 * Secure payment configuration through environment variables
 
@@ -233,6 +227,7 @@ The application reads all sensitive values from environment variables. **Do not 
 | `TWILIO_WHATSAPP_NUMBER`     | Twilio WhatsApp number                                      | No       |
 | `STRIPE_API_PUBLIC_KEY`      | Stripe public key (`pk_test_...` for test mode)             | Yes      |
 | `STRIPE_API_SECRET_KEY`      | Stripe secret key (`sk_test_...` for test mode)             | Yes      |
+| `PAYMENTS_VERIFY_WITH_STRIPE`| `true` verifies each payment with Stripe on the server; `false` (default) is demo mode | No |
 
 \* If not set, the default admin user is not created.
 \*\* Defaults to `http://localhost:3000`.
@@ -355,7 +350,7 @@ Tests include:
 The complete test suite currently passes with:
 
 ```text
-96 tests
+118 tests
 0 failures
 0 errors
 0 skipped
@@ -372,7 +367,7 @@ mvn test
 Expected result:
 
 ```text
-Tests run: 96
+Tests run: 118
 Failures: 0
 Errors: 0
 Skipped: 0
@@ -518,6 +513,7 @@ Possible future improvements include:
 * Additional booking and payment features
 * Email delivery through an HTTPS-based provider (SMTP is blocked on the free hosting tier)
 * Persistent storage for uploaded room images
+* Re-enable real Stripe payments in the frontend and set `PAYMENTS_VERIFY_WITH_STRIPE=true`
 
 ---
 
