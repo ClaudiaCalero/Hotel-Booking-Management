@@ -502,6 +502,13 @@ GUEST ROUTE
 ADMIN ROUTE
 <img width="800" height="450" alt="VideoProject4-ezgif com-video-to-gif-converter" src="https://github.com/user-attachments/assets/7910a938-eaba-404b-86ae-3f88ec1b2421" />
 
+USER ROUTE
+<img width="800" height="450" alt="ezgif com-video-to-gif-converter (1)" src="https://github.com/user-attachments/assets/6511d33c-37a9-4fe6-beb7-865b721b10ae" />
+
+
+
+
+
 ## 🔮 Future Improvements
 
 Possible future improvements include:
