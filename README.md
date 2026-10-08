@@ -1,4 +1,5 @@
-<img width="800" height="450" alt="VideoProject4-ezgif com-video-to-gif-converter" src="https://github.com/user-attachments/assets/6daec642-c6a4-4e18-9325-a4ebeacb1986" />
+<img width="3840" height="1011" alt="wallpaperflare com_wallpaper (2)3" src="https://github.com/user-attachments/assets/c9b5523a-6637-462e-a324-242935dd703a" />
+
 # 🏨 Hotel Booking Management
 
 A full-stack hotel booking management application built with **Java 21**, **Spring Boot** and **React**. The backend provides REST APIs for authentication, user management, room management, booking management and payment processing, and the React frontend is served by the same Spring Boot application.
