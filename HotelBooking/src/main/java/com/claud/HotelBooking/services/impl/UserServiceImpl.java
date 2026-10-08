@@ -195,9 +195,18 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Response forgotPassword(String email) {
-        // Check if the user exists
-        User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new NotFoundException("No user was found with that email address."));
+        // The answer is always the same, so nobody can find out which emails are registered
+        Response response = Response.builder()
+                .status(200)
+                .message("If an account exists for that email, a recovery link has been sent.")
+                .build();
+
+        java.util.Optional<User> optionalUser = userRepository.findByEmail(email);
+        if (optionalUser.isEmpty()) {
+            return response;
+        }
+
+        User user = optionalUser.get();
 
         // Generate random unique token
         String token = java.util.UUID.randomUUID().toString();
@@ -208,12 +217,14 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
 
         // Send the email using the emailService
-        emailService.sendResetPasswordEmail(user.getEmail(), token);
+        try {
+            emailService.sendResetPasswordEmail(user.getEmail(), token);
+        } catch (Exception e) {
+            // Logged but not shown: a different answer would reveal that the email exists
+            log.error("Could not send the password recovery email", e);
+        }
 
-        return Response.builder()
-                .status(200)
-                .message("A recovery link has been sent to your email.")
-                .build();
+        return response;
     }
 
     @Override

@@ -115,6 +115,64 @@ class UserServiceImplTest {
     }
 
     @Test
+    void forgotPassword_existingEmail_shouldSaveTokenAndSendEmail() {
+        User user = User.builder()
+                .id(1L)
+                .email("john@test.com")
+                .build();
+
+        when(userRepository.findByEmail("john@test.com"))
+                .thenReturn(Optional.of(user));
+
+        Response response = userService.forgotPassword("john@test.com");
+
+        assertEquals(200, response.getStatus());
+        assertNotNull(user.getResetPasswordToken());
+        assertNotNull(user.getTokenExpirationDate());
+        verify(userRepository).save(user);
+        verify(emailService).sendResetPasswordEmail(eq("john@test.com"), anyString());
+    }
+
+    @Test
+    void forgotPassword_unknownEmail_shouldAnswerTheSameAndSendNothing() {
+        when(userRepository.findByEmail("nobody@test.com"))
+                .thenReturn(Optional.empty());
+
+        Response response = userService.forgotPassword("nobody@test.com");
+
+        assertEquals(200, response.getStatus());
+        assertEquals(
+                "If an account exists for that email, a recovery link has been sent.",
+                response.getMessage()
+        );
+        verify(userRepository, never()).save(any(User.class));
+        verifyNoInteractions(emailService);
+    }
+
+    @Test
+    void forgotPassword_whenEmailSendingFails_shouldStillAnswerNormally() {
+        User user = User.builder()
+                .id(1L)
+                .email("john@test.com")
+                .build();
+
+        when(userRepository.findByEmail("john@test.com"))
+                .thenReturn(Optional.of(user));
+
+        doThrow(new RuntimeException("SMTP unreachable"))
+                .when(emailService)
+                .sendResetPasswordEmail(eq("john@test.com"), anyString());
+
+        Response response = userService.forgotPassword("john@test.com");
+
+        assertEquals(200, response.getStatus());
+        assertEquals(
+                "If an account exists for that email, a recovery link has been sent.",
+                response.getMessage()
+        );
+    }
+
+    @Test
     void registerUser_shouldRejectDuplicateEmail() {
 
         RegistrationRequest request = new RegistrationRequest(

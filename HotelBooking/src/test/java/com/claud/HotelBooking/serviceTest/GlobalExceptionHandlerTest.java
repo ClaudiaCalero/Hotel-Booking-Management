@@ -1,4 +1,4 @@
-package com.claud.HotelBooking.exceptionTest;
+package com.claud.HotelBooking.serviceTest;
 
 import com.claud.HotelBooking.dtos.Response;
 import com.claud.HotelBooking.exceptions.GlobalExceptionHandler;
@@ -60,11 +60,21 @@ class GlobalExceptionHandlerTest {
     }
 
     @Test
-    void unknownException_shouldReturn500() {
+    void unknownException_shouldReturn500WithoutExposingTheInternalMessage() {
         ResponseEntity<Response> response =
-                handler.handleAllUnknowExceptions(new RuntimeException("boom"));
+                handler.handleAllUnknowExceptions(new RuntimeException("boom: secret internal detail"));
 
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
-        assertEquals("boom", response.getBody().getMessage());
+        assertEquals("An unexpected error occurred", response.getBody().getMessage());
+    }
+
+    @Test
+    void illegalArgument_shouldReturn400WithItsMessage() {
+        ResponseEntity<Response> response =
+                handler.handleIllegalArgument(new IllegalArgumentException("Only Image files are allowed"));
+
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        assertEquals(400, response.getBody().getStatus());
+        assertEquals("Only Image files are allowed", response.getBody().getMessage());
     }
 }
