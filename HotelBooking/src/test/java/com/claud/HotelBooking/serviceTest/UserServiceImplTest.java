@@ -90,6 +90,31 @@ class UserServiceImplTest {
     }
 
     @Test
+    void registerUser_shouldIgnoreRoleSentByTheClient() {
+
+        RegistrationRequest request = new RegistrationRequest(
+                "Eve",
+                "X",
+                "eve@test.com",
+                "123456789",
+                UserRole.ADMIN,
+                "password123"
+        );
+
+        when(userRepository.existsByEmail("eve@test.com"))
+                .thenReturn(false);
+
+        when(passwordEncoder.encode("password123"))
+                .thenReturn("encodedPassword");
+
+        userService.registerUser(request);
+
+        verify(userRepository).save(argThat(user ->
+                user.getRole() == UserRole.CUSTOMER
+        ));
+    }
+
+    @Test
     void registerUser_shouldRejectDuplicateEmail() {
 
         RegistrationRequest request = new RegistrationRequest(

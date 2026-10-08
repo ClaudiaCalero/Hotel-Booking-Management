@@ -8,6 +8,7 @@ import com.claud.HotelBooking.entities.Room;
 import com.claud.HotelBooking.entities.User;
 import com.claud.HotelBooking.enums.BookingStatus;
 import com.claud.HotelBooking.enums.PaymentStatus;
+import com.claud.HotelBooking.enums.UserRole;
 import com.claud.HotelBooking.exceptions.InvalidBookingStateAndDateException;
 import com.claud.HotelBooking.exceptions.NotFoundException;
 import com.claud.HotelBooking.repositories.BookingRepository;
@@ -24,6 +25,7 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -132,7 +134,7 @@ class BookingServiceImplTest {
                 .guestPhoneNumber("+34123456789")
                 .build();
 
-        when(roomRepository.findById(10L))
+        when(roomRepository.findByIdForUpdate(10L))
                 .thenReturn(Optional.of(room));
 
         when(bookingRepository.isRoomAvailable(
@@ -222,7 +224,7 @@ class BookingServiceImplTest {
                 .checkOutDate(checkOut)
                 .build();
 
-        when(roomRepository.findById(20L))
+        when(roomRepository.findByIdForUpdate(20L))
                 .thenReturn(Optional.of(room));
 
         when(bookingRepository.isRoomAvailable(
@@ -378,7 +380,7 @@ class BookingServiceImplTest {
                 .checkOutDate(LocalDate.now().plusDays(1))
                 .build();
 
-        when(roomRepository.findById(999L))
+        when(roomRepository.findByIdForUpdate(999L))
                 .thenReturn(Optional.empty());
 
         NotFoundException exception =
@@ -411,7 +413,7 @@ class BookingServiceImplTest {
                 .pricePerNight(new BigDecimal("100.00"))
                 .build();
 
-        when(roomRepository.findById(1L))
+        when(roomRepository.findByIdForUpdate(1L))
                 .thenReturn(Optional.of(room));
 
         InvalidBookingStateAndDateException exception =
@@ -451,7 +453,7 @@ class BookingServiceImplTest {
                 .pricePerNight(new BigDecimal("100.00"))
                 .build();
 
-        when(roomRepository.findById(1L))
+        when(roomRepository.findByIdForUpdate(1L))
                 .thenReturn(Optional.of(room));
 
         InvalidBookingStateAndDateException exception =
@@ -487,7 +489,7 @@ class BookingServiceImplTest {
                 .pricePerNight(new BigDecimal("100.00"))
                 .build();
 
-        when(roomRepository.findById(1L))
+        when(roomRepository.findByIdForUpdate(1L))
                 .thenReturn(Optional.of(room));
 
         InvalidBookingStateAndDateException exception =
@@ -524,7 +526,7 @@ class BookingServiceImplTest {
                 .pricePerNight(new BigDecimal("100.00"))
                 .build();
 
-        when(roomRepository.findById(1L))
+        when(roomRepository.findByIdForUpdate(1L))
                 .thenReturn(Optional.of(room));
 
         when(bookingRepository.isRoomAvailable(
@@ -624,6 +626,9 @@ class BookingServiceImplTest {
         when(bookingRepository.findById(10L))
                 .thenReturn(Optional.of(existingBooking));
 
+        when(userService.getCurrentLoggedInUser())
+                .thenReturn(adminUser());
+
         Response response = bookingService.updateBooking(bookingDTO);
 
         assertEquals(200, response.getStatus());
@@ -661,6 +666,9 @@ class BookingServiceImplTest {
         when(bookingRepository.findById(10L))
                 .thenReturn(Optional.of(existingBooking));
 
+        when(userService.getCurrentLoggedInUser())
+                .thenReturn(adminUser());
+
         bookingService.updateBooking(bookingDTO);
 
         assertEquals(
@@ -691,6 +699,9 @@ class BookingServiceImplTest {
 
         when(bookingRepository.findById(10L))
                 .thenReturn(Optional.of(existingBooking));
+
+        when(userService.getCurrentLoggedInUser())
+                .thenReturn(adminUser());
 
         bookingService.updateBooking(bookingDTO);
 
@@ -767,6 +778,9 @@ class BookingServiceImplTest {
         when(bookingRepository.findById(10L))
                 .thenReturn(Optional.of(existingBooking));
 
+        when(userService.getCurrentLoggedInUser())
+                .thenReturn(adminUser());
+
         Response response = bookingService.updateBooking(bookingDTO);
 
         assertEquals(200, response.getStatus());
@@ -776,5 +790,168 @@ class BookingServiceImplTest {
         );
 
         verify(bookingRepository).save(existingBooking);
+    }
+
+    // ---------------------------------------------------------
+    // updateBooking: permisos
+    // ---------------------------------------------------------
+
+    private User adminUser() {
+        return User.builder()
+                .id(1L)
+                .role(UserRole.ADMIN)
+                .build();
+    }
+
+    private User customerUser(Long id) {
+        return User.builder()
+                .id(id)
+                .role(UserRole.CUSTOMER)
+                .build();
+    }
+
+    @Test
+    void updateBooking_customerCancelsOwnBooking_shouldWork() {
+        User owner = customerUser(5L);
+
+        Booking existingBooking = Booking.builder()
+                .id(10L)
+                .user(owner)
+                .bookingStatus(BookingStatus.BOOKED)
+                .paymentStatus(PaymentStatus.PENDING)
+                .build();
+
+        BookingDTO bookingDTO = BookingDTO.builder()
+                .id(10L)
+                .bookingStatus(BookingStatus.CANCELLED)
+                .paymentStatus(PaymentStatus.PENDING)
+                .build();
+
+        when(bookingRepository.findById(10L))
+                .thenReturn(Optional.of(existingBooking));
+        when(userService.getCurrentLoggedInUser())
+                .thenReturn(owner);
+
+        Response response = bookingService.updateBooking(bookingDTO);
+
+        assertEquals(200, response.getStatus());
+        assertEquals(BookingStatus.CANCELLED, existingBooking.getBookingStatus());
+        assertEquals(PaymentStatus.PENDING, existingBooking.getPaymentStatus());
+        verify(bookingRepository).save(existingBooking);
+    }
+
+    @Test
+    void updateBooking_customerOnOtherUsersBooking_shouldBeDenied() {
+        Booking existingBooking = Booking.builder()
+                .id(10L)
+                .user(customerUser(5L))
+                .bookingStatus(BookingStatus.BOOKED)
+                .paymentStatus(PaymentStatus.PENDING)
+                .build();
+
+        BookingDTO bookingDTO = BookingDTO.builder()
+                .id(10L)
+                .bookingStatus(BookingStatus.CANCELLED)
+                .build();
+
+        when(bookingRepository.findById(10L))
+                .thenReturn(Optional.of(existingBooking));
+        when(userService.getCurrentLoggedInUser())
+                .thenReturn(customerUser(99L));
+
+        assertThrows(
+                AccessDeniedException.class,
+                () -> bookingService.updateBooking(bookingDTO)
+        );
+
+        assertEquals(BookingStatus.BOOKED, existingBooking.getBookingStatus());
+        verify(bookingRepository, never()).save(any(Booking.class));
+    }
+
+    @Test
+    void updateBooking_customerOnGuestBooking_shouldBeDenied() {
+        Booking guestBooking = Booking.builder()
+                .id(10L)
+                .user(null)
+                .bookingStatus(BookingStatus.BOOKED)
+                .paymentStatus(PaymentStatus.PENDING)
+                .build();
+
+        BookingDTO bookingDTO = BookingDTO.builder()
+                .id(10L)
+                .bookingStatus(BookingStatus.CANCELLED)
+                .build();
+
+        when(bookingRepository.findById(10L))
+                .thenReturn(Optional.of(guestBooking));
+        when(userService.getCurrentLoggedInUser())
+                .thenReturn(customerUser(5L));
+
+        assertThrows(
+                AccessDeniedException.class,
+                () -> bookingService.updateBooking(bookingDTO)
+        );
+
+        verify(bookingRepository, never()).save(any(Booking.class));
+    }
+
+    @Test
+    void updateBooking_customerCannotMarkOwnBookingAsPaid() {
+        User owner = customerUser(5L);
+
+        Booking existingBooking = Booking.builder()
+                .id(10L)
+                .user(owner)
+                .bookingStatus(BookingStatus.BOOKED)
+                .paymentStatus(PaymentStatus.PENDING)
+                .build();
+
+        BookingDTO bookingDTO = BookingDTO.builder()
+                .id(10L)
+                .paymentStatus(PaymentStatus.COMPLETED)
+                .build();
+
+        when(bookingRepository.findById(10L))
+                .thenReturn(Optional.of(existingBooking));
+        when(userService.getCurrentLoggedInUser())
+                .thenReturn(owner);
+
+        assertThrows(
+                AccessDeniedException.class,
+                () -> bookingService.updateBooking(bookingDTO)
+        );
+
+        assertEquals(PaymentStatus.PENDING, existingBooking.getPaymentStatus());
+        verify(bookingRepository, never()).save(any(Booking.class));
+    }
+
+    @Test
+    void updateBooking_customerCannotSetStatusOtherThanCancelled() {
+        User owner = customerUser(5L);
+
+        Booking existingBooking = Booking.builder()
+                .id(10L)
+                .user(owner)
+                .bookingStatus(BookingStatus.BOOKED)
+                .paymentStatus(PaymentStatus.PENDING)
+                .build();
+
+        BookingDTO bookingDTO = BookingDTO.builder()
+                .id(10L)
+                .bookingStatus(BookingStatus.CHECKED_IN)
+                .build();
+
+        when(bookingRepository.findById(10L))
+                .thenReturn(Optional.of(existingBooking));
+        when(userService.getCurrentLoggedInUser())
+                .thenReturn(owner);
+
+        assertThrows(
+                AccessDeniedException.class,
+                () -> bookingService.updateBooking(bookingDTO)
+        );
+
+        assertEquals(BookingStatus.BOOKED, existingBooking.getBookingStatus());
+        verify(bookingRepository, never()).save(any(Booking.class));
     }
 }

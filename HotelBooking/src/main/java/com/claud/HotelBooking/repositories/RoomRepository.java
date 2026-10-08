@@ -2,12 +2,15 @@ package com.claud.HotelBooking.repositories;
 
 import com.claud.HotelBooking.entities.Room;
 import com.claud.HotelBooking.enums.RoomType;
+import jakarta.persistence.LockModeType;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 public interface RoomRepository extends JpaRepository<Room, Long> {
 
@@ -56,6 +59,15 @@ public interface RoomRepository extends JpaRepository<Room, Long> {
     List<Room> searchRooms(@Param("searchParam") String searchParam);
 
     List<Room> findByType(RoomType type);
+
+    /**
+     * Loads a room locking its row until the end of the transaction.
+     * Used when creating a booking so that two simultaneous requests
+     * cannot book the same room for overlapping dates.
+     */
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
+    @Query("SELECT r FROM Room r WHERE r.id = :id")
+    Optional<Room> findByIdForUpdate(@Param("id") Long id);
 }
 
 

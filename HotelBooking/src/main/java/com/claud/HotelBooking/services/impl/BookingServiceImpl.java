@@ -8,6 +8,7 @@ import com.claud.HotelBooking.entities.Room;
 import com.claud.HotelBooking.entities.User;
 import com.claud.HotelBooking.enums.BookingStatus;
 import com.claud.HotelBooking.enums.PaymentStatus;
+import com.claud.HotelBooking.enums.UserRole;
 import com.claud.HotelBooking.exceptions.InvalidBookingStateAndDateException;
 import com.claud.HotelBooking.exceptions.NotFoundException;
 import com.claud.HotelBooking.repositories.BookingRepository;
@@ -21,7 +22,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.beans.factory.annotation.Value;
 
 import java.math.BigDecimal;
@@ -67,6 +70,7 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
+    @Transactional
     public Response createBooking(BookingDTO bookingDTO) {
 
         User currentUser = null;
@@ -118,7 +122,7 @@ public class BookingServiceImpl implements BookingService {
             }
         }
 
-        Room room = roomRepository.findById(bookingDTO.getRoomId())
+        Room room = roomRepository.findByIdForUpdate(bookingDTO.getRoomId())
                 .orElseThrow(() ->
                         new NotFoundException("Room Not Found")
                 );
@@ -301,6 +305,7 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
+    @Transactional
     public Response updateBooking(BookingDTO bookingDTO) {
 
         if (bookingDTO.getId() == null) {
@@ -312,6 +317,30 @@ public class BookingServiceImpl implements BookingService {
                         .orElseThrow(() ->
                                 new NotFoundException("Booking Not Found")
                         );
+
+        User currentUser = userService.getCurrentLoggedInUser();
+        boolean isAdmin = currentUser.getRole() == UserRole.ADMIN;
+
+        if (!isAdmin) {
+            boolean isOwner = existingBooking.getUser() != null
+                    && existingBooking.getUser().getId() != null
+                    && existingBooking.getUser().getId().equals(currentUser.getId());
+
+            if (!isOwner) {
+                throw new AccessDeniedException("You can only update your own bookings");
+            }
+
+            // Customers can only cancel; they can never change the payment status
+            if (bookingDTO.getBookingStatus() != null
+                    && bookingDTO.getBookingStatus() != BookingStatus.CANCELLED) {
+                throw new AccessDeniedException("Customers can only cancel a booking");
+            }
+
+            if (bookingDTO.getPaymentStatus() != null
+                    && bookingDTO.getPaymentStatus() != existingBooking.getPaymentStatus()) {
+                throw new AccessDeniedException("Customers cannot change the payment status");
+            }
+        }
 
         if (bookingDTO.getBookingStatus() != null) {
 

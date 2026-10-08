@@ -52,10 +52,8 @@ public class UserServiceImpl implements UserService {
         // 2. We establish a default base role
         UserRole role = UserRole.CUSTOMER;
 
-        // 3. If the frontend sends an explicit role, it is temporarily respected
-        if (registrationRequest.getRole() != null) {
-            role = registrationRequest.getRole();
-        }
+        // 3. The role sent by the client is ignored on purpose:
+        // nobody can choose to be an ADMIN when registering.
 
         // 4. MASTER RULE (ALWAYS AT THE END): If the email matches the admin,
         /// we force the ADMIN role no matter what.

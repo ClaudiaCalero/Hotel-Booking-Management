@@ -2,15 +2,36 @@ package com.claud.HotelBooking.exceptions;
 
 import com.claud.HotelBooking.dtos.Response;
 import org.springframework.http.HttpStatus;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+@Slf4j
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<Response> handleAccessDenied(AccessDeniedException ex) {
+        var authentication = SecurityContextHolder.getContext().getAuthentication();
+        boolean anonymous = authentication == null
+                || authentication instanceof AnonymousAuthenticationToken;
+
+        HttpStatus status = anonymous ? HttpStatus.UNAUTHORIZED : HttpStatus.FORBIDDEN;
+
+        Response response = Response.builder()
+                .status(status.value())
+                .message(anonymous ? "Authentication is required" : "Access denied")
+                .build();
+        return new ResponseEntity<>(response, status);
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Response> handleAllUnknowExceptions(Exception ex) {
+        log.error("Unhandled exception", ex);
         Response response = Response.builder()
                 .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
                 .message(ex.getMessage())
