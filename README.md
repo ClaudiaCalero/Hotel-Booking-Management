@@ -8,6 +8,18 @@ The project also includes **JWT-based authentication**, **role-based authorizati
 
 ---
 
+## 🎨 Creative Concept
+
+When I think about the movie ***The Grand Budapest Hotel***, directed by Wes Anderson, I find it curious to imagine what its website would look like.
+
+Originally, this project was created as part of my portfolio. However, while working on the mockup, choosing the visual style, selecting the photos, colors, and overall aesthetic, I couldn't help but think of that movie.
+
+Could it be because I watched it shortly before working on the design? Who knows.
+
+The point is, I find it fun to imagine that, if it had one, **this could be the official website of the Grand Budapest Hotel**.
+
+---
+
 ## 🌐 Live Demo
 
 **Production:** https://hotel-booking-management-yjwq.onrender.com
@@ -35,18 +47,6 @@ If you want to test the checkout quickly, you can use the standard Stripe test c
 | **Expiration Date** | Any future date (e.g., `12/28`) |
 | **CVC** | `424` |
 | **Postal Code** | Any random code (e.g., `90210` or `08001`) |
-
----
-
-## 🎨 Creative Concept
-
-When I think about the movie ***The Grand Budapest Hotel***, directed by Wes Anderson, I find it curious to imagine what its website would look like.
-
-Originally, this project was created as part of my portfolio. However, while working on the mockup, choosing the visual style, selecting the photos, colors, and overall aesthetic, I couldn't help but think of that movie.
-
-Could it be because I watched it shortly before working on the design? Who knows.
-
-The point is, I find it fun to imagine that, if it had one, **this could be the official website of the Grand Budapest Hotel**.
 
 ---
 
