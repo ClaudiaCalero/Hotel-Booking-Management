@@ -6,6 +6,7 @@ A full-stack hotel booking management application built with **Java 21**, **Spri
 
 The project also includes **JWT-based authentication**, **role-based authorization** and a comprehensive automated test suite using **JUnit 5, Mockito and Spring Boot Test**.
 
+---
 
 ## 🎨 Creative Concept
 
@@ -17,6 +18,7 @@ Could it be because I watched it shortly before working on the design? Who knows
 
 The point is, I find it fun to imagine that, if it had one, **this could be the official website of the Grand Budapest Hotel**.
 
+---
 
 ## 🌐 Live Demo
 
@@ -45,156 +47,125 @@ Payments are **simulated** in this public demo: no card data is validated and no
 
 The backend also supports real Stripe payments with server-side verification (see `PAYMENTS_VERIFY_WITH_STRIPE` in the [Configuration](#️-configuration) section).
 
+---
 
 ## ✨ Features
 
-<details>
-  <summary><b>🔐 Authentication & Security</b></summary>
+### 🔐 Authentication & Security
 
-  * User registration and login
-  * JWT-based authentication
-  * Password encryption with BCrypt
-  * Role-based authorization
-  * `ADMIN` and `CUSTOMER` roles
-  * Password recovery and password reset
-  * Stateless Spring Security configuration
-  * Custom authentication and authorization handling
-</details>
+* User registration and login
+* JWT-based authentication
+* Password encryption with BCrypt
+* Role-based authorization
+* `ADMIN` and `CUSTOMER` roles
+* Password recovery and password reset
+* Stateless Spring Security configuration
+* Custom authentication and authorization handling
 
-<details>
-  <summary><b>👤 User Management</b></summary>
+### 👤 User Management
 
-  * Retrieve all users
-  * Update user information
-  * Delete users
-  * Retrieve the authenticated user's account
-  * Retrieve the user's bookings
-  * Administrator-only user management operations
-</details>
+* Retrieve all users
+* Update user information
+* Delete users
+* Retrieve the authenticated user's account
+* Retrieve the user's bookings
+* Administrator-only user management operations
 
-<details>
-  <summary><b>🛏️ Room Management</b></summary>
+### 🛏️ Room Management
 
-  * Add rooms
-  * Update rooms
-  * Delete rooms
-  * Retrieve all rooms
-  * Retrieve a room by ID
-  * Search rooms
-  * Retrieve available rooms by date
-  * Retrieve available room types
-  * Support for room images
-  * Room capacity and price management
-</details>
+* Add rooms
+* Update rooms
+* Delete rooms
+* Retrieve all rooms
+* Retrieve a room by ID
+* Search rooms
+* Retrieve available rooms by date
+* Retrieve available room types
+* Support for room images
+* Room capacity and price management
 
-<details>
-  <summary><b>📅 Booking Management</b></summary>
+### 📅 Booking Management
 
-  * Create bookings
-  * Search bookings by reference number
-  * Update bookings
-  * Retrieve all bookings
-  * Booking authorization based on user roles
-  * Availability validation
-</details>
+* Create bookings
+* Search bookings by reference number
+* Update bookings
+* Retrieve all bookings
+* Booking authorization based on user roles
+* Availability validation
 
-<details>
-  <summary><b>💳 Payments</b></summary>
+### 💳 Payments
 
-  * Stripe PaymentIntent integration, with optional server-side verification of the payment
-  * The public demo runs in simulated payment mode
-  * Payment status management
-  * Secure payment configuration through environment variables
-</details>
+* Stripe PaymentIntent integration, with optional server-side verification of the payment
+* The public demo runs in simulated payment mode
+* Payment status management
+* Secure payment configuration through environment variables
 
-<details>
-  <summary><b>📱 Notifications</b></summary>
+### 📱 Notifications
 
-  * Twilio integration for SMS/WhatsApp notifications
-  * External service credentials managed through environment variables
-</details>
+* Twilio integration for SMS/WhatsApp notifications
+* External service credentials managed through environment variables
 
+---
 
-## 🛠️ Technologies 
+## 🛠️ Technologies
 
-<details>
-  <summary><b>☕ Backend</b></summary>
+### Backend
 
-  * Java 21
-  * Spring Boot 3.5.11
-  * Spring Security 6
-  * Spring Data JPA
-  * Hibernate
-  * Maven
-</details>
+* Java 21
+* Spring Boot 3.5.11
+* Spring Security 6
+* Spring Data JPA
+* Hibernate
+* Maven
 
-<details>
-  <summary><b>⚛️ Frontend</b></summary>
+### Frontend
 
-  * React 19
-  * React Router
-  * Axios
-  * Stripe.js / React Stripe.js
-  * Create React App
-</details>
+* React 19
+* React Router
+* Axios
+* Stripe.js / React Stripe.js
+* Create React App
 
-<details>
-  <summary><b>🗄️ Database</b></summary>
+### Database
 
-  * MySQL
-</details>
+* MySQL
 
-<details>
-  <summary><b>🛡️ Security</b></summary>
+### Security
 
-  * JWT
-  * JJWT
-  * BCrypt
-  * Spring Security
-</details>
+* JWT
+* JJWT
+* BCrypt
+* Spring Security
 
-<details>
-  <summary><b>💳 Payments & Notifications</b></summary>
+### Payments & Notifications
 
-  * Stripe
-  * Twilio
-</details>
+* Stripe
+* Twilio
 
-<details>
-  <summary><b>🧪 Testing</b></summary>
+### Testing
 
-  * JUnit 5
-  * Mockito
-  * Spring Boot Test
-  * MockMvc
-  * Spring Security Test
-</details>
+* JUnit 5
+* Mockito
+* Spring Boot Test
+* MockMvc
+* Spring Security Test
 
-<details>
-  <summary><b>🐳 Infrastructure</b></summary>
+### Infrastructure
 
-  * Docker (multi-stage build)
-  * Render (hosting)
-  * Aiven (managed MySQL)
-</details>
+* Docker (multi-stage build)
+* Render (hosting)
+* Aiven (managed MySQL)
 
-<details>
-  <summary><b>📦 Additional Libraries</b></summary>
+### Additional Libraries
 
-  * ModelMapper
-  * Lombok
-</details>
+* ModelMapper
+* Lombok
 
+---
 
 ## 🔌 API Endpoints
 
-<details>
-<summary>📦 Ver todos los Endpoints de la API</summary>
-
 ### Authentication
-
-<details>
-<summary>🔑 Endpoints de Autenticación</summary>
 
 | Method | Endpoint                    | Description               | Access |
 | ------ | --------------------------- | ------------------------- | ------ |
@@ -203,12 +174,7 @@ The backend also supports real Stripe payments with server-side verification (se
 | `POST` | `/api/auth/forgot-password` | Request password recovery | Public |
 | `POST` | `/api/auth/reset-password`  | Reset password            | Public |
 
-</details>
-
 ### Users
-
-<details>
-<summary>👥 Endpoints de Usuarios</summary>
 
 | Method   | Endpoint              | Description                      | Access        |
 | -------- | --------------------- | -------------------------------- | ------------- |
@@ -218,12 +184,7 @@ The backend also supports real Stripe payments with server-side verification (se
 | `GET`    | `/api/users/account`  | Retrieve current user's account  | Authenticated |
 | `GET`    | `/api/users/bookings` | Retrieve current user's bookings | Authenticated |
 
-</details>
-
 ### Rooms
-
-<details>
-<summary>🏨 Endpoints de Habitaciones (Rooms)</summary>
 
 | Method   | Endpoint                 | Description              | Access |
 | -------- | ------------------------ | ------------------------ | ------ |
@@ -236,12 +197,7 @@ The backend also supports real Stripe payments with server-side verification (se
 | `GET`    | `/api/rooms/types`       | Retrieve room types      | Public |
 | `GET`    | `/api/rooms/search`      | Search for rooms         | Public |
 
-</details>
-
 ### Bookings
-
-<details>
-<summary>📅 Endpoints de Reservas (Bookings)</summary>
 
 | Method | Endpoint                    | Description                 | Access           |
 | ------ | --------------------------- | --------------------------- | ---------------- |
@@ -250,23 +206,17 @@ The backend also supports real Stripe payments with server-side verification (se
 | `GET`  | `/api/bookings/{reference}` | Find a booking by reference | Public           |
 | `PUT`  | `/api/bookings/update`      | Update a booking            | ADMIN / CUSTOMER |
 
-</details>
-
-</details>
-
 Protected endpoints require a valid JWT token in the `Authorization` header:
 
 ```text
 Authorization: Bearer <token>
 ```
 
+---
 
 ## ⚙️ Configuration
 
 The application reads all sensitive values from environment variables. **Do not commit real credentials, API keys or secrets to GitHub.**
-
-<details>
-<summary>🛠️ Click para ver la tabla completa de Variables de Entorno</summary>
 
 | Variable                     | Description                                                 | Required |
 | ---------------------------- | ----------------------------------------------------------- | -------- |
@@ -289,12 +239,10 @@ The application reads all sensitive values from environment variables. **Do not 
 | `STRIPE_API_SECRET_KEY`      | Stripe secret key (`sk_test_...` for test mode)             | Yes      |
 | `PAYMENTS_VERIFY_WITH_STRIPE`| `true` verifies each payment with Stripe on the server; `false` (default) is demo mode | No |
 
-\* If not set, the default admin user is not created.  
+\* If not set, the default admin user is not created.
 \*\* Defaults to `http://localhost:3000`.
 
 The server port is read from `PORT` (default `8080`).
-
-</details>
 
 ### 🗄️ Database
 
@@ -318,19 +266,15 @@ When the database requires an encrypted connection (as with Aiven), add `?sslMod
 
 The email set in `HOTEL_ADMIN_EMAIL` is automatically assigned administrator permissions when registering. Additionally, if `HOTEL_ADMIN_PASSWORD` is set, a default `admin@hotel.com` user is created on first startup.
 
+---
 
 ## 🐳 Docker & Deployment
 
-The repository includes a multi-stage `Dockerfile` that builds the React frontend, bundles it into the Spring Boot application and produces a single image that serves both the API and the web app.
-
-<details>
-<summary>📦 Ver proceso de empaquetado (Multi-stage Build)</summary>
+The repository includes a multi-stage `Dockerfile` that builds the React frontend, bundles it into the Spring Boot application and produces a single image that serves both the API and the web app:
 
 1. **Frontend:** `npm ci` + `npm run build` (Create React App, Node 20)
 2. **Backend:** the build output is copied into `src/main/resources/static` and packaged with Maven (Java 21)
 3. **Runtime:** a slim JRE image runs the resulting JAR
-
-</details>
 
 Run it locally (create a `.env` file with the variables listed above):
 
@@ -341,19 +285,18 @@ docker run -p 8080:8080 --env-file .env hotel-booking
 
 The production demo runs on **Render** (free Web Service, Docker runtime) with a free **Aiven MySQL** database. The environment variables are configured in the Render dashboard, and every push to `master` triggers a new deploy.
 
+---
 
 ## 🚀 Running the Application
 
 ### Prerequisites
 
 Make sure you have installed:
+
 * Java 21
 * Maven
 * MySQL 8 or compatible version
 * Docker (optional, to run the full stack as in production)
-
-<details>
-<summary>💻 Ver guía de pasos para ejecutar la aplicación localmente</summary>
 
 ### 1. Clone the repository
 
@@ -382,14 +325,13 @@ Using Maven:
 mvn spring-boot:run
 ```
 
-</details>
-
 The application runs by default on:
 
 ```text
 http://localhost:8080
 ```
 
+---
 
 ## 🧪 Testing
 
@@ -397,10 +339,8 @@ The project includes a comprehensive automated test suite covering the main appl
 
 ### Test Coverage
 
-<details>
-<summary>📊 Click para ver todos los componentes cubiertos por los tests</summary>
-
 Tests include:
+
 * Service layer
 * Controller layer
 * JWT utilities
@@ -414,8 +354,6 @@ Tests include:
 * Room availability and room management
 * Booking operations
 * User operations
-
-</details>
 
 ### Test Result
 
@@ -446,6 +384,7 @@ Skipped: 0
 BUILD SUCCESS
 ```
 
+---
 
 ## 🔒 Security
 
@@ -485,6 +424,8 @@ For example:
 * `ADMIN` users can manage rooms and access administrative booking and user operations.
 * `CUSTOMER` users can perform customer-level operations such as creating and updating bookings.
 
+---
+
 ## 🛏️ Room Availability
 
 The application provides an endpoint for searching available rooms:
@@ -507,6 +448,8 @@ Example:
 
 The room type can be omitted when availability should be searched across all room types.
 
+---
+
 ## ⚠️ Error Handling
 
 The application includes custom exception handling for common API errors, including:
@@ -519,6 +462,8 @@ The application includes custom exception handling for common API errors, includ
 * JWT authentication errors
 
 The security configuration also provides custom authentication and access-denied handling.
+
+---
 
 ## 🏗️ Development
 
@@ -539,6 +484,8 @@ MySQL Database
 
 DTOs are used to transfer data between the API and application layers, while **ModelMapper** is used where appropriate to map between DTOs and entities.
 
+---
+
 ## 🖼️ Mockup
 
 The initial visual concept for the project was developed in Figma and has since evolved significantly, with several design changes and refinements made throughout the process.
@@ -553,9 +500,12 @@ Current Project:
 
 [![The Grand Hotel Budapest Preview](https://github.com/user-attachments/assets/a4bd600e-4980-464e-8a1b-589bd1c5e947)](https://www.figma.com/design/WU4gOPa11P11Mx1P9mLkmD/The-Grand-Hotel-Budapest?node-id=0-1&p=f)
 
-## 🎞️ Visuals
+---
+## 🎞️ 
+Visuals
+USER ROUTE falta por convertir video
 
-<details>
+
 GUEST ROUTE
 <img width="800" height="450" alt="VideoProject21-ezgif com-video-to-gif-converter" src="https://github.com/user-attachments/assets/11bc6a95-3e76-42bb-b00b-84381913c119" />
 
@@ -564,7 +514,10 @@ ADMIN ROUTE
 
 USER ROUTE
 <img width="800" height="450" alt="ezgif com-video-to-gif-converter (1)" src="https://github.com/user-attachments/assets/6511d33c-37a9-4fe6-beb7-865b721b10ae" />
-</details>
+
+
+
+
 
 ## 🔮 Future Improvements
 
@@ -579,11 +532,14 @@ Possible future improvements include:
 * Persistent storage for uploaded room images
 * Re-enable real Stripe payments in the frontend and set `PAYMENTS_VERIFY_WITH_STRIPE=true`
 
+---
 
 ## 👩‍💻 Contact
 
 [LinkedIn](https://www.linkedin.com/in/claudia-calero/)
 
+
+---
 
 ## 📄 License
 
