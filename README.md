@@ -580,11 +580,7 @@ Possible future improvements include:
 * Re-enable real Stripe payments in the frontend and set `PAYMENTS_VERIFY_WITH_STRIPE=true`
 
 
-## 👩‍💻 Author
-
-**Clàudia Calero**
-
-[GitHub](https://github.com/ClaudiaCalero)
+## 👩‍💻 Contact
 
 [LinkedIn](https://www.linkedin.com/in/claudia-calero/)
 
