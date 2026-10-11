@@ -14,12 +14,16 @@ public class EmailService {
     @Value("${app.base-url}")
     private String baseUrl;
 
+    // The sender is the configured SMTP account (SPRING_MAIL_USERNAME)
+    @Value("${spring.mail.username}")
+    private String fromEmail;
+
     public void sendResetPasswordEmail(String toEmail, String token) {
 
         String resetUrl = baseUrl + "/reset-password?token=" + token;
 
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("cld.d.clr@gmail.com");
+        message.setFrom(fromEmail);
         message.setTo(toEmail);
         message.setSubject("Password recovery - The Grand Hotel Budapest");
 
