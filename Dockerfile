@@ -11,6 +11,7 @@ RUN npm run build
 FROM maven:3.9-eclipse-temurin-21 AS backend
 WORKDIR /app
 COPY HotelBooking/ HotelBooking/
+# Reemplaza el build subido a mano por uno recién compilado
 RUN rm -rf HotelBooking/src/main/resources/static
 COPY --from=frontend /frontend/build HotelBooking/src/main/resources/static
 RUN mvn -f HotelBooking/pom.xml clean package -DskipTests
